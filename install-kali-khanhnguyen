@@ -1,0 +1,298 @@
+#!/data/data/com.termux/files/usr/bin/bash -e
+
+VERSION=20211012
+BASE_URL=https://github.com/khanhnguyen9872
+BASE_URL_SHA=https://github.com/khanhnguyen9872
+USERNAME=kali
+
+function unsupported_arch() {
+    printf "${red}"
+    echo "[*] Khong ho tro CPU nay \n\n"
+    printf "${reset}"
+    exit
+}
+
+function ask() {
+    while true; do
+
+        if [ "${2:-}" = "Y" ]; then
+            prompt="Y/n"
+            default=Y
+        elif [ "${2:-}" = "N" ]; then
+            prompt="y/N"
+            default=N
+        else
+            prompt="y/n"
+            default=
+        fi
+
+        printf "${light_cyan}\n[?] "
+        read -p "$1 [$prompt] " REPLY
+
+        if [ -z "$REPLY" ]; then
+            REPLY=$default
+        fi
+
+        printf "${reset}"
+
+        case "$REPLY" in
+            Y*|y*) return 0 ;;
+            N*|n*) return 1 ;;
+        esac
+    done
+}
+
+function get_arch() {
+    printf "${blue}[*] Kiem tra CPU ..."
+    case $(getprop ro.product.cpu.abi) in
+        arm64-v8a)
+            SYS_ARCH=arm64
+			printf " - Architecture: arm64"
+            ;;
+        armeabi|armeabi-v7a)
+			printf " - This version cannot run in armhf!"
+			printf " - Only support arm64 architecture!"
+			exit 1
+            ;;
+        *)
+            unsupported_arch
+			printf " - This version cannot run in armhf!"
+			printf " - Only support arm64 architecture!"
+			exit 1
+            ;;
+    esac
+}
+
+function set_strings() {
+    CHROOT=kali-arm64
+    IMAGE_NAME=kali-arm64-khanhnguyen.tar.xz
+    SHA_NAME=kali-arm64-khanhnguyen.sha512sum
+}    
+
+function prepare_fs() {
+    unset KEEP_CHROOT
+    if [ -d ${CHROOT} ]; then
+        if ask " - Phat hien Kali-linux da duoc cai dat. Ban co muon cai dat lai khong?" "N"; then
+            rm -rf ${CHROOT}
+        else
+            KEEP_CHROOT=1
+        fi
+    fi
+} 
+
+function cleanup() {
+    if [ -f ${IMAGE_NAME} ]; then
+		rm -f ${IMAGE_NAME}
+        rm -f ${SHA_NAME}
+		printf " - Da cai dat xong!"
+    fi
+} 
+
+function check_dependencies() {
+    printf "${blue}\n[*] Dang kiem tra ...${reset}\n"
+    apt-get update -y &> /dev/null || apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade -y &> /dev/null
+
+    for i in proot tar axel; do
+        if [ -e $PREFIX/bin/$i ]; then
+            echo "  $i is OK"
+        else
+            printf "Dang cai dat ${i}...\n"
+            apt install -y $i || {
+                printf "${red}ERROR: Failed to install packages.\n Exiting.\n${reset}"
+	        exit
+            }
+        fi
+    done
+    apt upgrade -y
+}
+
+
+function get_url() {
+    ROOTFS_URL="${BASE_URL}"
+    SHA_URL="${BASE_URL_SHA}"
+}
+
+function get_rootfs() {
+    unset KEEP_IMAGE
+    if [ -f ${IMAGE_NAME} ]; then
+        rm -f ${IMAGE_NAME}
+    fi
+    printf "${blue}[*] Dang tai file rootfs...${reset}\n\n"
+    get_url
+    axel ${EXTRA_ARGS} --alternate "$ROOTFS_URL"
+}
+
+function get_sha() {
+    if [ -f ${SHA_NAME} ]; then
+		rm -f ${SHA_NAME}
+    fi
+    axel ${EXTRA_ARGS} --alternate "${SHA_URL}"
+}
+
+function verify_sha() {
+        printf "\n${blue}[*] Dang kiem tra file rootfs...${reset}\n\n"
+        sha512sum -c $SHA_NAME || {
+            printf "${red} File rootfs bi hong. Vui long cai lai \n${reset}"
+            exit 1
+        }
+}
+
+function extract_rootfs() {
+        printf "\n${blue}[*] Dang giai nen rootfs... ${reset}\n\n"
+        proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
+}
+
+
+function create_launcher() {
+    NH_LAUNCHER=${PREFIX}/bin/kali
+    NH_SHORTCUT=${PREFIX}/bin/nh
+    cat > $NH_LAUNCHER <<- EOF
+#!/data/data/com.termux/files/usr/bin/bash -e
+cd \${HOME}
+unset LD_PRELOAD
+if [ ! -f $CHROOT/root/.version ]; then
+    touch $CHROOT/root/.version
+fi
+
+user="$USERNAME"
+home="/home/\$user"
+start="sudo -u kali /bin/bash"
+
+if grep -q "kali" ${CHROOT}/etc/passwd; then
+    KALIUSR="1";
+else
+    KALIUSR="0";
+fi
+if [[ \$KALIUSR == "0" || ("\$#" != "0" && ("\$1" == "-r" || "\$1" == "-R")) ]];then
+    user="root"
+    home="/\$user"
+    start="/bin/bash --login"
+    if [[ "\$#" != "0" && ("\$1" == "-r" || "\$1" == "-R") ]];then
+        shift
+    fi
+fi
+
+cmdline="proot \\
+        --link2symlink \\
+        -0 \\
+        -r $CHROOT \\
+        -b /dev \\
+        -b /sdcard \\
+        -b /proc \\
+        -b $CHROOT\$home:/dev/shm \\
+        -w \$home \\
+           /usr/bin/env -i \\
+           HOME=\$home \\
+           PATH=/usr/local/sbin:/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin \\
+           TERM=\$TERM \\
+           LANG=C.UTF-8 \\
+           \$start"
+
+cmd="\$@"
+if [ "\$#" == "0" ];then
+    exec \$cmdline
+else
+    \$cmdline -c "\$cmd"
+fi
+EOF
+
+    chmod 700 $NH_LAUNCHER
+    if [ -L ${NH_SHORTCUT} ]; then
+        rm -f ${NH_SHORTCUT}
+    fi
+    if [ ! -f ${NH_SHORTCUT} ]; then
+        ln -s ${NH_LAUNCHER} ${NH_SHORTCUT} >/dev/null
+    fi
+   
+}
+
+    chmod 700 $KEX_LAUNCHER
+}
+
+function fix_profile_bash() {
+    if [ -f ${CHROOT}/root/.bash_profile ]; then
+        sed -i '/if/,/fi/d' "${CHROOT}/root/.bash_profile"
+    fi
+}
+
+function fix_sudo() {
+    chmod +s $CHROOT/usr/bin/sudo
+    chmod +s $CHROOT/usr/bin/su
+	echo "kali    ALL=(ALL:ALL) ALL" > $CHROOT/etc/sudoers.d/kali
+
+    echo "Set disable_coredump false" > $CHROOT/etc/sudo.conf
+}
+
+function fix_uid() {
+    USRID=$(id -u)
+    GRPID=$(id -g)
+    nh -r usermod -u $USRID kali 2>/dev/null
+    nh -r groupmod -g $GRPID kali 2>/dev/null
+}
+
+function print_banner() {
+    clear
+    printf "${blue}##################################################\n"
+    printf "${blue}##                                              ##\n"
+    printf "${blue}##  88      a8P         db        88        88  ##\n"
+    printf "${blue}##  88    .88'         d88b       88        88  ##\n"
+    printf "${blue}##  88   88'          d8''8b      88        88  ##\n"
+    printf "${blue}##  88 d88           d8'  '8b     88        88  ##\n"
+    printf "${blue}##  8888'88.        d8YaaaaY8b    88        88  ##\n"
+    printf "${blue}##  88P   Y8b      d8''''''''8b   88        88  ##\n"
+    printf "${blue}##  88     '88.   d8'        '8b  88        88  ##\n"
+    printf "${blue}##  88       Y8b d8'          '8b 888888888 88  ##\n"
+    printf "${blue}##                                              ##\n"
+	printf "${blue}##                 arm64-v8a by KhanhNguyen9872 ##\n"
+    printf "${blue}##################################################${reset}\n\n"
+}
+
+
+##################################
+##              Main            ##
+
+red='\033[1;31m'
+green='\033[1;32m'
+yellow='\033[1;33m'
+blue='\033[1;34m'
+light_cyan='\033[1;96m'
+reset='\033[0m'
+
+EXTRA_ARGS=""
+if [[ ! -z $1 ]]; then
+    EXTRA_ARGS=$1
+    if [[ $EXTRA_ARGS != "--insecure" ]]; then
+        EXTRA_ARGS=""
+    fi
+fi
+
+cd $HOME
+print_banner
+get_arch
+set_strings
+prepare_fs
+check_dependencies
+get_rootfs
+get_sha
+verify_sha
+extract_rootfs
+create_launcher
+cleanup
+
+printf "\n${blue}[*] Configuring Kali-Linux for Termux ...\n"
+fix_profile_bash
+fix_sudo
+create_kex_launcher
+fix_uid
+
+print_banner
+printf "${yellow}[=] Kali-Linux KhanhNguyen da duoc cai dat${reset}\n\n"
+printf "${red}[@] Password VNC:  khanhnguyen ${reset}\n"
+printf "${red}[@] Password su:   khanhnguyen ${reset}\n"
+printf "${red}[@] Password sudo: khanhnguyen ${reset}\n"
+printf "%b\n" " "
+printf "${green}[+] Thong tin lenh, type:${reset}\n"
+printf "${green}[+] kali             # Start Kali-Linux Terminal${reset}\n"
+printf "${green}[+] kali khanh       # Start Kali-Linux VNC Viewer${reset}\n"
+printf "${green}[+] kali khanh stop  # Stop Kali-Linux VNC${reset}\n"
+printf "${green}[+] kali -r          # Run Kali-Linux as root${reset}\n"
