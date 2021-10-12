@@ -34,7 +34,7 @@ function ask() {
 }
 
 function get_arch() {
-    printf "${blue}[*] Kiem tra CPU..."
+    printf "${blue}[*] Kiem tra CPU...."
     case $(getprop ro.product.cpu.abi) in
         arm64-v8a)
             SYS_ARCH=arm64
@@ -79,7 +79,7 @@ function cleanup() {
 } 
 
 function check_dependencies() {
-    printf "${blue}\n[*] Dang kiem tra ...${reset}\n"
+    printf "${blue}\n[*] Dang kiem tra....${reset}\n"
     apt-get update -y &> /dev/null || apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade -y &> /dev/null
     printf " - Done"
 }
@@ -95,7 +95,7 @@ function get_rootfs() {
     if [ -f ${IMAGE_NAME} ]; then
         rm -f ${IMAGE_NAME}
     fi
-    printf "${blue}[*] Dang tai file rootfs...${reset}\n\n"
+    printf "${blue}[*] Dang tai Kali-Linux (arm64)....${reset}\n\n"
     get_url
     wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL"
 }
@@ -108,15 +108,16 @@ function get_sha() {
 }
 
 function verify_sha() {
-        printf "\n${blue}[*] Dang kiem tra file rootfs...${reset}\n\n"
+        printf "\n${blue}[*] Dang kiem tra file cai dat....${reset}\n\n"
         sha512sum -c $SHA_NAME || {
-            printf "${red} File rootfs bi hong. Vui long cai lai \n${reset}"
+            printf "${red} File cai dat bi hong. Vui long cai lai \n${reset}"
             exit 1
         }
 }
 
 function extract_rootfs() {
-        printf "\n${blue}[*] Dang giai nen rootfs... ${reset}\n\n"
+        printf "\n${blue}[*] Dang cai dat Kali-Linux (arm64).... ${reset}\n\n"
+	printf "\n${blue}   @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n\n"
         proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
 }
 
@@ -255,7 +256,7 @@ extract_rootfs
 create_launcher
 cleanup
 
-printf "\n${blue}[*] Configuring Kali-Linux for Termux ...\n"
+printf "\n${blue}[*] Dang config Kali-Linux (arm64)....\n"
 fix_profile_bash
 fix_sudo
 create_kex_launcher
