@@ -128,6 +128,36 @@ function create_launcher() {
     KEX_LAUNCHER=${PREFIX}/bin/khanh
     cat > $NH_LAUNCHER <<- EOF
 #!/data/data/com.termux/files/usr/bin/bash -e
+red='\033[1;31m'
+green='\033[1;32m'
+yellow='\033[1;33m'
+blue='\033[1;34m'
+light_cyan='\033[1;96m'
+reset='\033[0m'
+clear
+printf "${blue}##################################################\n"
+printf "${blue}##                                              ##\n"
+printf "${blue}##  88      a8P         db        88        88  ##\n"
+printf "${blue}##  88    .88'         d88b       88        88  ##\n"
+printf "${blue}##  88   88'          d8''8b      88        88  ##\n"
+printf "${blue}##  88 d88           d8'  '8b     88        88  ##\n"
+printf "${blue}##  8888'88.        d8YaaaaY8b    88        88  ##\n"
+printf "${blue}##  88P   Y8b      d8''''''''8b   88        88  ##\n"
+printf "${blue}##  88     '88.   d8'        '8b  88        88  ##\n"
+printf "${blue}##  88       Y8b d8'          '8b 888888888 88  ##\n"
+printf "${blue}##                                              ##\n"
+printf "${blue}##                 arm64-v8a by KhanhNguyen9872 ##\n"
+printf "${blue}##################################################${reset}\n\n"
+printf "${yellow}[=] Kali-Linux KhanhNguyen (Thanks<3)${reset}\n\n"
+printf "${red}[@] Password VNC:  khanhnguyen ${reset}\n"
+printf "${red}[@] Password su:   khanhnguyen ${reset}\n"
+printf "${red}[@] Password sudo: khanhnguyen ${reset}\n\n"
+printf "${green}[+] Thong tin lenh, type:${reset}\n"
+printf "${green}[+] khanh                # Start Kali-Linux VNC Viewer${reset}\n"
+printf "${green}[+] khanh stop           # Stop Kali-Linux VNC Viewer${reset}\n"
+printf "${green}[+] su                   # Run Kali-Linux as root user${reset}\n"
+printf "${green}[+] sudo apt update -y   # To get info package${reset}\n"
+printf "${green}[+] sudo apt upgrade -y  # To update all Package${reset}\n\n"
 cd \${HOME}
 unset LD_PRELOAD
 if [ ! -f $CHROOT/root/.version ]; then
@@ -158,6 +188,10 @@ cmdline="proot \\
         -r $CHROOT \\
         -b /dev \\
         -b /sdcard \\
+	-b /system \\
+	-b /vendor \\
+	-b /mnt \\
+	-b /sys \\
         -b /proc \\
         -b $CHROOT\$home:/dev/shm \\
         -w \$home \\
@@ -220,7 +254,7 @@ function print_banner() {
     printf "${blue}##  88     '88.   d8'        '8b  88        88  ##\n"
     printf "${blue}##  88       Y8b d8'          '8b 888888888 88  ##\n"
     printf "${blue}##                                              ##\n"
-	printf "${blue}##                 arm64-v8a by KhanhNguyen9872 ##\n"
+    printf "${blue}##                 arm64-v8a by KhanhNguyen9872 ##\n"
     printf "${blue}##################################################${reset}\n\n"
 }
 
