@@ -38,14 +38,15 @@ function get_arch() {
     case $(getprop ro.product.cpu.abi) in
         arm64-v8a)
             SYS_ARCH=arm64
-			printf " - CPU: arm64-v8a (aarch64)"
+			printf " ARCH: $(getprop ro.product.cpu.abi) (aarch64)"
             ;;
         armeabi|armeabi-v7a)
-			printf " - CPU: armeabi/armeabi-v7a (armhf)"
+			printf " ARCH: $(getprop ro.product.cpu.abi) (armhf)"
 			printf " @ Unsupported CPU"
 			exit 1
             ;;
         *)
+			printf " ARCH: $(getprop ro.product.cpu.abi) (unknown))"
 			printf " @ Unsupported CPU"
 			exit 1
             ;;
@@ -80,8 +81,7 @@ function cleanup() {
 function check_dependencies() {
     printf "${blue}\n[*] Dang kiem tra ...${reset}\n"
     apt-get update -y &> /dev/null || apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade -y &> /dev/null
-
-    apt upgrade -y
+    printf " - Done"
 }
 
 
