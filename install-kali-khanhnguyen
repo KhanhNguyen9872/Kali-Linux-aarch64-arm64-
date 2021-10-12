@@ -109,6 +109,20 @@ function get_sha() {
 }
 
 function verify_sha() {
+	clear
+	printf "${blue}##################################################\n"
+	printf "${blue}##                                              ##\n"
+	printf "${blue}##  88      a8P         db        88        88  ##\n"
+	printf "${blue}##  88    .88'         d88b       88        88  ##\n"
+	printf "${blue}##  88   88'          d8''8b      88        88  ##\n"
+	printf "${blue}##  88 d88           d8'  '8b     88        88  ##\n"
+	printf "${blue}##  8888'88.        d8YaaaaY8b    88        88  ##\n"
+	printf "${blue}##  88P   Y8b      d8''''''''8b   88        88  ##\n"
+	printf "${blue}##  88     '88.   d8'        '8b  88        88  ##\n"
+	printf "${blue}##  88       Y8b d8'          '8b 888888888 88  ##\n"
+	printf "${blue}##                                              ##\n"
+	printf "${blue}##                 arm64-v8a by KhanhNguyen9872 ##\n"
+	printf "${blue}##################################################${reset}\n\n"
         printf "\n${blue}[*] Dang kiem tra file cai dat....${reset}\n\n"
         sha512sum -c $SHA_NAME || {
             printf "${red} File cai dat bi hong. Vui long cai lai \n${reset}"
@@ -189,9 +203,6 @@ cmdline="proot \\
         -b /dev \\
         -b /sdcard \\
 	-b /system \\
-	-b /vendor \\
-	-b /mnt \\
-	-b /sys \\
         -b /proc \\
         -b $CHROOT\$home:/dev/shm \\
         -w \$home \\
@@ -210,8 +221,8 @@ else
 fi
 EOF
 
-    chmod 700 $NH_LAUNCHER
-    chmod 700 $KEX_LAUNCHER
+    chmod 777 $NH_LAUNCHER
+    chmod 777 $KEX_LAUNCHER
     if [ -L ${NH_SHORTCUT} ]; then
         rm -f ${NH_SHORTCUT}
     fi
