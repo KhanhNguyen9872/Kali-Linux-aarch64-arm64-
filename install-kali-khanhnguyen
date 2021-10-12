@@ -97,14 +97,14 @@ function get_rootfs() {
     fi
     printf "${blue}[*] Dang tai file rootfs...${reset}\n\n"
     get_url
-    axel ${EXTRA_ARGS} --alternate "$ROOTFS_URL"
+    wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL"
 }
 
 function get_sha() {
     if [ -f ${SHA_NAME} ]; then
 		rm -f ${SHA_NAME}
     fi
-    axel ${EXTRA_ARGS} --alternate "${SHA_URL}"
+    wget -O kali-arm64-khanhnguyen.sha512sum "${SHA_URL}"
 }
 
 function verify_sha() {
