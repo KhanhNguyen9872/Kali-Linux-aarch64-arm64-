@@ -81,7 +81,8 @@ function cleanup() {
 function check_dependencies() {
     printf "${blue}\n[*] Dang kiem tra....${reset}\n"
     apt-get update -y &> /dev/null || apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade -y &> /dev/null
-    printf " - Done"
+    apt-get upgrade -y &> /dev/null
+    printf "${blue}\n[*] - Done ${reset}\n"
 }
 
 
@@ -97,7 +98,7 @@ function get_rootfs() {
     fi
     printf "${blue}[*] Dang tai Kali-Linux (arm64)....${reset}\n\n"
     get_url
-    wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL"
+    wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" 
 }
 
 function get_sha() {
@@ -156,8 +157,7 @@ printf "${green}[+] Thong tin lenh, type:${reset}\n"
 printf "${green}[+] khanh                # Start Kali-Linux VNC Viewer${reset}\n"
 printf "${green}[+] khanh stop           # Stop Kali-Linux VNC Viewer${reset}\n"
 printf "${green}[+] su                   # Run Kali-Linux as root user${reset}\n"
-printf "${green}[+] sudo apt update -y   # To get info package${reset}\n"
-printf "${green}[+] sudo apt upgrade -y  # To update all Package${reset}\n\n"
+printf "${green}[+] khanhnguyen9872      # Get Information this Kali-Linux${reset}\n\n"
 cd \${HOME}
 unset LD_PRELOAD
 if [ ! -f $CHROOT/root/.version ]; then
@@ -303,8 +303,9 @@ printf "${red}[@] Password su:   khanhnguyen ${reset}\n"
 printf "${red}[@] Password sudo: khanhnguyen ${reset}\n"
 printf "%b\n" " "
 printf "${green}[+] Thong tin lenh, type:${reset}\n"
-printf "${green}[+] kali             # Start Kali-Linux Terminal${reset}\n"
-printf "${green}[+] kali khanh       # Start Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] kali khanh stop  # Stop Kali-Linux VNC${reset}\n"
-printf "${green}[+] kali -r          # Run Kali-Linux as root${reset}\n"
+printf "${green}[+] kali                  # Start Kali-Linux chroot${reset}\n"
+printf "${green}[+] kali khanh            # Start Kali-Linux VNC Viewer${reset}\n"
+printf "${green}[+] kali khanh stop       # Stop Kali-Linux VNC Viewer${reset}\n"
+printf "${green}[+] kali su               # Run Kali-Linux as root user${reset}\n"
+printf "${green}[+] kali khanhnguyen9872  # Get Information this Kali-Linux${reset}\n\n"
 rm -f ~/install-kali-khanhnguyen
