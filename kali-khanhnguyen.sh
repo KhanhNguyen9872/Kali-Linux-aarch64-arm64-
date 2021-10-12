@@ -6,6 +6,6 @@ pkg update -y && pkg upgrade -y
 pkg install wget -y && pkg install proot -y && pkg install tar
 rm -f install-kali-khanhnguyen && rm -f install-nethunter-termux
 wget -O install-kali-khanhnguyen https://tinyurl.com/yj85cahd
-chmod +x install-kali-khanhnguyen
+chmod +x ~/install-kali-khanhnguyen
 bash ~/install-kali-khanhnguyen
 #####
