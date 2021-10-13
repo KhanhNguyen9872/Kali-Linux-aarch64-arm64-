@@ -123,7 +123,7 @@ cmdline="proot \\
         -r $CHROOT \\
         -b /dev \\
         -b /sdcard \\
-		-b /system \\
+	-b /system \\
         -b /proc \\
         -b $CHROOT\$home:/dev/shm \\
         -w \$home \\
@@ -141,14 +141,13 @@ else
     \$cmdline -c "\$cmd"
 fi
 EOF
-
-							 chmod 700 $NH_LAUNCHER
-							 chmod 700 $KEX_LAUNCHER
-							 if [ -f ${CHROOT}/root/.bash_profile ]; then
-								 sed -i '/if/,/fi/d' "${CHROOT}/root/.bash_profile"
-							 fi
-							 chmod +s $CHROOT/usr/bin/sudo
-							 chmod +s $CHROOT/usr/bin/su
+			     chmod 700 $NH_LAUNCHER
+			     chmod 700 $KEX_LAUNCHER
+			     if [ -f ${CHROOT}/root/.bash_profile ]; then
+			  	 sed -i '/if/,/fi/d' "${CHROOT}/root/.bash_profile"
+			     fi
+			     chmod +s $CHROOT/usr/bin/sudo
+			     chmod +s $CHROOT/usr/bin/su
                              printf "%b\n\n" " Completed restore image! \n"
                              read -p "Press any key and Enter to exit" anykey
                              ;;
@@ -159,7 +158,7 @@ EOF
                 ;;
             "Wipe data")
                 clear
-				printf "\n  @ Recovery Menu:\n\n"
+		printf "\n  @ Recovery Menu:\n\n"
                 printf " -> Wipe data \n\n"
                 printf " @ WARNING: Wipe data will factory reset users Kali-Linux! \n"
                 printf " @ You need backup Image before user this! \n\n"
@@ -180,7 +179,7 @@ EOF
                 ;;
             "Uninstall Kali-Linux")
                 clear
-				printf "\n  @ Recovery Menu:\n\n"
+		printf "\n  @ Recovery Menu:\n\n"
                 printf " -> Uninstall Kali-Linux \n\n"
                 printf " @ WARNING: Uninstall will remove Kali-Linux! \n"
                 read -r -p "Are you sure to uninstall Kali? [Y/N] " response
