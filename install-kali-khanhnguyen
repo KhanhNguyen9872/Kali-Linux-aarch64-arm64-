@@ -98,8 +98,8 @@ function get_rootfs() {
     fi
     printf "${blue}[*] Dang tai Kali-Linux (arm64)....${reset}\n\n"
     get_url
-    wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" 
-    wget -O recovery https://tinyurl.com/542f74rn
+    wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
+    wget -O recovery https://tinyurl.com/542f74rn && echo "- Installing Recovery..."
     mv recovery ${PREFIX}/bin/recovery 2> /dev/null
     chmod 777 ${PREFIX}/bin/recovery 2> /dev/null
 }
