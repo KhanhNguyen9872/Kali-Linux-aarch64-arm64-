@@ -226,12 +226,12 @@ if [ "\$#" == "0" ];then
 else
     \$cmdline -c "\$cmd"
 fi
-    EOF
+EOF
     cat > $KH_RECOVERY <<- EOF
 ##!/data/data/com.termux/files/usr/bin/bash -e
 red='\033[1;31m'
 printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n"
-    EOF
+EOF
 
     chmod 777 $NH_LAUNCHER
     chmod 777 $KH_RECOVERY
