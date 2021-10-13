@@ -324,3 +324,5 @@ printf "${green}[+] kali khanh stop       # Stop Kali-Linux VNC Viewer${reset}\n
 printf "${green}[+] kali su               # Run Kali-Linux as root user${reset}\n"
 printf "${green}[+] kali khanhnguyen9872  # Get Information this Kali-Linux${reset}\n\n"
 rm -f ~/install-kali-khanhnguyen
+read -p " Press any key and Enter to exit!" anykey
+exit 0
