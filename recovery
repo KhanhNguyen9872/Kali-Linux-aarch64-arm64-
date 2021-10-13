@@ -63,34 +63,35 @@ while [ "$menu" != 1 ]; do
 				;;
 			"Restore Image")
                 clear
-				printf "\n  @ Recovery Menu:\n\n"
+		printf "\n  @ Recovery Menu:\n\n"
                 printf " -> Restore Image \n\n"
                 printf " @ Please move Image to /sdcard and enter name file \n\n"
-				printf "  @@ Example your file in /sdcard/kali-arm64.tar.xz \n"
+		printf "  @@ Example your file in /sdcard/kali-arm64.tar.xz \n"
                 printf "  @@ Enter name image: kali-arm64.tar.xz \n"
-                printf "  @@ Enter name sha512sum: kali-arm64.sha512sum \n\n"
+                printf "  @@ Enter name sha512sum: kali-arm64.sha512sum \n\n\n"             					  #Development is required
+		printf "  @@@ Restore is unstable, this will cause some error after you restore image @@@ \n\n\n
                 read -p "Enter Full name image: " restoreimage
                 read -p "Enter Full name sha512sum: " sha512sumfile
                 printf "%b\n" "\n-----------------\n\n"
-				printf " Target Image: /sdcard/$restoreimage \n"
-				printf " Target sha512sum: /sdcard/$sha512sumfile \n\n"
-				printf "  @@@ Restore Image will erase current data! \n\n"
+		printf " Target Image: /sdcard/$restoreimage \n"
+		printf " Target sha512sum: /sdcard/$sha512sumfile \n\n"
+		printf "  @@@ Restore Image will erase current data! \n\n"
                 read -r -p "Are you sure to restore image? [Y/N] " response
                 case "$response" in
                       [yY][eE][sS]|[yY]) 
                              printf "%b\n" "\n -- Restore Image is in progress, please wait.... \n"
-							 cd /sdcard
+			     cd /sdcard
                              sha512sum -c /sdcard/$sha512sumfile || {
                                  printf "\n @@ Restore image corrupted! Exit now... \n\n"
                                  menu=1
                                  exit 0
                              } && echo "- Done check sha512sum!"
-							 printf "\n Restoring image...."
+			     printf "\n Restoring image...."
                              cd $HOME
                              rm -rf ~/kali-arm64 2> /dev/null
                              proot --link2symlink tar -xf /sdcard/$restoreimage 2> /dev/null || : && echo "- Done restore image"
-							 NH_LAUNCHER=${PREFIX}/bin/kali
-							 cat > $NH_LAUNCHER <<- EOF
+			     NH_LAUNCHER=${PREFIX}/bin/kali
+			     cat > $NH_LAUNCHER <<- EOF
 #!/data/data/com.termux/files/usr/bin/bash -e
 cd \${HOME}
 unset LD_PRELOAD
@@ -162,13 +163,14 @@ EOF
                 printf " -> Wipe data \n\n"
                 printf " @ WARNING: Wipe data will factory reset users Kali-Linux! \n"
                 printf " @ You need backup Image before user this! \n\n"
-                read -r -p "Are you sure to wipe data? [Y/N] " response
-                case "$response" in
-                      [yY][eE][sS]|[yY]) 
-							 cd $HOME
-                             rm -rf ~/kali-arm64/home
-                             mkdir ~/kali-arm64/home
-                             printf "%b\n" " Completed wipe data! \n"
+		printf "   @@@ Wipe data is in development! Then i not allow you use this!"  						  #Development is required!
+                #read -r -p "Are you sure to wipe data? [Y/N] " response
+                #case "$response" in
+                      #[yY][eE][sS]|[yY]) 
+		             #cd $HOME
+                             #rm -rf ~/kali-arm64/home
+                             #mkdir ~/kali-arm64/home
+                             #printf "%b\n" " Completed wipe data! \n"
                              read -p "Press any key and Enter to exit" anykey
                              ;;
                        *)
@@ -184,11 +186,11 @@ EOF
                 read -r -p "Are you sure to uninstall Kali? [Y/N] " response
                 case "$response" in
                       [yY][eE][sS]|[yY]) 
-							 cd $HOME
+		      	     cd $HOME
                              rm -rf ~/kali-arm64
-							 cd ..
-							 cd usr
-							 cd bin
+			     cd ..
+			     cd usr
+			     cd bin
                              rm -f kali
                              printf "%b\n" " Completed uninstall Kali-Linux/Recovery! \n"
                              printf "%b\n" " Recovery mode will now exit! \n"
