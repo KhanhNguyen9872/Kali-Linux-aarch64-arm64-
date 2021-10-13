@@ -1,5 +1,4 @@
 #kali_arm64_khanhnguyen9872
-termux-setup-storage
 termux-wake-lock
 echo "termux-wake-lock" > ~/.bash_profile
 pkg update -y && pkg upgrade -y
