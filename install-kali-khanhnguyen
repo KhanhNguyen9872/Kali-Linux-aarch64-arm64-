@@ -183,7 +183,7 @@ printf "${green}[+] Thong tin lenh, type:${reset}\n"
 printf "${green}[+] khanh                # Start Kali-Linux VNC Viewer${reset}\n"
 printf "${green}[+] khanh stop           # Stop Kali-Linux VNC Viewer${reset}\n"
 printf "${green}[+] su                   # Run Kali-Linux as root user${reset}\n"
-printf "${green}[+] khanhnguyen9872      # Get Information this Kali-Linux${reset}\n\n"
+printf "${green}[+] khanhnguyen9872      # Get Information this Kali-Linux${reset}\n"
 printf "${green}[+] recovery             # Run Recovery Mode${reset}\n\n"
 cd \${HOME}
 unset LD_PRELOAD
@@ -331,8 +331,8 @@ printf "${green}[+] kali                  # Start Kali-Linux chroot${reset}\n"
 printf "${green}[+] kali khanh            # Start Kali-Linux VNC Viewer${reset}\n"
 printf "${green}[+] kali khanh stop       # Stop Kali-Linux VNC Viewer${reset}\n"
 printf "${green}[+] kali su               # Run Kali-Linux as root user${reset}\n"
-printf "${green}[+] kali khanhnguyen9872  # Get Information this Kali-Linux${reset}\n\n"
-printf "${green}[+] recovery             # Run Recovery Mode${reset}\n\n"
+printf "${green}[+] kali khanhnguyen9872  # Get Information this Kali-Linux${reset}\n"
+printf "${green}[+] recovery              # Run Recovery Mode${reset}\n\n"
 rm -f ~/install-kali-khanhnguyen
 read -p " Press any key and Enter to exit!" anykey
 exit 0
