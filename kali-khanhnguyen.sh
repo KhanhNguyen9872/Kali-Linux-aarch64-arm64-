@@ -1,5 +1,6 @@
 #kali_arm64_khanhnguyen9872
 termux-wake-lock
+cd $HOME
 echo "termux-wake-lock" > ~/.bash_profile
 pkg update -y && pkg upgrade -y
 pkg install wget -y && pkg install proot -y
