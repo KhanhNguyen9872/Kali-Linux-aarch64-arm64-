@@ -174,11 +174,11 @@ printf "${red}[@] Password VNC:  khanhnguyen ${reset}\n"
 printf "${red}[@] Password su:   khanhnguyen ${reset}\n"
 printf "${red}[@] Password sudo: khanhnguyen ${reset}\n\n"
 printf "${green}[+] Thong tin lenh, type:${reset}\n"
-printf "${green}[+] khanh                # Start Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] khanh stop           # Stop Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] su                   # Run Kali-Linux as root user${reset}\n"
-printf "${green}[+] khanhnguyen9872      # Get Information this Kali-Linux${reset}\n"
-printf "${green}[+] recovery             # Run Recovery Mode${reset}\n\n"
+printf "${green}[+] khanh            # Start Kali-Linux VNC Viewer${reset}\n"
+printf "${green}[+] khanh stop       # Stop Kali-Linux VNC Viewer${reset}\n"
+printf "${green}[+] su               # Run Kali-Linux as root user${reset}\n"
+printf "${green}[+] khanhnguyen9872  # Get Information this Kali-Linux${reset}\n"
+printf "${green}[+] recovery         # Run Recovery Mode${reset}\n\n"
 cd \${HOME}
 unset LD_PRELOAD
 if [ ! -f $CHROOT/root/.version ]; then
