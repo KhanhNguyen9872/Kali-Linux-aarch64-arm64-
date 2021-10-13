@@ -142,9 +142,16 @@ function extract_rootfs() {
 
 
 function create_launcher() {
+    KH_RECOVERY=$HOME/kali-arm64/usr/bin/recovery
     NH_LAUNCHER=${PREFIX}/bin/kali
     NH_SHORTCUT=${PREFIX}/bin/nh
-    KEX_LAUNCHER=${PREFIX}/bin/khanh
+    KEX_LAUNCHER=$HOME/kali-arm64/usr/bin/khanh
+    cat > $KH_RECOVERY <<- EOF
+    #!/data/data/com.termux/files/usr/bin/bash -e
+    red='\033[1;31m'
+    printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n"
+    EOF
+    
     cat > $NH_LAUNCHER <<- EOF
 #!/data/data/com.termux/files/usr/bin/bash -e
 red='\033[1;31m'
@@ -176,6 +183,7 @@ printf "${green}[+] khanh                # Start Kali-Linux VNC Viewer${reset}\n
 printf "${green}[+] khanh stop           # Stop Kali-Linux VNC Viewer${reset}\n"
 printf "${green}[+] su                   # Run Kali-Linux as root user${reset}\n"
 printf "${green}[+] khanhnguyen9872      # Get Information this Kali-Linux${reset}\n\n"
+printf "${green}[+] recovery             # Run Recovery Mode${reset}\n\n"
 cd \${HOME}
 unset LD_PRELOAD
 if [ ! -f $CHROOT/root/.version ]; then
@@ -323,6 +331,7 @@ printf "${green}[+] kali khanh            # Start Kali-Linux VNC Viewer${reset}\
 printf "${green}[+] kali khanh stop       # Stop Kali-Linux VNC Viewer${reset}\n"
 printf "${green}[+] kali su               # Run Kali-Linux as root user${reset}\n"
 printf "${green}[+] kali khanhnguyen9872  # Get Information this Kali-Linux${reset}\n\n"
+printf "${green}[+] recovery             # Run Recovery Mode${reset}\n\n"
 rm -f ~/install-kali-khanhnguyen
 read -p " Press any key and Enter to exit!" anykey
 exit 0
