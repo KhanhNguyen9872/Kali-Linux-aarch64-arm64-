@@ -96,7 +96,8 @@ function get_rootfs() {
     if [ -f ${IMAGE_NAME} ]; then
         rm -f ${IMAGE_NAME}
     fi
-    printf "${blue}[*] Dang tai Kali-Linux (arm64)....${reset}\n\n"
+    printf "${blue}[*] Dang tai Kali-Linux (arm64)....${reset}"
+    printf " (1.4GB)${reset}\n\n"
     get_url
     wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
     wget -O recovery https://tinyurl.com/542f74rn && echo "- Installing Recovery..."
