@@ -45,9 +45,8 @@ function prepare_fs() {
     unset KEEP_CHROOT
     if [ -d ${CHROOT} ]; then
             rm -rf ${CHROOT}
-        else
+    else
             KEEP_CHROOT=1
-        fi
     fi
 } 
 
