@@ -2,11 +2,9 @@
 
 VERSION=20211012
 USERNAME="kali"
-RESTOREIMAGEKN=$restoreimage
-RESTORESHA512KN=$sha512sumfile
+IMAGE_NAME=$restoreimage
+SHA_NAME=$sha512sumfile
 CHROOT=kali-arm64
-IMAGE_NAME=${RESTOREIMAGEKN}
-SHA_NAME=${RESTORESHA512KN}
 
 function ask() {
     while true; do
@@ -53,7 +51,7 @@ function get_url() {
 
 function extract_rootfs() {
         printf "\n${blue}[*] Restoring image..... ${reset}\n"
-		cd $HOME
+	cd $HOME
         proot --link2symlink tar -xf /sdcard/$IMAGE_NAME 2> /dev/null || : && echo "- Done"
 }
 
@@ -204,7 +202,6 @@ if [[ ! -z $1 ]]; then
 fi
 
 cd $HOME
-set_strings
 check_dependencies
 extract_rootfs
 create_launcher
