@@ -4,6 +4,9 @@ VERSION=20211012
 USERNAME="kali"
 RESTOREIMAGEKN=$restoreimage
 RESTORESHA512KN=$sha512sumfile
+CHROOT=kali-arm64
+IMAGE_NAME=${RESTOREIMAGEKN}
+SHA_NAME=${RESTORESHA512KN}
 
 function ask() {
     while true; do
@@ -36,9 +39,6 @@ function ask() {
 }
 
 function set_strings() {
-    CHROOT=kali-arm64
-    IMAGE_NAME=${RESTOREIMAGEKN}
-    SHA_NAME=${RESTORESHA512KN}
 }    
 
 function prepare_fs() {
