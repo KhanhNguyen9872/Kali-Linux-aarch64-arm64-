@@ -39,7 +39,8 @@ function ask() {
 }
 
 function set_strings() {
-}    
+	printf "${blue}\n[*] Preparing restore...${reset}\n"
+} 
 
 function prepare_fs() {
     unset KEEP_CHROOT
