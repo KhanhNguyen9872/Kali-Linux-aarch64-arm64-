@@ -59,14 +59,6 @@ function get_url() {
     SHA_URL="https://tinyurl.com/xb7jsx2x"
 }
 
-function verify_sha() {
-    printf "\n${blue}[*] Dang kiem tra restore image....${reset}\n"
-    cd /sdcard && sha512sum -c $SHA_NAME || {
-        printf "${red} Restore image bi hong. Khong the restore! \n${reset}"
-        exit 1
-        }
-}
-
 function extract_rootfs() {
         printf "\n${blue}[*] Restoring image..... ${reset}\n"
 		cd $HOME
@@ -223,7 +215,6 @@ cd $HOME
 set_strings
 prepare_fs
 check_dependencies
-verify_sha
 extract_rootfs
 create_launcher
 fix_profile_bash
