@@ -61,8 +61,7 @@ function get_url() {
 
 function verify_sha() {
     printf "\n${blue}[*] Dang kiem tra restore image....${reset}\n"
-	cd /sdcard
-    sha512sum -c $SHA_NAME || {
+    cd /sdcard && sha512sum -c $SHA_NAME || {
         printf "${red} Restore image bi hong. Khong the restore! \n${reset}"
         exit 1
         }
@@ -232,6 +231,5 @@ fix_sudo
 create_kex_launcher
 fix_uid
 
-print_banner
 printf "${blue} Restore completed! ${reset}\n\n"
 rm -f ~/restore-image
