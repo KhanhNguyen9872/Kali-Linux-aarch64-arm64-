@@ -336,9 +336,9 @@ printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n
 									 printf "${green} -> Restore Image \n\n\n\n"
 									 printf "${blue} Restore completed! ${reset}\n\n"
 									 read -p "Press any key and Enter to exit" anykey
-                             ;;
+					                                 ;;
                        *)
-                             ;;
+                           ;;
                 esac
                 break
                 ;;
