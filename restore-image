@@ -38,15 +38,6 @@ function ask() {
     done
 }
 
-function set_strings() {
-	printf "${blue}\n[*] Preparing restore...${reset}\n"
-} 
-
-function prepare_fs() {
-    unset KEEP_CHROOT
-    rm -rf ${CHROOT}
-} 
-
 function check_dependencies() {
     printf "${blue}\n[*] Dang kiem tra....${reset}\n"
     apt-get update -y &> /dev/null || apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade -y &> /dev/null
@@ -214,7 +205,6 @@ fi
 
 cd $HOME
 set_strings
-prepare_fs
 check_dependencies
 extract_rootfs
 create_launcher
