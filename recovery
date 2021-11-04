@@ -41,7 +41,9 @@ else
 			;;
 	esac
 fi
-sleep 2
+sleep 1
+echo "=============================="
+sleep 1
 printf "${green}\n - Checking for updates Recovery.... \n"
 wget -O versionre https://tinyurl.com/fvcj5463 2> /dev/null || :
 updaterecovery="$(grep '' 'versionre')"
@@ -49,7 +51,7 @@ if [ $verrecovery -gt $updaterecovery ]; then
 	printf "${green} - No updates Recovery are available!\n"
 	rm -f ~/versionre 2> /dev/null
 else
-	rm -f ~/versionrecovery 2> /dev/null
+	rm -f ~/versionre 2> /dev/null
 	printf "${yellow} - New updates Recovery are available!\n"
 	printf "${yellow} - New version: $updaterecovery \n\n"
 	printf "${light_cyan}\n - Do you want to update now? [Y/N] \n"
@@ -62,10 +64,10 @@ else
 			wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null
 			wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
 			cd ..
-			mv home/recovery usr/bin/recovery 2> /dev/null
-			mv home/versionrecovery usr/bin/versionrecovery 2> /dev/null
-			chmod 777 usr/bin/recovery 2> /dev/null
-			chmod 777 usr/bin/versionre 2> /dev/null
+			mv home/recovery usr/bin/recovery
+			mv home/versionrecovery usr/bin/versionrecovery
+			chmod 777 usr/bin/recovery
+			chmod 777 usr/bin/versionrecovery
 			cd $HOME
 			printf "%b\n\n" "${green} - Update successfully! \n"
 			printf "${green} - Run recovery again! \n"
@@ -75,7 +77,7 @@ else
 			;;
 	esac
 fi
-sleep 3
+sleep 1
 #####
 PS3=' - Your Choose: '
 entries=("Continue run Kali-Linux" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Wipe data" "Uninstall Kali-Linux" "Exit")
