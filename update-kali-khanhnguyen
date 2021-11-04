@@ -100,7 +100,7 @@ function get_rootfs() {
     printf " (1.44GB)${reset}\n\n"
     get_url
     wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
-    wget -O version https://tinyurl.com/53n7htrn && echo "- Updating version..."
+    wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
     mv version ${PREFIX}/bin/version 2> /dev/null
     chmod 777 ${PREFIX}/bin/version 2> /dev/null
 }
