@@ -5,12 +5,61 @@ yellow='\033[1;33m'
 blue='\033[1;34m'
 light_cyan='\033[1;96m'
 reset='\033[0m'
+khanhnguyen="v1.0"
+cd .. && cd usr/bin
+verrecovery="$(grep -rw 'versionrecovery' -e 'v')"
+ver="$(grep -rw 'version' -e 'v')"
+cd $HOME
+clear
+printf "${green}\n - Checking for updates Kali.... \n"
+wget -O version https:// 2> /dev/null || :
+update="$(grep -rw 'version' -e 'v')"
+if [ $ver \> $update ]; then
+	printf "${green} - No updates Kali are available!\n"
+else
+	printf "${yellow} - New updates Kali are available!\n"
+	printf "${yellow} - New version: $update \n\n"
+	printf "${light_cyan}\n - Do you want to update now? [Y/N] \n"
+	read -r -p "Your choose: " response
+	printf "%b\n" " "
+	case "$response" in
+		[y]|[Y]) 
+		
+		
+			;;
+		*)
+			;;
+	esac		
+fi
+sleep 2
+printf "${green}\n - Checking for updates Recovery.... \n"
+wget -O versionrecovery https:// 2> /dev/null || :
+updaterecovery="$(grep -rw 'versionrecovery' -e 'v')"
+if [ $verrecovery \> $updaterecovery ]; then
+	printf "${green} - No updates Recovery are available!\n"
+else
+	printf "${yellow} - New updates Recovery are available!\n"
+	printf "${yellow} - New version: $updaterecovery \n\n"
+	printf "${light_cyan}\n - Do you want to update now? [Y/N] \n"
+	read -r -p "Your choose: " response
+	printf "%b\n" " "
+	case "$response" in
+		[y]|[Y]) 
+			
+			
+			;;
+		*)
+			;;
+	esac	
+fi
+sleep 3
 #####
 PS3=' - Your Choose: '
 entries=("Continue run Kali-Linux" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Wipe data" "Uninstall Kali-Linux" "Exit")
 while [ "$menu" != 1 ]; do
 	clear
-	printf "${green}\n  @ Recovery Menu:\n\n"
+	printf "${green}\n  @ RECOVERY MENU \n"
+	printf "${green}  @ Version: $khanhnguyen \n\n"
 	select choice in "${entries[@]}"
 	do 
 		case $choice in
@@ -22,13 +71,13 @@ while [ "$menu" != 1 ]; do
 				;;
 			"Reinstall Kali-Linux")
 				clear
-		  	printf "${red}\n  @ Recovery Menu:\n\n"
+				printf "${green}\n  @ RECOVERY MENU \n\n"
 				printf "${green} -> Reinstall Kali-Linux \n\n"
 				printf "${yellow} @ Reinstall will erase current Kali-Linux\n\n"
 				read -r -p "Are you sure to reinstall Kali-Linux? [Y/N] " response
 				printf "%b\n" " "
 				case "$response" in
-					[yY][eE][sS]|[yY]) 
+					 [y]|[Y]) 
 						cd $HOME
 						rm -rf kali-arm64
 						wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz
@@ -43,10 +92,10 @@ while [ "$menu" != 1 ]; do
 				;;
 			"Backup Image")  
 				clear
-				printf "${red}\n  @ Recovery Menu:\n\n"
+				printf "${red}\n  @ RECOVERY MENU \n\n"
 				printf "${green} -> Backup Image \n\n"
 				printf "${yellow} @ Default location backup is /sdcard \n\n"
-				printf "${yellow} @@ High level may take a long time, recommend is 6 \n\n"
+				printf "${yellow} @@ High level may take a long time, recommend is 0 \n\n"
 				read -p "Compress level (0-9): " level
                 printf "%b\n" "\n-----------------\n\n"
 				printf "${blue} Target Backup: /sdcard/kali-arm64-backup.tar.xz \n"
@@ -54,7 +103,7 @@ while [ "$menu" != 1 ]; do
 				read -r -p "Are you sure to backup image? [Y/N] " response
 				printf "%b\n" " "
 				case "$response" in
-					[yY][eE][sS]|[yY]) 
+					[y]|[Y]) 
 						cd $HOME
 						XZ_OPT=-$level tar cJf - ~/kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > /sdcard/kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
 							cd /sdcard
@@ -74,19 +123,9 @@ while [ "$menu" != 1 ]; do
 								rm -f kali-arm64-backup.tar.xz
 								exit 1
 							fi
-							if [ -f kali-arm64-backup.tar.xz ]; then
-								sha512sum kali-arm64-backup.tar.xz > kali-arm64-backup.sha512sum && echo "- Done backup sha512sum"
-							else
-								printf "%b\n" " ${red} - Failed to create sha512sum! \n"
-								printf "%b\n" " ${red} - Cannot find image! \n"
-								rm -f kali-arm64-backup.tar.xz
-								rm -f kali-arm64-backup.tar
-								rm -f kali-arm64-backup.sha512sum
-								exit 1
-							fi
 							cd $HOME
 							printf "%b\n" " ${yellow} - Completed Backup Image! \n"
-							read -p " Press any key and Enter to exit" anykey
+							read -p " Press Enter to exit" anykey
 							;;
 						*)
 							;;
@@ -95,7 +134,7 @@ while [ "$menu" != 1 ]; do
 				;;
 			"Restore Image")
                 clear
-				printf "${red}\n  @ Recovery Menu:\n\n"
+				printf "${red}\n  @ RECOVERY MENU \n\n"
                 printf "${green} -> Restore Image \n\n"
                 printf "${yellow} @ Please move Image to /sdcard and enter name file \n\n"
 				printf "${yellow}  @@ Example your file in /sdcard/kali-arm64.tar.xz \n"
@@ -103,16 +142,13 @@ while [ "$menu" != 1 ]; do
                 printf "${yellow}  @@ Enter name sha512sum: kali-arm64.sha512sum \n\n\n"
                 printf "${red}   @@@ Restore image is unstable, may have some error after restore @@@ \n\n\n"
                 read -p "Enter Full name image: " restoreimage
-                read -p "Enter Full name sha512sum: " sha512sumfile
 				checkfile=/sdcard/$restoreimage
-				checksha=/sdcard/$sha512sumfile
                 printf "%b\n" "\n-----------------\n\n"
 				printf "${blue} Target Image: /sdcard/$restoreimage \n"
-				printf "${blue} Target sha512sum: /sdcard/$sha512sumfile \n\n"
 				printf "${red}  @@@ Restore Image will erase current data! \n\n"
                 read -r -p "Are you sure to restore image? [Y/N] " response
                 case "$response" in
-                      [yY][eE][sS]|[yY]) 
+                      [y]|[Y]) 
                              printf "%b\n" "${yellow}\n -- Restore Image is in progress, please wait.... \n"
 							 if [ -f $checkfile ]; then
 					  			 printf "${green} restore image exist! \n"
@@ -121,25 +157,13 @@ while [ "$menu" != 1 ]; do
 					  			 printf "${red} Please check path restore image file! \n"
 								 exit 1
 							 fi
-							 if [ -f $checksha ]; then
-					  			 printf "${green} sha512sum file exist! \n"
-							 else
-					  			 printf "${red} sha512sum file not exist! \n"
-					  			 printf "${red} Please check path sha512sum file! \n"
-								 exit 1
-							 fi
 							 wget -O khanh https://tinyurl.com/4jaatp7m 2> /dev/null || :
 							 chmod +x khanh
-							 cd /sdcard
-							 sha512sum -c $sha512sumfile || {
-								printf "${red} Restore image bi hong. Khong the restore! \n${reset}"
-								exit 1
-							 }
 							 cd $HOME
+							 cp /sdcard/$restoreimage $restoreimage
 							 VERSION=20211012
 							 USERNAME="kali"
 							 IMAGE_NAME=$restoreimage
-							 SHA_NAME=$sha512sumfile
 							 CHROOT=kali-arm64
 							 function ask() {
 								 while true; do
@@ -181,8 +205,7 @@ while [ "$menu" != 1 ]; do
 									 function extract_rootfs() {
 										 printf "\n${blue}[*] Restoring image..... ${reset}\n"
 									     printf "\n${blue}[*]     @ This will take a long time @ ${reset}\n"
-										 cd $HOME
-										 proot --link2symlink tar -xf /sdcard/$IMAGE_NAME 2> /dev/null || : && echo "- Done"
+										 proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || : && echo "- Done"
 									 }
 
 
@@ -332,10 +355,10 @@ printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n
 									 fix_uid
 									 clear
 									 cd $HOME && mv data/data/com.termux/files/home/kali-arm64 kali-arm64
-									 printf "${red}\n  @ Recovery Menu:\n\n"
+									 printf "${red}\n  @ RECOVERY MENU \n\n"
 									 printf "${green} -> Restore Image \n\n\n\n"
 									 printf "${blue} Restore completed! ${reset}\n\n"
-									 read -p "Press any key and Enter to exit" anykey
+									 read -p "Press Enter to exit" anykey
                              ;;
                        *)
                              ;;
@@ -344,14 +367,14 @@ printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n
                 ;;
             "Wipe data")
                 clear
-				printf "${red}\n  @ Recovery Menu:\n\n"
+				printf "${red}\n  @ RECOVERY MENU \n\n"
                 printf "${green} -> Wipe data \n\n"
                 printf "${red} @ WARNING: Wipe data will factory reset users Kali-Linux! \n"
                 printf "${red} @ You need backup Image before user this! \n\n\n"
                 printf "${red}  @@@ Wipe data is in development and then not allow you use this @@@ \n\n\n"
                 read -r -p "Are you sure to wipe data? [Y/N] " response
                 case "$response" in
-                      [aA][bB][zZ]|[aA]) 
+                      [y]|[Y]) 
 							 cd $HOME
                              rm -rf ~/kali-arm64/home
                              mkdir ~/kali-arm64/home
@@ -365,27 +388,65 @@ printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n
                 ;;
             "Uninstall Kali-Linux")
                 clear
-				printf "${red}\n  @ Recovery Menu:\n\n"
+				printf "${red}\n  @ RECOVERY MENU \n\n"
                 printf "${green} -> Uninstall Kali-Linux \n\n"
-                printf "${red} @ WARNING: Uninstall will remove Kali-Linux! \n"
-                read -r -p "Are you sure to uninstall Kali? [Y/N] " response
-                case "$response" in
-                      [yY][eE][sS]|[yY]) 
-							 cd $HOME
-                             rm -rf ~/kali-arm64
-							 cd ..
-							 cd usr
-							 cd bin
-                             rm -f kali
-                             printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
-                             printf "%b\n" "${yellow} Recovery mode will now exit! \n"
-                             menu=1
-                             exit 0
-                             ;;
-                       *)
-                             ;;
-                esac
-                break
+				printf "${yellow} 1. Remove Kali-Linux with recovery \n"
+				printf "${yellow} 2. Remove Kali-Linux without recovery \n"
+				printf "${yellow} 3. Return to menu \n"
+				read -r -p "Your choose: " response1
+				case "$response1" in
+					  [2])
+							clear
+							printf "${red}\n  @ RECOVERY MENU \n\n"
+							printf "${green} -> Uninstall Kali-Linux \n\n"
+							printf "${red} @ WARNING: Uninstall Kali-Linux without recovery! \n"
+							read -r -p "Are you sure to uninstall Kali? [Y/N] " response
+							case "$response" in
+								[y]|[Y]) 
+										cd $HOME
+										rm -rf ~/kali-arm64
+										cd ..
+										cd usr
+										cd bin
+										rm -f kali
+										printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
+										read -p "Press Enter to exit" anykey
+										;;
+									*)
+										;;
+							esac
+				             ;;
+					  [1]) 
+							clear
+							printf "${red}\n  @ RECOVERY MENU \n\n"
+							printf "${green} -> Uninstall Kali-Linux \n\n"
+							printf "${red} @ WARNING: Uninstall Kali-Linux with recovery! \n"
+							read -r -p "Are you sure to uninstall Kali? [Y/N] " response
+							case "$response" in
+								[y]|[Y]) 
+										cd $HOME
+										rm -rf ~/kali-arm64
+										cd ..
+										cd usr
+										cd bin
+										rm -f kali
+										rm -f recovery
+										printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
+										printf "%b\n" "${red} Recovery will now exit! \n"
+										menu=1
+										exit 0
+										;;
+									*)
+										;;
+							esac
+				             ;;
+					   [3])
+							clear
+							;;
+						*)
+							;;
+				esac
+				break
                 ;;
             "Exit" )
 				clear
