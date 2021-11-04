@@ -100,9 +100,15 @@ function get_rootfs() {
     printf " (1.44GB)${reset}\n\n"
     get_url
     wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
-    wget -O recovery https://tinyurl.com/542f74rn && echo "- Installing Recovery..."
+    wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null && echo "- Installing Recovery..."
+	wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
+	wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null && echo "- Updating version recovery..."
     mv recovery ${PREFIX}/bin/recovery 2> /dev/null
     chmod 777 ${PREFIX}/bin/recovery 2> /dev/null
+    mv version ${PREFIX}/bin/version 2> /dev/null
+    chmod 777 ${PREFIX}/bin/version 2> /dev/null
+	mv versionrecovery ${PREFIX}/bin/versionrecovery 2> /dev/null
+    chmod 777 ${PREFIX}/bin/versionrecovery 2> /dev/null
 }
 
 function get_sha() {
