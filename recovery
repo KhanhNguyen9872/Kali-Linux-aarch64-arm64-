@@ -8,13 +8,13 @@ reset='\033[0m'
 khanhnguyen="v1.0"
 cd ..
 cd usr/bin
-verrecovery="$(grep -rw 'versionrecovery' -e 'v')"
-ver="$(grep -rw 'version' -e 'v')"
+verrecovery="$(grep -rw 'versionrecovery' -e 'version')"
+ver="$(grep -rw 'version' -e 'version')"
 cd $HOME
 clear
 printf "${green}\n - Checking for updates Kali.... \n"
 wget -O version https://tinyurl.com/53n7htrn 2> /dev/null || :
-update="$(grep -rw 'version' -e 'v')"
+update="$(grep -rw 'version' -e 'version')"
 if [ $ver \> $update ]; then
 	printf "${green} - No updates Kali are available!\n"
 else
@@ -42,7 +42,7 @@ fi
 sleep 2
 printf "${green}\n - Checking for updates Recovery.... \n"
 wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null || :
-updaterecovery="$(grep -rw 'versionrecovery' -e 'v')"
+updaterecovery="$(grep -rw 'versionrecovery' -e 'version')"
 if [ $verrecovery \> $updaterecovery ]; then
 	printf "${green} - No updates Recovery are available!\n"
 else
