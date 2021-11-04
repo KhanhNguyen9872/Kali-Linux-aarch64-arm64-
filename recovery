@@ -6,20 +6,25 @@ blue='\033[1;34m'
 light_cyan='\033[1;96m'
 reset='\033[0m'
 khanhnguyen="v1.0"
+cd $HOME
+wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
+wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
+update="$(grep '' './version')"
+updaterecovery="$(grep '' './versionrecovery')"
 cd ..
-cd usr/bin
-verrecovery="$(grep '' 'versionrecovery')"
-ver="$(grep '' 'version')"
+verrecovery="$(grep '' 'usr/bin/versionrecovery')"
+ver="$(grep '' 'usr/bin/version')"
 cd $HOME
 clear
+sleep 0.5
+echo " @ RECOVERY MODE"
 printf "${green}\n - Checking for updates Kali.... \n"
-wget -O versionr https://tinyurl.com/53n7htrn 2> /dev/null || :
-update="$(grep '' 'versionr')"
-if [ $ver -gt $update ]; then
+sleep 0.5
+if [[ $ver -ge $update ]]; then
 	printf "${green} - No updates Kali are available!\n"
-	rm -f ~/versionr 2> /dev/null
+	rm -f ~/version 2> /dev/null
 else
-	rm -f ~/versionr 2> /dev/null
+	rm -f ~/version 2> /dev/null
 	printf "${yellow} - New updates Kali are available!\n"
 	printf "${yellow} - New version: $update \n"
 	printf "${yellow} - Update will keep your personal data! \n\n"
@@ -41,17 +46,14 @@ else
 			;;
 	esac
 fi
-sleep 1
 echo "=============================="
-sleep 1
 printf "${green}\n - Checking for updates Recovery.... \n"
-wget -O versionre https://tinyurl.com/fvcj5463 2> /dev/null || :
-updaterecovery="$(grep '' 'versionre')"
-if [ $verrecovery -gt $updaterecovery ]; then
+sleep 0.5
+if [[ $verrecovery -ge $updaterecovery ]]; then
 	printf "${green} - No updates Recovery are available!\n"
-	rm -f ~/versionre 2> /dev/null
+	rm -f ~/versionrecovery 2> /dev/null
 else
-	rm -f ~/versionre 2> /dev/null
+	rm -f ~/versionrecovery 2> /dev/null
 	printf "${yellow} - New updates Recovery are available!\n"
 	printf "${yellow} - New version: $updaterecovery \n\n"
 	printf "${light_cyan}\n - Do you want to update now? [Y/N] \n"
