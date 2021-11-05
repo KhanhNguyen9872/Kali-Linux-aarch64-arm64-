@@ -185,12 +185,12 @@ while [ "$menu" != 1 ]; do
 									rm -f kali-arm64-backup.tar.xz
 								fi
 								mv kali-arm64-backup.tar kali-arm64-backup.tar.xz
+								mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz
 							else
 								printf "%b\n" " ${red} - Backup image failed! \n"
 								rm -f kali-arm64-backup.tar.xz
 								exit 1
 							fi
-							mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz
 							clear
 							printf "${red}\n  @ RECOVERY MENU \n\n"
 							printf "${green} -> Backup Image \n\n"
