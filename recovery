@@ -43,6 +43,7 @@ if [ -f home/kali-arm64/bin/cp ]; then
 	else
 		if [ -f usr/bin/versionrestore ]; then
 			printf "${yellow}\n Custom Image is detected! Not Official! \n"
+			custom=1
 		else
 			printf "${red}\n Can't detect version Recovery! \n"
 		fi
@@ -55,27 +56,32 @@ if [[ $ver -ge $update ]]; then
 	printf "${green} - No updates Kali are available!\n\n"
 	rm -f version
 else
-	rm -f version
-	printf "${yellow} - New updates Kali are available!\n"
-	printf "${yellow} - New version: $update \n"
-	printf "${yellow} - Update will keep your personal data! \n\n"
-	printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
-	read -r -p "Your choose: " response
-	printf "%b\n" " "
-	case "$response" in
-		[y]|[Y]) 
-			cd $HOME
-			printf "%b\n" "${yellow} - Updating... \n"
-			wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9  2> /dev/null
-			wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
-			chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
-			sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
-			printf "%b" "\n\n"
-			rm -f ~/kali-khanhnguyenup.sh 2> /dev/null
-			;;
-		*)
-			;;
-	esac
+	if [[ custom -eq 1 ]]; then
+		rm -f version
+		printf "${yellow}\n Skip check for update! \n"
+	else
+		rm -f version
+		printf "${yellow} - New updates Kali are available!\n"
+		printf "${yellow} - New version: $update \n"
+		printf "${yellow} - Update will keep your personal data! \n\n"
+		printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
+		read -r -p "Your choose: " response
+		printf "%b\n" " "
+		case "$response" in
+			[y]|[Y]) 
+				cd $HOME
+				printf "%b\n" "${yellow} - Updating... \n"
+				wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9  2> /dev/null
+				wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
+				chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
+				sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
+				printf "%b" "\n\n"
+				rm -f ~/kali-khanhnguyenup.sh 2> /dev/null
+				;;
+			*)
+				;;
+		esac
+	fi
 fi
 echo "=============================="
 printf "${green}\n - Checking for updates Recovery.... \n"
