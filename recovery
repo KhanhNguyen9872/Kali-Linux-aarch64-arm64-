@@ -101,6 +101,7 @@ cd $HOME
 if [[ $verrecovery -ge $updaterecovery ]]; then
 	printf "${green} - No updates Recovery are available!\n"
 	rm -f versionrecovery
+	sleep 3
 else
 	rm -f versionrecovery
 	printf "${yellow} - New updates Recovery are available!\n"
@@ -128,17 +129,18 @@ else
 				else
 					printf "%b\n\n" "${red} - Update failed! \n"
 					printf "${red} - Try again later! \n"
+					read -p " Press Enter to continue" anykey
 				fi
 			else
 				printf "%b\n\n" "${red} - Update failed! \n"
 				printf "${red} - Try again later! \n"
+				read -p " Press Enter to continue" anykey
 			fi
 			;;
 		*)
 			;;
 	esac
 fi
-sleep 4
 #####
 PS3=' - Your Choose: '
 entries=("Continue run Kali-Linux" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Wipe data" "Uninstall Kali-Linux" "Exit")
