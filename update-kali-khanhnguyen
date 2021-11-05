@@ -61,7 +61,13 @@ function set_strings() {
 
 function prepare_fs() {
     unset KEEP_CHROOT
-    KEEP_CHROOT=1
+    if [ -d ${CHROOT} ]; then
+        if ask " - Phat hien Kali-linux da duoc cai dat. Ban co muon cai dat lai khong?" "Y"; then
+            rm -rf ${CHROOT}
+        else
+            KEEP_CHROOT=1
+        fi
+    fi
 } 
 
 function cleanup() {
@@ -94,9 +100,6 @@ function get_rootfs() {
     printf " (1.44GB)${reset}\n\n"
     get_url
     wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
-    wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
-    mv version ${PREFIX}/bin/version 2> /dev/null
-    chmod 777 ${PREFIX}/bin/version 2> /dev/null
 }
 
 function get_sha() {
@@ -130,9 +133,12 @@ function verify_sha() {
 
 function extract_rootfs() {
         printf "\n${blue}[*] Dang update Kali-Linux (arm64).... ${reset}\n"
-	printf "\n${blue}    @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n"
-	printf "\n${red}             @@ Tam 5-15 phut @@ ${reset}\n\n"
-        proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
+		printf "\n${blue}    @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n"
+		printf "\n${red}             @@ Tam 5-15 phut @@ ${reset}\n\n"
+		proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
+		wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
+		mv version ${PREFIX}/bin/version 2> /dev/null
+		chmod 777 ${PREFIX}/bin/version 2> /dev/null
 }
 
 

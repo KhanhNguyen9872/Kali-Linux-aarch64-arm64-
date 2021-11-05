@@ -40,14 +40,14 @@ else
 			wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
 			chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
 			sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
-			printf "%b" "\n\n"
+			printf "%b" "\n"
 			rm -f ~/kali-khanhnguyenup.sh 2> /dev/null
 			;;
 		*)
 			;;
 	esac
 fi
-echo "=============================="
+echo "\n==============================\n"
 printf "${green}\n - Checking for updates Recovery.... \n"
 sleep 0.5
 if [[ $verrecovery -ge $updaterecovery ]]; then
@@ -127,7 +127,6 @@ while [ "$menu" != 1 ]; do
 				read -p "Compress level (0-9): " level
                 printf "%b\n" "\n-----------------\n\n"
 				printf "${blue} Target Backup: /sdcard/kali-arm64-backup.tar.xz \n"
-				printf "${blue} Target sha512sum: /sdcard/kali-arm64-backup.tar.xz \n\n"
 				read -r -p "Are you sure to backup image? [Y/N] " response
 				printf "%b\n" " "
 				case "$response" in
@@ -167,7 +166,6 @@ while [ "$menu" != 1 ]; do
                 printf "${yellow} @ Please move Image to /sdcard and enter name file \n\n"
 				printf "${yellow}  @@ Example your file in /sdcard/kali-arm64.tar.xz \n"
                 printf "${yellow}  @@ Enter name image: kali-arm64.tar.xz \n"
-                printf "${yellow}  @@ Enter name sha512sum: kali-arm64.sha512sum \n\n\n"
                 printf "${red}   @@@ Restore image is unstable, may have some error after restore @@@ \n\n\n"
                 read -p "Enter Full name image: " restoreimage
 				checkfile=/sdcard/$restoreimage
@@ -185,13 +183,8 @@ while [ "$menu" != 1 ]; do
 					  			 printf "${red} Please check path restore image file! \n"
 								 exit 1
 							 fi
-							 wget -O khanh https://tinyurl.com/4jaatp7m 2> /dev/null || :
-							 chmod +x khanh
-							 cd $HOME
-							 cp /sdcard/$restoreimage $restoreimage
 							 VERSION=20211012
 							 USERNAME="kali"
-							 IMAGE_NAME=$restoreimage
 							 CHROOT=kali-arm64
 							 function ask() {
 								 while true; do
@@ -225,15 +218,22 @@ while [ "$menu" != 1 ]; do
 
 									 function check_dependencies() {
 										 printf "${blue}\n[*] Preparing restore....${reset}\n"
-										 apt-get update -y &> /dev/null || apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade -y &> /dev/null
-										 apt-get upgrade -y &> /dev/null
+										 cd $HOME
+										 wget -O khanh https://tinyurl.com/4jaatp7m 2> /dev/null || :
+										 chmod +x khanh
+										 cp /sdcard/$restoreimage ~/$restoreimage
+										 apt-get update -y 2> /dev/null || apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade -y 2> /dev/null
+										 apt-get upgrade -y 2> /dev/null
 										 printf "${blue}[*] - Done ${reset}\n"
 									 }
 
 									 function extract_rootfs() {
 										 printf "\n${blue}[*] Restoring image..... ${reset}\n"
 									     printf "\n${blue}[*]     @ This will take a long time @ ${reset}\n"
-										 proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || : && echo "- Done"
+										 proot --link2symlink tar -xf $restoreimage 2> /dev/null || : && echo "- Done"
+										 wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
+										 mv version ${PREFIX}/bin/version 2> /dev/null
+										 chmod 777 ${PREFIX}/bin/version 2> /dev/null
 									 }
 
 
