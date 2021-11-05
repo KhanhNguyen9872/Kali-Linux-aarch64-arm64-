@@ -62,7 +62,8 @@ function set_strings() {
 function prepare_fs() {
     unset KEEP_CHROOT
     if [ -d ${CHROOT} ]; then
-        if ask " - Phat hien Kali-linux da duoc cai dat. Ban co muon cai dat lai khong?" "Y"; then
+    	printf " - Phat hien Kali-linux da duoc cai dat \n"
+        if ask " Ban co muon xoa tat ca data va cai lai khong?" "Y"; then
             rm -rf ${CHROOT}
         else
             KEEP_CHROOT=1
