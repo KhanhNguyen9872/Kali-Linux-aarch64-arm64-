@@ -58,7 +58,7 @@ if [[ $ver -ge $update ]]; then
 else
 	if [[ custom -eq 1 ]]; then
 		rm -f version
-		printf "${yellow}\n Skip check for update! \n"
+		printf "${green} Skip check for update! \n\n"
 	else
 		rm -f version
 		printf "${yellow} - New updates Kali are available!\n"
@@ -71,7 +71,7 @@ else
 			[y]|[Y]) 
 				cd $HOME
 				printf "%b\n" "${yellow} - Updating... \n"
-				wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9  2> /dev/null
+				wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
 				wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
 				chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
 				sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
@@ -128,7 +128,7 @@ else
 			;;
 	esac
 fi
-sleep 1
+sleep 3
 #####
 PS3=' - Your Choose: '
 entries=("Continue run Kali-Linux" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Wipe data" "Uninstall Kali-Linux" "Exit")
