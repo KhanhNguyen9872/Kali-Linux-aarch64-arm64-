@@ -44,7 +44,11 @@ if [ -f home/kali-arm64/bin/cp ]; then
 		printf "${red}\n Can't detect version Recovery! \n"
 	fi
 else
-	printf "${red}\n Kali-Linux is not installed! \n"
+	if [ -f usr/bin/versionrestore ]; then
+		printf "${yellow}\n Custom Image is detected! Not Official! \n"
+	else
+		printf "${red}\n Kali-Linux is not installed! \n"
+	fi
 fi
 cd $HOME
 if [[ $ver -ge $update ]]; then
@@ -284,9 +288,9 @@ while [ "$menu" != 1 ]; do
 									     printf "\n${blue}[*]     @ This will take a long time @ ${reset}\n"
 										 proot --link2symlink tar -xf $restoreimage 2> /dev/null || : && echo "- Done"
 										 rm -f $restoreimage
-										 wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
-										 mv version ${PREFIX}/bin/version 2> /dev/null
-										 chmod 777 ${PREFIX}/bin/version 2> /dev/null
+										 echo 'oemunlock' > versionrestore
+										 mv versionrestore ${PREFIX}/bin/versionrestore 2> /dev/null
+										 chmod 777 ${PREFIX}/bin/versionrestore 2> /dev/null
 									 }
 
 
@@ -491,6 +495,7 @@ printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n
 										cd bin
 										rm -f kali
 										rm -f version
+										rm -f versionrestore
 										printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
 										read -p "Press Enter to exit" anykey
 										;;
@@ -515,6 +520,7 @@ printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n
 										rm -f version
 										rm -f versionrecovery
 										rm -f recovery
+										rm -f versionrestore
 										printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
 										printf "%b\n" "${red} Recovery will now exit! \n"
 										menu=1
