@@ -192,7 +192,14 @@ while [ "$menu" != 1 ]; do
 							fi
 							mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz
 							cd $HOME
-							printf "%b\n" " ${yellow} - Completed Backup Image! \n"
+							if [ -f /sdcard/kali-arm64-backup.tar.xz ]; then
+								printf "%b\n" " ${yellow} - Completed Backup Image! \n"
+							else
+								printf "%b\n" " ${red} - Backup image failed! \n"
+								rm -f kali-arm64-backup.tar.xz
+								rm -f kali-arm64-backup.tar
+								exit 1
+							fi
 							read -p " Press Enter to exit" anykey
 							;;
 						*)
