@@ -49,7 +49,9 @@ if [ -f home/kali-arm64/bin/cp ]; then
 		fi
 	fi
 else
-	cd /
+	cd
+	cd ..
+	cd ..
 	if [ -f bin/cp ]; then
 		printf "${yellow}\n Detected in Kali-Linux Mode!\n"
 		printf "${yellow}\n Recovery will now exit!\n"
