@@ -170,8 +170,10 @@ while [ "$menu" != 1 ]; do
 				case "$response" in
 					[y]|[Y]) 
 						cd $HOME
-						XZ_OPT=-$level tar cJf - ~/kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > /sdcard/kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
-							cd /sdcard
+						if [ -f kali-arm64-backup.tar.xz ]; then
+							rm -f kali-arm64-backup.tar.xz
+						fi
+						XZ_OPT=-$level tar cJf - ~/kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
 							if [ -f kali-arm64-backup.tar.xz ]; then
 								7z e kali-arm64-backup.tar.xz
 							else
@@ -188,6 +190,7 @@ while [ "$menu" != 1 ]; do
 								rm -f kali-arm64-backup.tar.xz
 								exit 1
 							fi
+							mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz
 							cd $HOME
 							printf "%b\n" " ${yellow} - Completed Backup Image! \n"
 							read -p " Press Enter to exit" anykey
