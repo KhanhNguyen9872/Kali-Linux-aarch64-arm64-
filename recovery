@@ -52,8 +52,9 @@ else
 	cd
 	cd ..
 	cd ..
-	if [ -f bin/cp ]; then
-		printf "${yellow}\n Detected in Kali-Linux Mode!\n"
+	cd bin
+	if [ -f cp ]; then
+		printf "${yellow}\n Detected installed on unknown location!\n"
 		printf "${yellow}\n Recovery will now exit!\n"
 		exit 0
 	else
