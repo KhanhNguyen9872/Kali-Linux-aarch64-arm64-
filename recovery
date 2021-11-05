@@ -119,16 +119,26 @@ else
 			mv home/versionrecovery usr/bin/versionrecovery
 			chmod 777 usr/bin/recovery
 			chmod 777 usr/bin/versionrecovery
-			cd $HOME
-			printf "%b\n\n" "${green} - Update successfully! \n"
-			printf "${green} - Run recovery again! \n"
-			exit 0
+			if [ -f usr/bin/recovery ]; then
+				if [ -f usr/bin/versionrecovery ]; then
+					cd $HOME
+					printf "%b\n\n" "${green} - Update successfully! \n"
+					printf "${green} - Run recovery again! \n"
+					exit 0
+				else
+					printf "%b\n\n" "${red} - Update failed! \n"
+					printf "${red} - Try again later! \n"
+				fi
+			else
+				printf "%b\n\n" "${red} - Update failed! \n"
+				printf "${red} - Try again later! \n"
+			fi
 			;;
 		*)
 			;;
 	esac
 fi
-sleep 3
+sleep 4
 #####
 PS3=' - Your Choose: '
 entries=("Continue run Kali-Linux" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Wipe data" "Uninstall Kali-Linux" "Exit")
