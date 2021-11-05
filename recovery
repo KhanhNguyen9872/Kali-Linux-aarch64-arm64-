@@ -8,28 +8,48 @@ reset='\033[0m'
 echo "- Booting into Recovery Mode...."
 khanhnguyen="v1.0"
 cd $HOME
-wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
-wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
-update="$(grep '' './version')"
-updaterecovery="$(grep '' './versionrecovery')"
+wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Preparing..."
+wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null && echo "- Booting..."
+if [ -f version ]; then
+	update="$(grep '' './version')"
+fi
+if [ -f versionrecovery ]; then
+	updaterecovery="$(grep '' './versionrecovery')"
+fi
 cd ..
-verrecovery="$(grep '' 'usr/bin/versionrecovery')"
-ver="$(grep '' 'usr/bin/version')"
+if [ -f usr/bin/version ]; then
+	ver="$(grep '' 'usr/bin/version')"
+fi
+if [ -f usr/bin/versionrecovery ]; then
+	verrecovery="$(grep '' 'usr/bin/versionrecovery')"
+fi
 cd $HOME
 clear
 sleep 0.5
 echo " @ RECOVERY MODE"
 printf "${green}\n - Checking for updates Kali.... \n"
 sleep 0.5
-if [[ $ver -ge $update ]]; then
-	printf "${green} - No updates Kali are available!\n"
-	rm -f ~/version 2> /dev/null
+if [ -f version ]; then
+	echo '1' > /dev/null
 else
-	rm -f ~/version 2> /dev/null
+	printf "${red}\n No connection are available! \n"
+fi
+cd ..
+if [ -f usr/bin/version ]; then
+	echo '1' > /dev/null
+else
+	printf "${red}\n Kali-Linux is not installed! \n"
+fi
+cd $HOME
+if [[ $ver -ge $update ]]; then
+	printf "${green} - No updates Kali are available!\n\n"
+	rm -f version
+else
+	rm -f version
 	printf "${yellow} - New updates Kali are available!\n"
 	printf "${yellow} - New version: $update \n"
 	printf "${yellow} - Update will keep your personal data! \n\n"
-	printf "${light_cyan}\n - Do you want to update now? [Y/N] \n"
+	printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
 	read -r -p "Your choose: " response
 	printf "%b\n" " "
 	case "$response" in
@@ -40,24 +60,36 @@ else
 			wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
 			chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
 			sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
-			printf "%b" "\n"
+			printf "%b" "\n\n"
 			rm -f ~/kali-khanhnguyenup.sh 2> /dev/null
 			;;
 		*)
 			;;
 	esac
 fi
-echo "\n==============================\n"
+echo "=============================="
 printf "${green}\n - Checking for updates Recovery.... \n"
 sleep 0.5
+if [ -f versionrecovery ]; then
+	echo '1' > /dev/null
+else
+	printf "${red}\n No connection are available! \n"
+fi
+cd ..
+if [ -f usr/bin/versionrecovery ]; then
+	echo '1' > /dev/null
+else
+	printf "${red}\n Can't detect version Recovery for update! \n"
+fi
+cd $HOME
 if [[ $verrecovery -ge $updaterecovery ]]; then
 	printf "${green} - No updates Recovery are available!\n"
-	rm -f ~/versionrecovery 2> /dev/null
+	rm -f versionrecovery
 else
-	rm -f ~/versionrecovery 2> /dev/null
+	rm -f versionrecovery
 	printf "${yellow} - New updates Recovery are available!\n"
 	printf "${yellow} - New version: $updaterecovery \n\n"
-	printf "${light_cyan}\n - Do you want to update now? [Y/N] \n"
+	printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
 	read -r -p "Your choose: " response
 	printf "%b\n" " "
 	case "$response" in
@@ -437,6 +469,7 @@ printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n
 										cd usr
 										cd bin
 										rm -f kali
+										rm -f version
 										printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
 										read -p "Press Enter to exit" anykey
 										;;
@@ -458,6 +491,8 @@ printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n
 										cd usr
 										cd bin
 										rm -f kali
+										rm -f version
+										rm -f versionrecovery
 										rm -f recovery
 										printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
 										printf "%b\n" "${red} Recovery will now exit! \n"
