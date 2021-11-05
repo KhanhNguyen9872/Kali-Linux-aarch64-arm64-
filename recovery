@@ -49,7 +49,14 @@ if [ -f home/kali-arm64/bin/cp ]; then
 		fi
 	fi
 else
-	printf "${red}\n Kali-Linux is not installed! \n"
+	cd /
+	if [ -f bin/cd ]; then
+		printf "${yellow}\n Detected in Kali-Linux Mode!\n"
+		printf "${yellow}\n Recovery will now exit!\n"
+		exit 0
+	else
+		printf "${red}\n Kali-Linux is not installed! \n"
+	fi
 fi
 cd $HOME
 if [[ $ver -ge $update ]]; then
@@ -124,7 +131,7 @@ else
 				if [ -f usr/bin/versionrecovery ]; then
 					cd $HOME
 					printf "%b\n\n" "${green} - Update successfully! \n"
-					printf "${green} - Run recovery again! \n"
+					printf "${green} - Run recovery again! \n\n"
 					exit 0
 				else
 					printf "%b\n\n" "${red} - Update failed! \n"
