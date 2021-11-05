@@ -191,6 +191,10 @@ while [ "$menu" != 1 ]; do
 								exit 1
 							fi
 							mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz
+							clear
+							printf "${red}\n  @ RECOVERY MENU \n\n"
+							printf "${green} -> Backup Image \n\n"
+							printf "${yellow} @ Default location backup is /sdcard \n\n"
 							cd $HOME
 							if [ -f /sdcard/kali-arm64-backup.tar.xz ]; then
 								printf "%b\n" " ${yellow} - Completed Backup Image! \n"
