@@ -41,14 +41,14 @@ if [ -f home/kali-arm64/bin/cp ]; then
 	if [ -f usr/bin/version ]; then
 		echo '1' > /dev/null
 	else
-		printf "${red}\n Can't detect version Recovery! \n"
+		if [ -f usr/bin/versionrestore ]; then
+			printf "${yellow}\n Custom Image is detected! Not Official! \n"
+		else
+			printf "${red}\n Can't detect version Recovery! \n"
+		fi
 	fi
 else
-	if [ -f usr/bin/versionrestore ]; then
-		printf "${yellow}\n Custom Image is detected! Not Official! \n"
-	else
-		printf "${red}\n Kali-Linux is not installed! \n"
-	fi
+	printf "${red}\n Kali-Linux is not installed! \n"
 fi
 cd $HOME
 if [[ $ver -ge $update ]]; then
