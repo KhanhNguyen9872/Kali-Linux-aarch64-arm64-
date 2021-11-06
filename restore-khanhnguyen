@@ -55,26 +55,19 @@ function get_arch() {
 
 function set_strings() {
     CHROOT=kali-arm64
-    IMAGE_NAME=kali-arm64-khanhnguyen.tar.xz
-    SHA_NAME=kali-arm64-khanhnguyen.sha512sum
+    IMAGE_NAME=restore-khanhnguyen.tar.xz
 }    
 
 function prepare_fs() {
     unset KEEP_CHROOT
-    if [ -d ${CHROOT} ]; then
-        if ask " - Phat hien Kali-linux da duoc cai dat. Ban co muon cai dat lai khong?" "Y"; then
-            rm -rf ${CHROOT}
-        else
-            KEEP_CHROOT=1
-        fi
-    fi
+    KEEP_CHROOT=1
 } 
 
 function cleanup() {
     if [ -f ${IMAGE_NAME} ]; then
 		rm -f ${IMAGE_NAME}
         rm -f ${SHA_NAME}
-		printf " - Da cai dat xong!"
+		printf " - Restore completed!"
     fi
 } 
 
@@ -87,26 +80,15 @@ function check_dependencies() {
 
 
 function get_url() {
-    ROOTFS_URL="https://tinyurl.com/nx64mce5"
-    SHA_URL="https://tinyurl.com/xb7jsx2x"
+    ROOTFS_URL=" "
 }
 
 function get_rootfs() {
-    unset KEEP_IMAGE
-    if [ -f ${IMAGE_NAME} ]; then
-        rm -f ${IMAGE_NAME}
-    fi
-    printf "${blue}[*] Dang tai Kali-Linux (arm64)...."
-    printf " (1.44GB)${reset}\n\n"
-    get_url
-    wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
+    printf "${blue}[*] Restoring image...."
 }
 
 function get_sha() {
-    if [ -f ${SHA_NAME} ]; then
-		rm -f ${SHA_NAME}
-    fi
-    wget -O kali-arm64-khanhnguyen.sha512sum "${SHA_URL}"
+	printf "${yellow} [@] Skip check sha512sum!"
 }
 
 function verify_sha() {
@@ -124,27 +106,17 @@ function verify_sha() {
 	printf "${blue}##                                              ##\n"
 	printf "${blue}##                 arm64-v8a by KhanhNguyen9872 ##\n"
 	printf "${blue}##################################################${reset}\n\n"
-        printf "\n${blue}[*] Dang kiem tra file cai dat....${reset}\n"
-        sha512sum -c $SHA_NAME || {
-            printf "${red} File cai dat bi hong. Vui long cai lai \n${reset}"
-            exit 1
-        }
 }
 
 function extract_rootfs() {
-        printf "\n${blue}[*] Dang cai dat Kali-Linux (arm64).... ${reset}\n"
+        printf "\n${blue}[*] Dang restore.... ${reset}\n"
 		printf "\n${blue}    @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n"
-		printf "\n${red}             @@ Tam 5-15 phut @@ ${reset}\n\n"
-        proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
-		wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null && echo "- Installing Recovery..."
-		wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
-		wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null && echo "- Updating version recovery..."
-		mv recovery ${PREFIX}/bin/recovery 2> /dev/null
-		chmod 777 ${PREFIX}/bin/recovery 2> /dev/null
-		mv version ${PREFIX}/bin/version 2> /dev/null
-		chmod 777 ${PREFIX}/bin/version 2> /dev/null
-		mv versionrecovery ${PREFIX}/bin/versionrecovery 2> /dev/null
-		chmod 777 ${PREFIX}/bin/versionrecovery 2> /dev/null
+		printf "\n${red}             @@ Tam 7-25 phut @@ ${reset}\n\n"
+		proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
+		rm -f $IMAGE_NAME
+		echo 'oemunlock' > versionrestore
+		mv versionrestore ${PREFIX}/bin/versionrestore 2> /dev/null
+		chmod 777 ${PREFIX}/bin/versionrestore 2> /dev/null
 }
 
 
@@ -176,15 +148,9 @@ printf "${blue}##                                              ##\n"
 printf "${blue}##                 arm64-v8a by KhanhNguyen9872 ##\n"
 printf "${blue}##################################################${reset}\n\n"
 printf "${yellow}[=] Kali-Linux KhanhNguyen (Thanks<3)${reset}\n\n"
-printf "${red}[@] Password VNC:  khanhnguyen ${reset}\n"
-printf "${red}[@] Password su:   khanhnguyen ${reset}\n"
-printf "${red}[@] Password sudo: khanhnguyen ${reset}\n\n"
 printf "${green}[+] Thong tin lenh, type:${reset}\n"
-printf "${green}[+] khanh            # Start Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] khanh stop       # Stop Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] su               # Run Kali-Linux as root user${reset}\n"
-printf "${green}[+] khanhnguyen9872  # Get Information this Kali-Linux${reset}\n"
 printf "${green}[+] recovery         # Run Recovery Mode${reset}\n\n"
+printf "${red} [@] Some command may not work because restore custom image!\n\n"
 cd \${HOME}
 unset LD_PRELOAD
 if [ ! -f $CHROOT/root/.version ]; then
@@ -328,17 +294,11 @@ create_kex_launcher
 fix_uid
 
 print_banner
-printf "${yellow}[=] Kali-Linux KhanhNguyen da duoc cai dat${reset}\n\n"
-printf "${red}[@] Password VNC:  khanhnguyen ${reset}\n"
-printf "${red}[@] Password su:   khanhnguyen ${reset}\n"
-printf "${red}[@] Password sudo: khanhnguyen ${reset}\n"
+printf "${yellow}[=] Restore completed! ${reset}\n\n"
 printf "%b\n" " "
 printf "${green}[+] Thong tin lenh, type:${reset}\n"
-printf "${green}[+] kali                  # Start Kali-Linux chroot${reset}\n"
-printf "${green}[+] kali khanh            # Start Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] kali khanh stop       # Stop Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] kali su               # Run Kali-Linux as root user${reset}\n"
-printf "${green}[+] kali khanhnguyen9872  # Get Information this Kali-Linux${reset}\n"
 printf "${green}[+] recovery              # Run Recovery Mode${reset}\n\n"
-rm -f ~/install-kali-khanhnguyen
+printf "${red} [@] Some command may not work because restore custom image!\n\n"
+rm -f ~/restore-kali-khanhnguyen.sh 2> /dev/null
+rm -f ~/restore-khanhnguyen 2> /dev/null
 exit 0
