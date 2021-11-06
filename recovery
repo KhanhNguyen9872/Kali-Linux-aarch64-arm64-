@@ -325,7 +325,7 @@ while [ "$menu" != 1 ]; do
                 printf "%b\n" "\n-----------------\n\n"
 				printf "${blue} Target Image: /sdcard/$restoreimage \n"
 				printf "${red}  @@@ Restore Image will erase current data! \n\n"
-                read -r -p "Are you sure to restore image? [Y/N] " response
+                read -r -p " Are you sure to restore image? [Y/N] " response
                 case "$response" in
                       [y]|[Y]) 
                              printf "%b\n" "${yellow}\n -- Restore Image is in progress, please wait.... \n"
@@ -339,7 +339,7 @@ while [ "$menu" != 1 ]; do
 							 fi
 							 printf "${yellow}\n -Preparing.... \n"
 							 cd $HOME
-							 cp /sdcard/$checkfile restore-khanhnguyen.tar.xz
+							 cp /sdcard/$restoreimage restore-khanhnguyen.tar.xz
 							 wget -O restore-kali-khanhnguyen.sh https://tinyurl.com/37fhdpjb 2> /dev/null
 							 chmod +x ~/restore-kali-khanhnguyen.sh 2> /dev/null
 							 sh ~/restore-kali-khanhnguyen.sh && echo " - Process ended!"
