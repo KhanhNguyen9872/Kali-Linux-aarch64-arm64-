@@ -144,12 +144,12 @@ else
 				else
 					printf "%b\n\n" "${red} - Update failed! \n"
 					printf "${red} - Try again later! \n"
-					read -p " Press Enter to continue" anykey
+					read -p " Press Enter to continue " anykey
 				fi
 			else
 				printf "%b\n\n" "${red} - Update failed! \n"
 				printf "${red} - Try again later! \n"
-				read -p " Press Enter to continue" anykey
+				read -p " Press Enter to continue " anykey
 			fi
 			;;
 		*)
@@ -158,7 +158,7 @@ else
 fi
 #####
 PS3=' - Your Choose: '
-entries=("Continue run Kali-Linux" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Wipe data" "Uninstall Kali-Linux" "Exit")
+entries=("Continue run Kali-Linux" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "KhanhNguyen9872" "Uninstall Kali-Linux" "Exit")
 while [ "$menu" != 1 ]; do
 	clear
 	printf "${green}\n  @ RECOVERY MENU \n"
@@ -168,28 +168,78 @@ while [ "$menu" != 1 ]; do
 		case $choice in
 			"Continue run Kali-Linux")
 				clear
-				kali
-				menu=1
-				exit 0
+				cd
+				cd kali-arm64 2> /dev/null
+				cd bin 2> /dev/null
+				if [ -f cp ]; then
+					kali
+					menu=1
+					exit 0
+				else
+					clear
+					printf "${green}\n  @ RECOVERY MENU \n\n"
+					printf "${green} -> Booting System... \n\n"
+					printf "${red}\n Kali-Linux is not installed! \n\n"
+					printf "${red} Please install Kali first! \n\n ${reset}"
+					read -p " Press Enter to exit " anykey
+				fi
+				break
 				;;
 			"Reinstall Kali-Linux")
 				clear
 				printf "${green}\n  @ RECOVERY MENU \n\n"
 				printf "${green} -> Reinstall Kali-Linux \n\n"
-				printf "${yellow} @ Reinstall will erase current Kali-Linux\n\n"
-				read -r -p "Are you sure to reinstall Kali-Linux? [Y/N] " response
-				printf "%b\n" " "
-				case "$response" in
-					 [y]|[Y]) 
-						cd $HOME
-						rm -rf kali-arm64 2> /dev/null
-						wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
-						chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
-						sh ~/kali-khanhnguyen.sh && echo "Process ended!"
-						printf "%b" "\n\n"
-						;;
-					*)
-						;;
+				printf "${yellow} 1. Reinstall with Keep your data\n"
+				printf "${yellow} 2. Reinstall with Lost your data\n"
+				printf "${yellow} 3. Return to menu\n"
+				read -r -p "Your choose: " response1
+				case "$response1" in
+					  [2])
+							clear
+							printf "${green}\n  @ RECOVERY MENU \n\n"
+							printf "${green} -> Reinstall Kali-Linux \n\n"
+							printf "${yellow} @ Reinstall will lost your data\n\n"
+							read -r -p "Are you sure to reinstall Kali-Linux? [Y/N] " response
+							printf "%b\n" " "
+							case "$response" in
+								[y]|[Y]) 
+									cd $HOME
+									rm -rf kali-arm64 2> /dev/null
+									wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
+									chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
+									sh ~/kali-khanhnguyen.sh && echo "Process ended!"
+									printf "%b" "\n\n"
+									;;
+								*)
+									;;
+							esac
+							break
+				             ;;
+					  [1]) 
+							clear
+							printf "${green}\n  @ RECOVERY MENU \n\n"
+							printf "${green} -> Reinstall Kali-Linux \n\n"
+							printf "${yellow} @ Reinstall will keep your data\n\n"
+							read -r -p "Are you sure to reinstall Kali-Linux? [Y/N] " response
+							printf "%b\n" " "
+							case "$response" in
+								[y]|[Y]) 
+									cd $HOME
+									wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
+									chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
+									sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
+									printf "%b" "\n\n"
+									;;
+								*)
+									;;
+							esac
+							break
+				             ;;
+					   [3])
+							clear
+							;;
+						*)
+							;;
 				esac
 				break
 				;;
@@ -241,7 +291,7 @@ while [ "$menu" != 1 ]; do
 								rm -f kali-arm64-backup.tar
 								exit 1
 							fi
-							read -p " Press Enter to exit" anykey
+							read -p " Press Enter to exit " anykey
 							;;
 						*)
 							;;
@@ -254,8 +304,7 @@ while [ "$menu" != 1 ]; do
                 printf "${green} -> Restore Image \n\n"
                 printf "${yellow} @ Please move Image to /sdcard and enter name file \n\n"
 				printf "${yellow}  @@ Example your file in /sdcard/kali-arm64.tar.xz \n"
-                printf "${yellow}  @@ Enter name image: kali-arm64.tar.xz \n"
-                printf "${red}   @@@ Restore image is unstable, may have some error after restore @@@ \n\n\n"
+                printf "${yellow}  @@ Enter name image: kali-arm64.tar.xz \n\n"
                 read -p "Enter Full name image: " restoreimage
 				checkfile=/sdcard/$restoreimage
                 printf "%b\n" "\n-----------------\n\n"
@@ -267,241 +316,40 @@ while [ "$menu" != 1 ]; do
                              printf "%b\n" "${yellow}\n -- Restore Image is in progress, please wait.... \n"
 							 if [ -f $checkfile ]; then
 					  			 printf "${green} restore image exist! \n"
+								 rm -rf ~/kali-arm64 2> /dev/null
 							 else
 					  			 printf "${red} restore image not exist! \n"
 					  			 printf "${red} Please check path restore image file! \n"
 								 exit 1
 							 fi
-							 VERSION=20211012
-							 USERNAME="kali"
-							 CHROOT=kali-arm64
-							 function ask() {
-								 while true; do
-
-									 if [ "${2:-}" = "Y" ]; then
-										 prompt="Y/n"
-										 default=Y
-									 elif [ "${2:-}" = "N" ]; then
-										 prompt="y/N"
-										 default=N
-									 else
-										 prompt="y/n"
-										 default=
-									 fi
-
-									 printf "${light_cyan}\n[?] "
-									 read -p "$1 [$prompt] " REPLY
-
-									 if [ -z "$REPLY" ]; then
-										 REPLY=$default
-									 fi
-
-									 printf "${reset}"
-
-									 case "$REPLY" in
-										 Y*|y*) return 0 ;;
-										 N*|n*) return 1 ;;
-									 esac
-									 done
-									 }
-
-									 function check_dependencies() {
-										 printf "${blue}\n[*] Preparing restore....${reset}\n"
-										 cd $HOME
-										 wget -O khanh https://tinyurl.com/4jaatp7m 2> /dev/null || :
-										 chmod +x khanh
-										 cp /sdcard/$restoreimage ~/$restoreimage
-										 apt-get update -y 2> /dev/null || apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade -y 2> /dev/null
-										 apt-get upgrade -y 2> /dev/null
-										 printf "${blue}[*] - Done ${reset}\n"
-									 }
-
-									 function extract_rootfs() {
-										 printf "\n${blue}[*] Restoring image..... ${reset}\n"
-									     printf "\n${blue}[*]     @ This will take a long time @ ${reset}\n"
-										 proot --link2symlink tar -xf $restoreimage 2> /dev/null || : && echo "- Done"
-										 rm -f $restoreimage
-										 echo 'oemunlock' > versionrestore
-										 mv versionrestore ${PREFIX}/bin/versionrestore 2> /dev/null
-										 chmod 777 ${PREFIX}/bin/versionrestore 2> /dev/null
-									 }
-
-
-									 function create_launcher() {
-										 mv ~/khanh ~/kali-arm64/usr/bin 2> /dev/null || :
-										 chmod 777 ~/kali-arm64/usr/bin/khanh 2> /dev/null || :
-										 KH_RECOVERY=$HOME/kali-arm64/usr/bin/recovery
-										 NH_LAUNCHER=${PREFIX}/bin/kali
-										 NH_SHORTCUT=${PREFIX}/bin/nh
-										 KEX_LAUNCHER=$HOME/kali-arm64/usr/bin/khanh
-										 cat > $NH_LAUNCHER <<- EOF
-#!/data/data/com.termux/files/usr/bin/bash -e
-red='\033[1;31m'
-green='\033[1;32m'
-yellow='\033[1;33m'
-blue='\033[1;34m'
-light_cyan='\033[1;96m'
-reset='\033[0m'
-clear
-printf "${blue}##################################################\n"
-printf "${blue}##                                              ##\n"
-printf "${blue}##  88      a8P         db        88        88  ##\n"
-printf "${blue}##  88    .88'         d88b       88        88  ##\n"
-printf "${blue}##  88   88'          d8''8b      88        88  ##\n"
-printf "${blue}##  88 d88           d8'  '8b     88        88  ##\n"
-printf "${blue}##  8888'88.        d8YaaaaY8b    88        88  ##\n"
-printf "${blue}##  88P   Y8b      d8''''''''8b   88        88  ##\n"
-printf "${blue}##  88     '88.   d8'        '8b  88        88  ##\n"
-printf "${blue}##  88       Y8b d8'          '8b 888888888 88  ##\n"
-printf "${blue}##                                              ##\n"
-printf "${blue}##                 arm64-v8a by KhanhNguyen9872 ##\n"
-printf "${blue}##################################################${reset}\n\n"
-printf "${yellow}[=] Kali-Linux KhanhNguyen (Thanks<3)${reset}\n\n"
-printf "${green}[+] Thong tin lenh, type:${reset}\n"
-printf "${green}[+] khanh            # Start Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] khanh stop       # Stop Kali-Linux VNC Viewer${reset}\n"
-printf "${green}[+] su               # Run Kali-Linux as root user${reset}\n"
-printf "${green}[+] khanhnguyen9872  # Get Information this Kali-Linux${reset}\n"
-printf "${green}[+] recovery         # Run Recovery Mode${reset}\n\n"
-cd \${HOME}
-unset LD_PRELOAD
-if [ ! -f $CHROOT/root/.version ]; then
-    touch $CHROOT/root/.version
-fi
-
-user="$USERNAME"
-home="/home/\$user"
-start="sudo -u kali /bin/bash"
-
-if grep -q "kali" ${CHROOT}/etc/passwd; then
-    KALIUSR="1";
-else
-    KALIUSR="0";
-fi
-if [[ \$KALIUSR == "0" || ("\$#" != "0" && ("\$1" == "-r" || "\$1" == "-R")) ]];then
-    user="root"
-    home="/\$user"
-    start="/bin/bash --login"
-    if [[ "\$#" != "0" && ("\$1" == "-r" || "\$1" == "-R") ]];then
-        shift
-    fi
-fi
-
-cmdline="proot \\
-        --link2symlink \\
-        -0 \\
-        -r $CHROOT \\
-        -b /dev \\
-        -b /sdcard \\
-	-b /system \\
-        -b /proc \\
-        -b $CHROOT\$home:/dev/shm \\
-        -w \$home \\
-           /usr/bin/env -i \\
-           HOME=\$home \\
-           PATH=/usr/local/sbin:/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin \\
-           TERM=\$TERM \\
-           LANG=C.UTF-8 \\
-           \$start"
-
-cmd="\$@"
-if [ "\$#" == "0" ];then
-    exec \$cmdline
-else
-    \$cmdline -c "\$cmd"
-fi
-	EOF
-	
-										 cat > $KH_RECOVERY <<- EOF
-##!/data/data/com.termux/files/usr/bin/bash -e
-red='\033[1;31m'
-printf "%b\n" "${red}\n Please exit Kali-Linux and run 'recovery' in Termux \n\n"
-	EOF
-
-										 chmod 777 $NH_LAUNCHER
-										 chmod 777 $KH_RECOVERY
-										 chmod 777 $KEX_LAUNCHER
-										 if [ -L ${NH_SHORTCUT} ]; then
-											 rm -f ${NH_SHORTCUT}
-										 fi
-										 if [ ! -f ${NH_SHORTCUT} ]; then
-											 ln -s ${NH_LAUNCHER} ${NH_SHORTCUT} >/dev/null
-										 fi
-									 }
-
-									 function fix_profile_bash() {
-										 if [ -f ${CHROOT}/root/.bash_profile ]; then
-										 sed -i '/if/,/fi/d' "${CHROOT}/root/.bash_profile"
-									 fi
-									 }
-
-									 function fix_sudo() {
-										 chmod +s $CHROOT/usr/bin/sudo
-										 chmod +s $CHROOT/usr/bin/su
-										 echo "kali    ALL=(ALL:ALL) ALL" > $CHROOT/etc/sudoers.d/kali
-
-										 echo "Set disable_coredump false" > $CHROOT/etc/sudo.conf
-									 }
-
-									 function fix_uid() {
-										 USRID=$(id -u)
-										 GRPID=$(id -g)
-										 nh -r usermod -u $USRID kali 2>/dev/null
-										 nh -r groupmod -g $GRPID kali 2>/dev/null
-									 }
-									 red='\033[1;31m'
-									 green='\033[1;32m'
-									 yellow='\033[1;33m'
-									 blue='\033[1;34m'
-									 light_cyan='\033[1;96m'
-									 reset='\033[0m'
-
-									 EXTRA_ARGS=""
-									 if [[ ! -z $1 ]]; then
-										 EXTRA_ARGS=$1
-										 if [[ $EXTRA_ARGS != "--insecure" ]]; then
-											 EXTRA_ARGS=""
-										 fi
-									 fi
-									 cd $HOME
-									 check_dependencies
-									 extract_rootfs
-									 create_launcher
-									 fix_profile_bash
-									 fix_sudo
-									 create_kex_launcher
-									 fix_uid
-									 clear
-									 cd $HOME && mv data/data/com.termux/files/home/kali-arm64 kali-arm64
-									 printf "${red}\n  @ RECOVERY MENU \n\n"
-									 printf "${green} -> Restore Image \n\n\n\n"
-									 printf "${blue} Restore completed! ${reset}\n\n"
-									 read -p "Press Enter to exit" anykey
+							 printf "${yellow}\n -Preparing.... \n"
+							 cd $HOME
+							 cp /sdcard/$checkfile restore-khanhnguyen.tar.xz
+							 wget -O restore-kali-khanhnguyen.sh https://tinyurl.com/37fhdpjb 2> /dev/null
+							 chmod +x ~/restore-kali-khanhnguyen.sh 2> /dev/null
+							 sh ~/restore-kali-khanhnguyen.sh && echo " - Process ended!"
+							 rm -f restore-kali-khanhnguyen.sh 2> /dev/null && rm -f restore-khanhnguyen 2> /dev/null && rm -f restore-khanhnguyen.tar.xz 2> /dev/null
+							 clear
+							 printf "${red}\n  @ RECOVERY MENU \n\n"
+							 printf "${green} -> Restore Image \n\n\n\n"
+							 printf "${blue} Restore completed! ${reset}\n\n"
+							 read -p "Press Enter to exit" anykey
                              ;;
                        *)
                              ;;
                 esac
                 break
                 ;;
-            "Wipe data")
+            "KhanhNguyen9872")
                 clear
 				printf "${red}\n  @ RECOVERY MENU \n\n"
-                printf "${green} -> Wipe data \n\n"
-                printf "${red} @ WARNING: Wipe data will factory reset users Kali-Linux! \n"
-                printf "${red} @ You need backup Image before user this! \n\n\n"
-                printf "${red}  @@@ Wipe data is in development and then not allow you use this @@@ \n\n\n"
-                read -r -p "Are you sure to wipe data? [Y/N] " response
-                case "$response" in
-                      [y]|[Y]) 
-							 cd $HOME
-                             rm -rf ~/kali-arm64/home
-                             mkdir ~/kali-arm64/home
-                             printf "%b\n" "${yellow} Completed wipe data! \n"
-                             read -p " Press any key and Enter to exit" anykey
-                             ;;
-                       *)
-                             ;;
-                esac
+                printf "${green} -> KhanhNguyen9872 \n\n\n"
+				printf "${yellow} Name: Nguyen Van Khanh \n"
+				printf " Facebook: https://fb.me/khanh10a1 \n"
+				printf " Youtube: https://www.youtube.com/channel/UC8didcLVaL4iTfbuWBGv51w \n"
+				printf " Github: https://github.com/KhanhNguyen9872 \n"
+				printf " Instagram: khanh10a1 \n\n"
+				read -p " Press Enter to exit" anykey
                 break
                 ;;
             "Uninstall Kali-Linux")
