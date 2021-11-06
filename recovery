@@ -344,6 +344,7 @@ while [ "$menu" != 1 ]; do
 							 chmod +x ~/restore-kali-khanhnguyen.sh 2> /dev/null
 							 sh ~/restore-kali-khanhnguyen.sh && echo " - Process ended!"
 							 rm -f restore-kali-khanhnguyen.sh 2> /dev/null && rm -f restore-khanhnguyen 2> /dev/null && rm -f restore-khanhnguyen.tar.xz 2> /dev/null
+							 mv data/data/com.termux/files/home/kali-arm64 kali-arm64 && rm -rf data
 							 clear
 							 printf "${red}\n  @ RECOVERY MENU \n\n"
 							 printf "${green} -> Restore Image \n\n\n\n"
