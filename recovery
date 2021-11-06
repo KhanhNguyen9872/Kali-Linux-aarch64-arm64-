@@ -65,6 +65,7 @@ else
 		exit 0
 	else
 		printf "${red}\n Kali-Linux is not installed! \n"
+		kalifail=1
 	fi
 fi
 cd $HOME
