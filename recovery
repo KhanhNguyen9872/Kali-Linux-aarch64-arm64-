@@ -8,7 +8,7 @@ light_cyan='\033[1;96m'
 reset='\033[0m'
 clear
 echo "- Booting into Recovery Mode...."
-khanhnguyen="v1.0"
+khanhnguyen="v1.1"
 cd $HOME
 wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Preparing..."
 wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null && echo "- Booting..."
