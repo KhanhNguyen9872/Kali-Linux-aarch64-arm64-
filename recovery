@@ -335,7 +335,7 @@ while [ "$menu" != 1 ]; do
 							 else
 					  			 printf "${red} restore image not exist! \n"
 					  			 printf "${red} Please check path restore image file! \n"
-								 exit 1
+								 break
 							 fi
 							 printf "${yellow}\n -Preparing.... \n"
 							 cd $HOME
