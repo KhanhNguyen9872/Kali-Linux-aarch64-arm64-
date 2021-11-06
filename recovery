@@ -8,7 +8,7 @@ light_cyan='\033[1;96m'
 reset='\033[0m'
 clear
 echo "- Booting into Recovery Mode...."
-khanhnguyen="v1.0"
+khanhnguyen="v1.1"
 cd $HOME
 wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Preparing..."
 wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null && echo "- Booting..."
@@ -68,6 +68,7 @@ else
 fi
 cd $HOME
 if [[ $ver -ge $update ]]; then
+	printf "${light_cyan} Installed: $ver \n"
 	printf "${green} - No updates Kali are available!\n\n"
 	rm -f version
 else
@@ -76,6 +77,7 @@ else
 		printf "${green} Skip check for update! \n\n"
 	else
 		rm -f version
+		printf "${light_cyan} Installed: $update \n"
 		printf "${yellow} - New updates Kali are available!\n"
 		printf "${yellow} - New version: $update \n"
 		printf "${yellow} - Update will keep your personal data! \n\n"
@@ -115,11 +117,13 @@ else
 fi
 cd $HOME
 if [[ $verrecovery -ge $updaterecovery ]]; then
+	printf "${light_cyan} Installed: $verrecovery \n"
 	printf "${green} - No updates Recovery are available!\n"
 	rm -f versionrecovery
 	sleep 3
 else
 	rm -f versionrecovery
+	printf "${light_cyan} Installed: $verrecovery \n"
 	printf "${yellow} - New updates Recovery are available!\n"
 	printf "${yellow} - New version: $updaterecovery \n\n"
 	printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
