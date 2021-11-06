@@ -122,7 +122,7 @@ if [[ $verrecovery -ge $updaterecovery ]]; then
 	printf "${green} - No updates Recovery are available!\n"
 	rm -f versionrecovery 2> /dev/null
 	echo "=============================="
-	sleep 5
+	sleep 4
 else
 	rm -f versionrecovery 2> /dev/null
 	printf "${light_cyan} Installed: $verrecovery \n"
