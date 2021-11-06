@@ -50,7 +50,8 @@ if [ -f cp ]; then
 			printf "${yellow}\n Custom Image is detected! Not Official! \n"
 			custom=1
 		else
-			printf "${red}\n Can't detect version Recovery! \n"
+			printf "${red}\n Can't detect version Kali! \n"
+			kalifail=1
 		fi
 	fi
 else
@@ -73,13 +74,13 @@ if [[ $ver -ge $update ]]; then
 	rm -f version 2> /dev/null
 	sleep 1
 else
-	if [ $ver = '' ]; then
-		ver="null"
-	fi
 	if [[ custom -eq 1 ]]; then
 		rm -f version 2> /dev/null
 		printf "${green} Skip check for update! \n\n"
 	else
+		if [[ kalifail -eq 1 ]]; then
+			ver="null"
+		fi
 		rm -f version
 		printf "${light_cyan} Installed: $ver \n"
 		printf "${yellow} - New updates Kali are available!\n"
@@ -118,12 +119,10 @@ if [ -f usr/bin/versionrecovery ]; then
 	echo '1' > /dev/null
 else
 	printf "${red}\n Can't detect version Recovery! \n"
+	verrecovery="null"
 fi
 cd $HOME
 if [[ $verrecovery -ge $updaterecovery ]]; then
-	if [ $verrecovery = '' ]; then
-		verrecovery="null"
-	fi
 	printf "${light_cyan} Installed: $verrecovery \n"
 	printf "${green} - No updates Recovery are available!\n"
 	rm -f versionrecovery 2> /dev/null
