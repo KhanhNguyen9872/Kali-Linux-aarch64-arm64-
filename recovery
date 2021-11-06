@@ -8,7 +8,7 @@ light_cyan='\033[1;96m'
 reset='\033[0m'
 clear
 echo "- Booting into Recovery Mode...."
-khanhnguyen="v1.1"
+khanhnguyen="v1.0"
 cd $HOME
 wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Preparing..."
 wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null && echo "- Booting..."
@@ -92,6 +92,7 @@ else
 				sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
 				printf "%b" "\n\n"
 				rm -f ~/kali-khanhnguyenup.sh 2> /dev/null
+				read -p " Press Enter to exit " anykey
 				;;
 			*)
 				;;
@@ -209,6 +210,7 @@ while [ "$menu" != 1 ]; do
 									chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
 									sh ~/kali-khanhnguyen.sh && echo "Process ended!"
 									printf "%b" "\n\n"
+									read -p " Press Enter to exit " anykey
 									;;
 								*)
 									;;
@@ -229,6 +231,7 @@ while [ "$menu" != 1 ]; do
 									chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
 									sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
 									printf "%b" "\n\n"
+									read -p " Press Enter to exit " anykey
 									;;
 								*)
 									;;
