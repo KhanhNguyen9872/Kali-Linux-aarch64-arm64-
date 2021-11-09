@@ -109,7 +109,7 @@ else
 			printf "${yellow} - New updates Kali are available!\n"
 			printf "${yellow} - New version: $update \n"
 			printf "${light_cyan}\n - Changelogs: \n"
-			$updatechangelog
+			echo "$updatechangelog"
 			printf "${yellow}\n\n - Update will keep your personal data! \n\n"
 			printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
 			read -r -p "Your choose: " response
@@ -177,7 +177,7 @@ else
 		printf "${yellow} - New updates Recovery are available!\n"
 		printf "${yellow} - New version: $updaterecovery \n"
 		printf "${light_cyan}\n - Changelogs: \n"
-		$updaterecoverychangelog
+		echo "$updaterecoverychangelog"
 		printf "${light_cyan}\n\n - Do you want to update it now? [Y/N] \n"
 		read -r -p "Your choose: " response
 		printf "%b\n" " "
