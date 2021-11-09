@@ -187,10 +187,10 @@ else
 				cd $HOME
 				wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null
 				wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
-				update1="$(grep 'clear' './recovery')"
-				update2="$(grep 'clear' './versionrecovery')"
-				if [[ $update1 -eq 'clear' ]]; then
-					if [ $update2 -eq 'clear' ]; then
+				update1="$(grep "" './recovery')"
+				update2="$(grep '' './versionrecovery')"
+				if [[ $update1 = "" ]]; then
+					if [ $update2 -eq '' ]; then
 						printf "${red}\n No connection are available! \n"
 						rm -f recovery 2> /dev/null
 						rm -f versionrecovery 2> /dev/null
