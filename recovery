@@ -20,7 +20,7 @@ else
 	nonetwork=1
 fi
 if [ -f changelogversion ]; then
-	updaterecoverychangelog="$(grep '' './changerlogverion')"
+	updaterecoverychangelog="$(grep '' './changelogverion')"
 else
 	nonetwork=1
 fi
@@ -49,7 +49,7 @@ if [ -f usr/bin/versionrecovery ]; then
 fi
 cd
 clear
-sleep 0.5
+sleep 1
 echo " @ RECOVERY MODE"
 printf "${green}\n - Checking for updates Kali.... \n"
 sleep 0.5
