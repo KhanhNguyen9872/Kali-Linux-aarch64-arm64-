@@ -8,15 +8,37 @@ light_cyan='\033[1;96m'
 reset='\033[0m'
 clear
 echo "- Booting into Recovery Mode...."
-khanhnguyen="v1.1"
+khanhnguyen="v1.2"
 cd $HOME
 wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Preparing..."
 wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null && echo "- Booting..."
+wget -O changelogver https://tinyurl.com/urbzd2v3 2> /dev/null && echo "- Completed!"
+wget -O changelogversion https://tinyurl.com/2jvx23p2 2> /dev/null && echo "- Starting check for update..."
+if [ -f changelogver ]; then
+	updatechangelog="$(grep '' './changelogver')"
+else
+	nonetwork=1
+fi
+if [ -f changelogversion ]; then
+	updaterecoverychangelog="$(grep '' './changerlogverion')"
+else
+	nonetwork=1
+fi
 if [ -f version ]; then
 	update="$(grep '' './version')"
+else
+	nonetwork=1
 fi
 if [ -f versionrecovery ]; then
 	updaterecovery="$(grep '' './versionrecovery')"
+else
+	nonetwork=1
+fi
+if [[ $update -eq '' ]]; then
+	nonetwork=1
+fi
+if [[ $updaterecovery -eq '' ]]; then
+	nonetwork=1
 fi
 cd ..
 if [ -f usr/bin/version ]; then
@@ -31,80 +53,96 @@ sleep 0.5
 echo " @ RECOVERY MODE"
 printf "${green}\n - Checking for updates Kali.... \n"
 sleep 0.5
-if [ -f version ]; then
-	echo '1' > /dev/null
+if [[ nonetwork -eq 1 ]]; then
+	printf "${red}\n No connection are available! \n\n"
+	printf "${red} Skip check for update! \n\n"
+	sleep 1
 else
-	printf "${red}\n No connection are available! \n"
-fi
-cd ..
-cd home 2> /dev/null
-cd kali-arm64 2> /dev/null
-cd bin 2> /dev/null
-if [ -f cp ]; then
-	cd
 	cd ..
-	if [ -f usr/bin/version ]; then
-		echo '1' > /dev/null
-	else
-		if [ -f usr/bin/versionrestore ]; then
-			printf "${yellow}\n Custom Image is detected! Not Official! \n"
-			custom=1
+	cd home 2> /dev/null
+	cd kali-arm64 2> /dev/null
+	cd bin 2> /dev/null
+	if [ -f cp ]; then
+		cd
+		cd ..
+		if [ -f usr/bin/version ]; then
+			echo '1' > /dev/null
 		else
-			printf "${red}\n Can't detect version Kali! \n"
+			if [ -f usr/bin/versionrestore ]; then
+				printf "${yellow}\n Custom Image is detected! Not Official! \n"
+				custom=1
+			else
+				printf "${red}\n Can't detect version Kali! \n"
+				kalifail=1
+			fi
+		fi
+	else
+		cd
+		cd ..
+		cd ..
+		cd bin 2> /dev/null
+		if [ -f cp ]; then
+			printf "${yellow}\n Detected installed on unknown location!\n"
+			printf "${yellow}\n Recovery will now exit!\n"
+			exit 0
+		else
+			printf "${red}\n Kali-Linux is not installed! \n"
 			kalifail=1
 		fi
 	fi
-else
-	cd
-	cd ..
-	cd ..
-	cd bin 2> /dev/null
-	if [ -f cp ]; then
-		printf "${yellow}\n Detected installed on unknown location!\n"
-		printf "${yellow}\n Recovery will now exit!\n"
-		exit 0
-	else
-		printf "${red}\n Kali-Linux is not installed! \n"
-		kalifail=1
-	fi
-fi
-cd $HOME
-if [[ $ver -ge $update ]]; then
-	printf "${light_cyan} Installed: $ver \n"
-	printf "${green} - No updates Kali are available!\n\n"
-	rm -f version 2> /dev/null
-	sleep 1
-else
-	if [[ custom -eq 1 ]]; then
-		rm -f version 2> /dev/null
-		printf "${green} Skip check for update! \n\n"
-	else
-		if [[ kalifail -eq 1 ]]; then
-			ver="null"
-		fi
-		rm -f version
+	cd $HOME
+	if [[ $ver -ge $update ]]; then
 		printf "${light_cyan} Installed: $ver \n"
-		printf "${yellow} - New updates Kali are available!\n"
-		printf "${yellow} - New version: $update \n"
-		printf "${yellow} - Update will keep your personal data! \n\n"
-		printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
-		read -r -p "Your choose: " response
-		printf "%b\n" " "
-		case "$response" in
-			[y]|[Y]) 
-				cd $HOME
-				printf "%b\n" "${yellow} - Updating... \n"
-				wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
-				wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
-				chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
-				sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
-				printf "%b" "\n\n"
-				rm -f ~/kali-khanhnguyenup.sh 2> /dev/null
-				read -p " Press Enter to exit " anykey
-				;;
-			*)
-				;;
-		esac
+		printf "${green} - No updates Kali are available!\n\n"
+		rm -f version 2> /dev/null
+		sleep 1
+	else
+		if [[ custom -eq 1 ]]; then
+			rm -f version 2> /dev/null
+			printf "${green} Skip check for update! \n\n"
+		else
+			if [[ kalifail -eq 1 ]]; then
+				ver="null"
+			fi
+			rm -f version
+			printf "${light_cyan} Installed: $ver \n"
+			printf "${yellow} - New updates Kali are available!\n"
+			printf "${yellow} - New version: $update \n"
+			printf "${light_cyan}\n - Changelogs: \n"
+			printf "${yellow} $updatechangelog "
+			printf "${yellow}\n\n - Update will keep your personal data! \n\n"
+			printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
+			read -r -p "Your choose: " response
+			printf "%b\n" " "
+			case "$response" in
+				[y]|[Y]) 
+					cd $HOME
+					printf "%b\n" "${yellow} - Updating... \n"
+					wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
+					wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
+					update5="$(grep '' './kali-khanhnguyenup.sh')"
+					update6="$(grep '' './version')"
+					if [[ $update5 -eq '' ]]; then
+						if [[ $update6 -eq '' ]]; then
+							printf "${red}\n No connection are available! \n\n"
+							rm -f kali-khanhnguyenup.sh 2> /dev/null
+							rm -f version 2> /dev/null
+						else
+							printf "${red}\n No connection are available! \n\n"
+							rm -f kali-khanhnguyenup.sh 2> /dev/null
+							rm -f version 2> /dev/null
+						fi
+					else
+						chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
+						sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
+						printf "%b" "\n\n"
+					fi
+					read -p " Press Enter to exit " anykey
+					;;
+				*)
+					;;
+			esac
+		fi
 	fi
 fi
 echo "=============================="
@@ -113,7 +151,11 @@ sleep 0.5
 if [ -f versionrecovery ]; then
 	echo '1' > /dev/null
 else
-	printf "${red}\n No connection are available! \n"
+	nonetwork=1
+fi
+if [[ nonetwork -eq 1 ]]; then
+	printf "${red}\n No connection are available! \n\n"
+	customre=1
 fi
 cd ..
 if [ -f usr/bin/versionrecovery ]; then
@@ -123,55 +165,67 @@ else
 	verrecovery="null"
 fi
 cd $HOME
-if [[ $verrecovery -ge $updaterecovery ]]; then
-	printf "${light_cyan} Installed: $verrecovery \n"
-	printf "${green} - No updates Recovery are available!\n"
+if [[ $customre -eq 1 ]]; then
 	rm -f versionrecovery 2> /dev/null
-	echo "=============================="
-	sleep 4
+	printf "${red} Skip check for update! \n\n"
+	sleep 5
 else
-	rm -f versionrecovery 2> /dev/null
-	printf "${light_cyan} Installed: $verrecovery \n"
-	printf "${yellow} - New updates Recovery are available!\n"
-	printf "${yellow} - New version: $updaterecovery \n\n"
-	printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
-	read -r -p "Your choose: " response
-	printf "%b\n" " "
-	case "$response" in
-		[y]|[Y]) 
-			printf "%b\n" "${yellow} - Updating... \n"
-			cd $HOME
-			wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null
-			wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
-			cd ..
-			mv home/recovery usr/bin/recovery
-			mv home/versionrecovery usr/bin/versionrecovery
-			chmod 777 usr/bin/recovery
-			chmod 777 usr/bin/versionrecovery
-			if [ -f usr/bin/recovery ]; then
-				if [ -f usr/bin/versionrecovery ]; then
-					cd $HOME
+	if [[ $verrecovery -ge $updaterecovery ]]; then
+		printf "${light_cyan} Installed: $verrecovery \n"
+		printf "${green} - No updates Recovery are available!\n"
+		rm -f versionrecovery 2> /dev/null
+		echo "=============================="
+		sleep 4
+	else
+		rm -f versionrecovery 2> /dev/null
+		printf "${light_cyan} Installed: $verrecovery \n"
+		printf "${yellow} - New updates Recovery are available!\n"
+		printf "${yellow} - New version: $updaterecovery \n"
+		printf "${light_cyan}\n - Changelogs: \n"
+		printf "${yellow} $updaterecoverychangelog "
+		printf "${light_cyan}\n\n - Do you want to update it now? [Y/N] \n"
+		read -r -p "Your choose: " response
+		printf "%b\n" " "
+		case "$response" in
+			[y]|[Y]) 
+				printf "%b\n" "${yellow} - Updating... \n"
+				cd $HOME
+				wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null
+				wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
+				update1="$(grep '' './recovery')"
+				update2="$(grep '' './versionrecovery')"
+				if [[ $update1 -eq '' ]]; then
+					if [ $update2 -eq '' ]; then
+						printf "${red}\n No connection are available! \n"
+						rm -f recovery 2> /dev/null
+						rm -f versionrecovery 2> /dev/null
+						sleep 3
+					else
+						printf "${red}\n No connection are available! \n"
+						rm -f recovery 2> /dev/null
+						rm -f versionrecovery 2> /dev/null
+						sleep 3
+					fi
+				else
+					cd ..
+					mv home/recovery usr/bin/recovery
+					mv home/versionrecovery usr/bin/versionrecovery
+					chmod 777 usr/bin/recovery
+					chmod 777 usr/bin/versionrecovery						
 					printf "%b\n\n" "${green} - Update successfully! \n"
 					printf "${green} - Run recovery again! \n\n"
-					exit 0
-				else
-					printf "%b\n\n" "${red} - Update failed! \n"
-					printf "${red} - Try again later! \n"
 					read -p " Press Enter to continue " anykey
+					exit 0
 				fi
-			else
-				printf "%b\n\n" "${red} - Update failed! \n"
-				printf "${red} - Try again later! \n"
-				read -p " Press Enter to continue " anykey
-			fi
-			;;
-		*)
-			;;
-	esac
+				;;
+			*)
+				;;
+		esac
+	fi
 fi
 #####
 PS3=' - Your Choose: '
-entries=("Continue run Kali-Linux" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "KhanhNguyen9872" "Uninstall Kali-Linux" "Exit")
+entries=("Continue run Kali-Linux" "Set Password" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "KhanhNguyen9872" "Uninstall Kali-Linux" "Exit")
 while [ "$menu" != 1 ]; do
 	clear
 	printf "${green}\n  @ RECOVERY MENU \n"
@@ -217,11 +271,18 @@ while [ "$menu" != 1 ]; do
 							case "$response" in
 								[y]|[Y]) 
 									cd $HOME
-									rm -rf kali-arm64 2> /dev/null
 									wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
-									chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
-									sh ~/kali-khanhnguyen.sh && echo "Process ended!"
-									printf "%b" "\n\n"
+									update3="$(grep '' './kali-khanhnguyen.sh')"
+									if [[ $update3 -eq '' ]]; then
+										printf "${red}\n\n No connection are available! \n\n"
+										rm -f kali-khanhnguyen.sh 2> /dev/null
+									else
+										rm -rf kali-arm64 2> /dev/null
+										chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
+										sh ~/kali-khanhnguyen.sh && echo "Process ended!"
+										rm -f kali-khanhnguyen.sh 2> /dev/null
+										printf "%b" "\n\n"
+									fi
 									read -p " Press Enter to exit " anykey
 									;;
 								*)
@@ -240,9 +301,16 @@ while [ "$menu" != 1 ]; do
 								[y]|[Y]) 
 									cd $HOME
 									wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
-									chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
-									sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
-									printf "%b" "\n\n"
+									update3="$(grep '' './kali-khanhnguyenup.sh')"
+									if [[ $update3 -eq '' ]]; then
+										printf "${red}\n\n No connection are available! \n\n"
+										rm -f kali-khanhnguyenup.sh 2> /dev/null
+									else
+										chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
+										sh ~/kali-khanhnguyenup.sh && echo "Process ended!"
+										rm -f kali-khanhnguyenup.sh 2> /dev/null
+										printf "%b" "\n\n"
+									fi
 									read -p " Press Enter to exit " anykey
 									;;
 								*)
@@ -331,24 +399,28 @@ while [ "$menu" != 1 ]; do
                              printf "%b\n" "${yellow}\n -- Restore Image is in progress, please wait.... \n"
 							 if [ -f $checkfile ]; then
 					  			 printf "${green} restore image exist! \n"
-								 rm -rf ~/kali-arm64 2> /dev/null
+					  			 printf "${yellow}\n -Preparing.... \n"
+								 cd $HOME
+								 wget -O restore-kali-khanhnguyen.sh https://tinyurl.com/37fhdpjb 2> /dev/null
+								 update4="$(grep '' './restore-kali-khanhnguyen.sh')"
+								 if [[ $update4 -eq '' ]]; then
+							 		 printf "${red}\n\n No connection are available! \n\n"
+							 		 rm -f restore-kali-khanhnguyen.sh 2> /dev/null
+								 else
+								 	 cp /sdcard/$restoreimage restore-khanhnguyen.tar.xz
+								 	 rm -rf ~/kali-arm64 2> /dev/null
+								     chmod +x ~/restore-kali-khanhnguyen.sh 2> /dev/null
+								 	 sh ~/restore-kali-khanhnguyen.sh && echo " - Process ended!"
+									 rm -f restore-kali-khanhnguyen.sh 2> /dev/null && rm -f restore-khanhnguyen 2> /dev/null && rm -f restore-khanhnguyen.tar.xz 2> /dev/null
+									 clear
+									 printf "${red}\n  @ RECOVERY MENU \n\n"
+									 printf "${green} -> Restore Image \n\n\n\n"
+									 printf "${blue} Restore completed! ${reset}\n\n"
+								 fi
 							 else
 					  			 printf "${red} restore image not exist! \n"
-					  			 printf "${red} Please check path restore image file! \n"
-								 break
+					  			 printf "${red} Please check path restore image file! \n\n"
 							 fi
-							 printf "${yellow}\n -Preparing.... \n"
-							 cd $HOME
-							 cp /sdcard/$restoreimage restore-khanhnguyen.tar.xz
-							 wget -O restore-kali-khanhnguyen.sh https://tinyurl.com/37fhdpjb 2> /dev/null
-							 chmod +x ~/restore-kali-khanhnguyen.sh 2> /dev/null
-							 sh ~/restore-kali-khanhnguyen.sh && echo " - Process ended!"
-							 rm -f restore-kali-khanhnguyen.sh 2> /dev/null && rm -f restore-khanhnguyen 2> /dev/null && rm -f restore-khanhnguyen.tar.xz 2> /dev/null
-							 mv data/data/com.termux/files/home/kali-arm64 kali-arm64 && rm -rf data
-							 clear
-							 printf "${red}\n  @ RECOVERY MENU \n\n"
-							 printf "${green} -> Restore Image \n\n\n\n"
-							 printf "${blue} Restore completed! ${reset}\n\n"
 							 read -p "Press Enter to exit" anykey
                              ;;
                        *)
@@ -362,7 +434,7 @@ while [ "$menu" != 1 ]; do
                 printf "${green} -> KhanhNguyen9872 \n\n\n"
 				printf "${yellow} Name: Nguyen Van Khanh \n"
 				printf " Facebook: https://fb.me/khanh10a1 \n"
-				printf " Youtube: https://www.youtube.com/channel/UC8didcLVaL4iTfbuWBGv51w \n"
+				printf " Youtube: https://youtube.com/channel/UC8didcLVaL4iTfbuWBGv51w \n"
 				printf " Github: https://github.com/KhanhNguyen9872 \n"
 				printf " Instagram: khanh10a1 \n\n"
 				read -p " Press Enter to exit" anykey
@@ -440,6 +512,12 @@ while [ "$menu" != 1 ]; do
 				printf "%b\n" "${green} \n\n - Good bye! \n"
                 menu=1
 				exit 0
+                ;;
+            "Set Password" )
+				clear
+				printf "%b\n" "${yellow} \n\n - This feature is under development! \n"
+				read -p "Press Enter to exit" anykey
+				break
                 ;;
             * )
                 break
