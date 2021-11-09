@@ -20,7 +20,7 @@ else
 	nonetwork=1
 fi
 if [ -f changelogversion ]; then
-	updaterecoverychangelog="$(grep '' './changelogverion')"
+	updaterecoverychangelog="$(grep '' './changelogversion')"
 else
 	nonetwork=1
 fi
@@ -109,7 +109,7 @@ else
 			printf "${yellow} - New updates Kali are available!\n"
 			printf "${yellow} - New version: $update \n"
 			printf "${light_cyan}\n - Changelogs: \n"
-			printf "${yellow} $updatechangelog "
+			$updatechangelog
 			printf "${yellow}\n\n - Update will keep your personal data! \n\n"
 			printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
 			read -r -p "Your choose: " response
@@ -148,11 +148,6 @@ fi
 echo "=============================="
 printf "${green}\n - Checking for updates Recovery.... \n"
 sleep 0.5
-if [ -f versionrecovery ]; then
-	echo '1' > /dev/null
-else
-	nonetwork=1
-fi
 if [[ nonetwork -eq 1 ]]; then
 	printf "${red}\n No connection are available! \n\n"
 	customre=1
@@ -182,7 +177,7 @@ else
 		printf "${yellow} - New updates Recovery are available!\n"
 		printf "${yellow} - New version: $updaterecovery \n"
 		printf "${light_cyan}\n - Changelogs: \n"
-		printf "${yellow} $updaterecoverychangelog "
+		$updaterecoverychangelog
 		printf "${light_cyan}\n\n - Do you want to update it now? [Y/N] \n"
 		read -r -p "Your choose: " response
 		printf "%b\n" " "
