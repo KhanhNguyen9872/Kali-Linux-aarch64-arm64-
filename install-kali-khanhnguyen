@@ -216,6 +216,12 @@ cmdline="proot \\
         -r $CHROOT \\
         -b /dev \\
         -b /sdcard \\
+	-b /vendor \\
+	-b /data \\
+	-b /storage \\
+	-b /sbin \\
+	-b /mnt \\
+	-b /d \\
 	-b /system \\
         -b /proc \\
         -b $CHROOT\$home:/dev/shm \\
