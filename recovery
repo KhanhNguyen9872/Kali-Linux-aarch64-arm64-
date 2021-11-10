@@ -11,9 +11,9 @@ cd
 cd ..
 khanh=usr/bin/khanh
 if [ -f $khanh ]; then
-	left=3
+	left=4
 	khanh1="$(grep '' './usr/bin/khanh')"
-	while [[ $left -eq 3 ]] || [[ $left -eq 2 ]] || [[ $left -eq 1 ]]; do
+	while [[ $left -eq 4 ]] || [[ $left -eq 3 ]] || [[ $left -eq 2 ]] || [[ $left -eq 1 ]]; do
 		clear
 		if [[ $wrong -eq 1 ]]; then
 			printf "\n ${red} - Wrong Password! $left attempts left! ${reset}\n\n"
@@ -613,7 +613,7 @@ while [ "$menu" != 1 ]; do
 									cd usr/bin
 									if [[ $password -eq $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null; then
 										if [[ -f khanh ]]; then
-											if [[ $password -eq '' ]] 2> /dev/null; then
+											if [[ $password -eq '' ]] 2> /dev/null || [ $password = '' ] 2> /dev/null; then
 												printf "${red}\n\n - Password is not empty! \n"
 											else
 												echo $password > khanh
