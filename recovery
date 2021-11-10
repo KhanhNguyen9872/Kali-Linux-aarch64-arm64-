@@ -7,13 +7,49 @@ blue='\033[1;34m'
 light_cyan='\033[1;96m'
 reset='\033[0m'
 clear
+cd
+cd ..
+khanh=usr/bin/khanh
+if [ -f $khanh ]; then
+	left=3
+	khanh1="$(grep '' './usr/bin/khanh')"
+	while [[ $left -eq 3 ]] || [[ $left -eq 2 ]] || [[ $left -eq 1 ]]; do
+		clear
+		if [[ $wrong -eq 1 ]]; then
+			printf "\n ${red} - Wrong Password! $left attempts left! ${reset}\n\n"
+		fi
+		if [[ $left -eq 0 ]]; then
+			clear
+			printf "\n\n ${red} - Wrong Password! Exit! ${reset}\n\n"
+			exit 0
+		fi
+		printf "${light_cyan}\n   Type your Password! ${reset}\n\n"
+		read -p "Password: " anykey
+		if [[ $anykey -eq $khanh1 ]] 2> /dev/null || [[ $anykey = $khanh1 ]] 2> /dev/null || [ $anykey = $khanh1 ] 2> /dev/null || (( $anykey = $khanh1 )) 2> /dev/null; then
+			printf "\n ${yellow} - PASS! ${reset}\n"
+			newpass=1
+			break
+		else
+			wrong=1
+			left=$((left-1))
+		fi
+	done
+	if [[ $left -eq 0 ]]; then
+		clear
+		printf "\n\n ${red} - Wrong Password! Exit! ${reset}\n\n"
+		exit 0
+	fi
+else
+	notset=1
+fi
+clear
 echo "- Booting into Recovery Mode...."
-khanhnguyen="v1.2"
+khanhnguyen="v1.3"
 cd $HOME
-wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Preparing..."
-wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null && echo "- Booting..."
-wget -O changelogver https://tinyurl.com/urbzd2v3 2> /dev/null && echo "- Completed!"
-wget -O changelogversion https://tinyurl.com/2jvx23p2 2> /dev/null && echo "- Starting check for update..."
+wget -O version https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/version 2> /dev/null && echo "- Preparing..."
+wget -O versionrecovery https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/versionrecovery 2> /dev/null && echo "- Booting..."
+wget -O changelogver https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogver 2> /dev/null && echo "- Completed!"
+wget -O changelogversion https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogversion 2> /dev/null && echo "- Starting check for update..."
 if [ -f changelogver ]; then
 	updatechangelog="$(grep '' './changelogver')"
 else
@@ -72,7 +108,7 @@ else
 				printf "${yellow}\n Custom Image is detected! Not Official! \n"
 				custom=1
 			else
-				printf "${red}\n Can't detect version Kali! \n"
+				printf "${red}\n Installed / Can't detect version Kali! \n"
 				kalifail=1
 			fi
 		fi
@@ -88,6 +124,7 @@ else
 		else
 			printf "${red}\n Kali-Linux is not installed! \n"
 			kalifail=1
+			updatek=1
 		fi
 	fi
 	cd $HOME
@@ -110,7 +147,11 @@ else
 			printf "${yellow} - New version: $update \n"
 			printf "${light_cyan}\n - Changelogs: \n"
 			echo "$updatechangelog"
-			printf "${yellow}\n\n - Update will keep your personal data! \n\n"
+			if [[ $updatek -eq 1 ]]; then
+				echo 'khanh' 2> /dev/null
+			else
+				printf "${yellow}\n\n - Update will keep your personal data! \n\n"
+			fi
 			printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
 			read -r -p "Your choose: " response
 			printf "%b\n" " "
@@ -501,7 +542,125 @@ while [ "$menu" != 1 ]; do
                 ;;
             "Set Password" )
 				clear
-				printf "%b\n" "${yellow} \n\n - This feature is under development! \n"
+				printf "${red}\n  @ RECOVERY MENU \n\n"
+				printf "${green} -> Set Password \n\n"
+				if [[ $notset -eq 1 ]]; then
+					printf "%b\n" "${yellow} Password is not set! \n\n"
+					printf " Do you want setup New Password? [Y/N] \n"
+					read -p "Your choose: " anykey
+					case "$anykey" in
+						[y]|[Y]) 
+								pass=1
+								while [[ $pass -eq 1 ]]; do
+									clear
+									printf "${red}\n  @ RECOVERY MENU \n\n"
+									printf "${green} -> Set Password ${reset} \n\n"
+									read -p "New password: " password
+									read -p "Confirm password: " confirm
+									cd
+									cd ..
+									cd usr/bin
+									if [[ $password -eq $confirm ]] 2> /dev/null || [[ $password = $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null || (( $password = $confirm )) 2> /dev/null; then
+										echo $password > khanh
+										if [[ -f khanh ]]; then
+											pass1="$(grep '' './khanh')"
+											if [[ $pass1 -eq '' ]] 2> /dev/null; then
+												printf "${red}\n\n - Password is not empty! \n"
+												rm -f khanh
+											else
+												printf "${light_cyan}\n\n - Password is set successfully! \n"
+												notset=0
+											fi
+										else
+											printf "${red}\n\n - Error when set Password! \n"
+											rm -f khanh
+										fi
+										read -p "Press Enter to exit!" anykey
+										break
+									else
+										printf "${red}\n\n - Password are not the same! \n"
+										printf "${red}\n\n - Type again! ${reset}\n"
+										read -p "Press Enter to try again!" anykey
+									fi
+								done
+								;;
+							*)
+								;;
+					esac
+					break
+				else
+					printf "%b\n" "${yellow} Password was set!\n\n"
+					printf "${light_cyan} 1. Change password\n"
+					printf " 2. Remove password\n"
+					printf " 3. Return to menu\n\n ${reset}"
+					read -r -p "Your choose: " response1
+					case "$response1" in
+						[1])
+							clear
+							printf "${red}\n  @ RECOVERY MENU \n\n"
+							printf "${green} -> Change Password \n\n"
+							printf "${red} @ Are you sure to change Password? [Y/N]\n"
+							read -p "Your choose: " changepass1
+							if [ $changepass1 = 'y' ] || [ $changepass1 = 'Y' ]; then
+								while [[ $newpass -eq 1 ]]; do
+									clear
+									printf "${red}\n  @ RECOVERY MENU \n\n"
+									printf "${green} -> Change Password ${reset} \n\n"
+									read -p "New password: " password
+									read -p "Confirm password: " confirm
+									cd
+									cd ..
+									cd usr/bin
+									if [[ $password -eq $confirm ]] 2> /dev/null || [[ $password = $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null || (( $password = $confirm )) 2> /dev/null; then
+										if [[ -f khanh ]]; then
+											if [[ $password -eq '' ]] 2> /dev/null; then
+												printf "${red}\n\n - Password is not empty! \n"
+											else
+												echo $password > khanh
+												printf "${light_cyan}\n\n - Password is change successfully! \n"
+											fi
+										else
+											printf "${red}\n\n - Error when change Password! \n"
+										fi
+										read -p "Press Enter to exit!" anykey
+										break
+									else
+										printf "${red}\n\n - Password are not the same! \n"
+										printf "${red}\n\n - Type again! ${reset}\n"
+										read -p "Press Enter to try again!" anykey
+									fi
+								done
+							else
+								break
+							fi
+				             ;;
+						[2])
+							clear
+							printf "${red}\n  @ RECOVERY MENU \n\n"
+							printf "${green} -> Remove Password \n\n"
+							printf "${red} @ Are you sure to remove Password? [Y/N]\n"
+							read -p "Your choose: " removepass
+							if [ $removepass = 'y' ] || [ $removepass = 'Y' ]; then
+								printf "\n\n"
+								cd
+								cd ..
+								rm -f usr/bin/khanh 2> /dev/null
+								printf "\n Password was removed!\n"
+								cd
+								read -p "Press Enter to exit!" anykey
+							else
+								break
+							fi
+				          	 ;;
+						[3])
+							clear
+							;;
+						*)
+							;;
+					esac
+					break
+				fi
+				printf "%b\n" "${yellow} \n\n test \n"
 				read -p "Press Enter to exit" anykey
 				break
                 ;;
