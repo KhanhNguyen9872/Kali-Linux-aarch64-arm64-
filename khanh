@@ -51,10 +51,10 @@ function kill-kex() {
 cd
 cd ..
 cd ..
-khanh=usr/bin/khanh
+khanh=usr/bin/khanh1
 if [ -f $khanh ]; then
 	left=4
-	khanh1="$(grep '' './usr/bin/khanh')"
+	khanh1="$(grep '' './usr/bin/khanh1')"
 	while [[ $left -eq 4 ]] || [[ $left -eq 3 ]] || [[ $left -eq 2 ]] || [[ $left -eq 1 ]]; do
 		clear
 		if [[ $wrong -eq 1 ]]; then
