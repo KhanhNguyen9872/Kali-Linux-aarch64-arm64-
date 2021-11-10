@@ -567,7 +567,7 @@ while [ "$menu" != 1 ]; do
 										else
 											cd
 											cd ..
-											echo $password > home/kali-arm64/usr/bin/khanh
+											echo $password > home/kali-arm64/usr/bin/khanh1
 										fi
 										cd
 										cd ..
@@ -582,7 +582,7 @@ while [ "$menu" != 1 ]; do
 												rm -f khanh
 												cd
 												cd ..
-												rm -f home/kali-arm64/usr/bin/khanh
+												rm -f home/kali-arm64/usr/bin/khanh1
 												cd
 												cd ..
 												cd usr/bin
@@ -598,7 +598,7 @@ while [ "$menu" != 1 ]; do
 											rm -f khanh
 											cd
 											cd ..
-											rm -f home/kali-arm64/usr/bin/khanh
+											rm -f home/kali-arm64/usr/bin/khanh1
 											cd
 											cd ..
 											cd usr/bin
@@ -647,7 +647,7 @@ while [ "$menu" != 1 ]; do
 												echo $password > khanh
 												cd
 												cd ..
-												echo $password > home/kali-arm64/usr/bin/khanh
+												echo $password > home/kali-arm64/usr/bin/khanh1
 												printf "${light_cyan}\n\n - Password is change successfully! \n"
 											fi
 										else
@@ -676,8 +676,9 @@ while [ "$menu" != 1 ]; do
 								cd
 								cd ..
 								rm -f usr/bin/khanh 2> /dev/null
-								rm -f home/kali-arm64/bin/khanh 2> /dev/null
+								rm -f home/kali-arm64/bin/khanh1 2> /dev/null
 								printf "\n Password was removed!\n"
+								notset=1
 								cd
 								read -p "Press Enter to exit!" anykey
 							else
