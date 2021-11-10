@@ -44,7 +44,7 @@ else
 fi
 clear
 echo "- Booting into Recovery Mode...."
-khanhnguyen="v1.4"
+khanhnguyen="v1.3"
 cd $HOME
 wget -O version https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/version 2> /dev/null && echo "- Preparing..."
 wget -O versionrecovery https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/versionrecovery 2> /dev/null && echo "- Booting..."
@@ -564,10 +564,6 @@ while [ "$menu" != 1 ]; do
 										echo $password > khanh
 										if [[ $custom -eq 1 ]]; then
 											printf "\n ${red} Custom Image Detected!\n\n"
-										else
-											cd
-											cd ..
-											echo $password > home/kali-arm64/usr/bin/khanh1
 										fi
 										cd
 										cd ..
@@ -580,12 +576,6 @@ while [ "$menu" != 1 ]; do
 												cd ..
 												cd usr/bin
 												rm -f khanh
-												cd
-												cd ..
-												rm -f home/kali-arm64/usr/bin/khanh1
-												cd
-												cd ..
-												cd usr/bin
 											else
 												printf "${light_cyan}\n\n - Password is set successfully! \n"
 												notset=0
@@ -596,12 +586,6 @@ while [ "$menu" != 1 ]; do
 											cd ..
 											cd usr/bin
 											rm -f khanh
-											cd
-											cd ..
-											rm -f home/kali-arm64/usr/bin/khanh1
-											cd
-											cd ..
-											cd usr/bin
 										fi
 										read -p "Press Enter to exit!" anykey
 										break
@@ -645,9 +629,6 @@ while [ "$menu" != 1 ]; do
 												printf "${red}\n\n - Password is not empty! \n"
 											else
 												echo $password > khanh
-												cd
-												cd ..
-												echo $password > home/kali-arm64/usr/bin/khanh1
 												printf "${light_cyan}\n\n - Password is change successfully! \n"
 											fi
 										else
@@ -676,7 +657,6 @@ while [ "$menu" != 1 ]; do
 								cd
 								cd ..
 								rm -f usr/bin/khanh 2> /dev/null
-								rm -f home/kali-arm64/bin/khanh1 2> /dev/null
 								printf "\n Password was removed!\n"
 								notset=1
 								cd
