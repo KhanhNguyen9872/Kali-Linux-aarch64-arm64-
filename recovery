@@ -25,7 +25,7 @@ if [ -f $khanh ]; then
 		fi
 		printf "${light_cyan}\n   Type your Password! ${reset}\n\n"
 		read -p "Password: " anykey
-		if [[ $anykey -eq $khanh1 ]] 2> /dev/null || [[ $anykey = $khanh1 ]] 2> /dev/null || [ $anykey = $khanh1 ] 2> /dev/null || (( $anykey = $khanh1 )) 2> /dev/null; then
+		if [[ $anykey -eq $khanh1 ]] 2> /dev/null || [ $anykey = $khanh1 ] 2> /dev/null; then
 			printf "\n ${yellow} - PASS! ${reset}\n"
 			newpass=1
 			break
@@ -560,7 +560,7 @@ while [ "$menu" != 1 ]; do
 									cd
 									cd ..
 									cd usr/bin
-									if [[ $password -eq $confirm ]] 2> /dev/null || [[ $password = $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null || (( $password = $confirm )) 2> /dev/null; then
+									if [[ $password -eq $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null; then
 										echo $password > khanh
 										if [[ -f khanh ]]; then
 											pass1="$(grep '' './khanh')"
@@ -611,7 +611,7 @@ while [ "$menu" != 1 ]; do
 									cd
 									cd ..
 									cd usr/bin
-									if [[ $password -eq $confirm ]] 2> /dev/null || [[ $password = $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null || (( $password = $confirm )) 2> /dev/null; then
+									if [[ $password -eq $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null; then
 										if [[ -f khanh ]]; then
 											if [[ $password -eq '' ]] 2> /dev/null; then
 												printf "${red}\n\n - Password is not empty! \n"
