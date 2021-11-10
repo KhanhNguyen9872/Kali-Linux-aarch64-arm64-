@@ -562,18 +562,46 @@ while [ "$menu" != 1 ]; do
 									cd usr/bin
 									if [[ $password -eq $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null; then
 										echo $password > khanh
+										if [[ $custom -eq 1 ]]; then
+											printf "\n ${red} Custom Image Detected!\n\n"
+										else
+											cd
+											cd ..
+											echo $password > home/kali-arm64/usr/bin/khanh
+										fi
+										cd
+										cd ..
+										cd usr/bin
 										if [[ -f khanh ]]; then
 											pass1="$(grep '' './khanh')"
 											if [[ $pass1 -eq '' ]] 2> /dev/null; then
 												printf "${red}\n\n - Password is not empty! \n"
+												cd
+												cd ..
+												cd usr/bin
 												rm -f khanh
+												cd
+												cd ..
+												rm -f home/kali-arm64/usr/bin/khanh
+												cd
+												cd ..
+												cd usr/bin
 											else
 												printf "${light_cyan}\n\n - Password is set successfully! \n"
 												notset=0
 											fi
 										else
 											printf "${red}\n\n - Error when set Password! \n"
+											cd
+											cd ..
+											cd usr/bin
 											rm -f khanh
+											cd
+											cd ..
+											rm -f home/kali-arm64/usr/bin/khanh
+											cd
+											cd ..
+											cd usr/bin
 										fi
 										read -p "Press Enter to exit!" anykey
 										break
@@ -617,6 +645,9 @@ while [ "$menu" != 1 ]; do
 												printf "${red}\n\n - Password is not empty! \n"
 											else
 												echo $password > khanh
+												cd
+												cd ..
+												echo $password > home/kali-arm64/usr/bin/khanh
 												printf "${light_cyan}\n\n - Password is change successfully! \n"
 											fi
 										else
@@ -645,6 +676,7 @@ while [ "$menu" != 1 ]; do
 								cd
 								cd ..
 								rm -f usr/bin/khanh 2> /dev/null
+								rm -f home/kali-arm64/bin/khanh 2> /dev/null
 								printf "\n Password was removed!\n"
 								cd
 								read -p "Press Enter to exit!" anykey
