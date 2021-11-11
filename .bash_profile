@@ -39,4 +39,5 @@ if [ -f $khanh ]; then
 		exit
 	fi
 fi
+termux-wake-lock
 clear
