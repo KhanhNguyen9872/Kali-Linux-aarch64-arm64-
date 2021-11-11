@@ -26,7 +26,6 @@ if [ -f $khanh ]; then
 		if [[ $anykey -eq $khanh1 ]] 2> /dev/null || [ $anykey = $khanh1 ] 2> /dev/null; then
 			printf "\n ${yellow} - PASS! ${reset}\n"
 			newpass=1
-			cd
 			break
 		else
 			wrong=1
@@ -40,4 +39,5 @@ if [ -f $khanh ]; then
 	fi
 fi
 termux-wake-lock
+cd
 clear
