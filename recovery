@@ -665,7 +665,20 @@ while [ "$menu" != 1 ]; do
 									printf "\n\n"
 									cd
 									wget -O bash_profile https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/.bash_profile 2> /dev/null
-									mv bash_profile ~/.bash_profile 2> /dev/null
+									if [ -f bash_profile ]; then
+										bashprofile="$(grep '' './bash_profile')"
+									else
+										printf "${red}\n No connection are available! \n\n"
+										read -p "Press Enter to exit!" anykey
+										exit 0
+									fi
+									if [[ $bashprofile -eq '' ]]; then
+										printf "${red}\n No connection are available! \n\n"
+										read -p "Press Enter to exit!" anykey
+										exit 0
+									else
+										mv bash_profile ~/.bash_profile 2> /dev/null
+									fi
 									cd ..
 									echo 'khanh' > usr/bin/khanhlocked 2> /dev/null
 									printf "\n Termux was locked!\n"
