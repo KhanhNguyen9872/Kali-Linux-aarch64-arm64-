@@ -44,7 +44,7 @@ else
 fi
 clear
 echo "- Booting into Recovery Mode...."
-khanhnguyen="v1.5"
+khanhnguyen="v1.6"
 cd $HOME
 wget -O version https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/version 2> /dev/null && echo "- Preparing..."
 wget -O versionrecovery https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/versionrecovery 2> /dev/null && echo "- Booting..."
