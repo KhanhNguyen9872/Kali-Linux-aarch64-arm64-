@@ -512,11 +512,11 @@ while [ "$menu" != 1 ]; do
 							read -r -p "Are you sure to uninstall Kali? [Y/N] " response
 							case "$response" in
 								[y]|[Y]) 
-										cd $HOME
-										rm -rf ~/kali-arm64
+										cd
 										cd ..
-										cd usr
-										cd bin
+										rm -rf home
+										mkdir home
+										cd usr/bin
 										rm -f kali
 										rm -f version
 										rm -f versionrestore
@@ -535,12 +535,15 @@ while [ "$menu" != 1 ]; do
 							read -r -p "Are you sure to uninstall Kali? [Y/N] " response
 							case "$response" in
 								[y]|[Y]) 
-										cd $HOME
-										rm -rf ~/kali-arm64
+										cd
+										rm ~/.bash_profile
 										cd ..
-										cd usr
-										cd bin
+										rm -rf home
+										mkdir home
+										cd usr/bin
 										rm -f kali
+										rm -f khanh
+										rm -f khanhlocked
 										rm -f version
 										rm -f versionrecovery
 										rm -f recovery
