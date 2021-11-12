@@ -1,4 +1,6 @@
-- Add Lock Termux with Password!
- ( You can set Password in 'recovery' )
+- Version 1.6
+- Add Status Lock in 'Set Password'!
+- Add remove more file when Uninstall! 
 - Compatible with Kali v1.2 or up!
-- Fix some text!
+- Improve stable!
+- Will add check free space storage!
