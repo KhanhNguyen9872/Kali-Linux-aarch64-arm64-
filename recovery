@@ -52,11 +52,13 @@ wget -O changelogver https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linu
 wget -O changelogversion https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogversion 2> /dev/null && echo "- Starting check for update..."
 if [ -f changelogver ]; then
 	updatechangelog="$(grep '' './changelogver')"
+	rm -f changelogver
 else
 	nonetwork=1
 fi
 if [ -f changelogversion ]; then
 	updaterecoverychangelog="$(grep '' './changelogversion')"
+	rm -f changelogversion
 else
 	nonetwork=1
 fi
