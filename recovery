@@ -95,6 +95,7 @@ printf "${green}\n - Checking for updates Kali.... \n"
 sleep 0.5
 if [[ nonetwork -eq 1 ]]; then
 	printf "${red}\n No connection are available! \n\n"
+	printf "${red} Required Internet to check update! \n\n"
 	printf "${red} Skip check for update! \n\n"
 	sleep 1
 else
@@ -170,10 +171,12 @@ else
 					if [[ $update5 -eq '' ]]; then
 						if [[ $update6 -eq '' ]]; then
 							printf "${red}\n No connection are available! \n\n"
+							printf "${red} Required Internet to update! \n\n"
 							rm -f kali-khanhnguyenup.sh 2> /dev/null
 							rm -f version 2> /dev/null
 						else
 							printf "${red}\n No connection are available! \n\n"
+							printf "${red} Required Internet to update! \n\n"
 							rm -f kali-khanhnguyenup.sh 2> /dev/null
 							rm -f version 2> /dev/null
 						fi
@@ -195,6 +198,7 @@ printf "${green}\n - Checking for updates Recovery.... \n"
 sleep 0.5
 if [[ nonetwork -eq 1 ]]; then
 	printf "${red}\n No connection are available! \n\n"
+	printf "${red} Required Internet to check update! \n\n"
 	customre=1
 fi
 cd ..
@@ -235,6 +239,7 @@ else
 				update2="$(grep '' './versionrecovery')"
 				if [[ $update2 -eq '' ]]; then
 					printf "${red}\n No connection are available! \n"
+					printf "${red}\n Required Internet to update Recovery! \n\n"
 					rm -f recovery 2> /dev/null
 					rm -f versionrecovery 2> /dev/null
 				else
@@ -306,6 +311,7 @@ while [ "$menu" != 1 ]; do
 									update3="$(grep '' './kali-khanhnguyen.sh')"
 									if [[ $update3 -eq '' ]]; then
 										printf "${red}\n\n No connection are available! \n\n"
+										printf "${red}\n Required Internet to Reinstall Kali! \n\n"
 										rm -f kali-khanhnguyen.sh 2> /dev/null
 									else
 										rm -rf kali-arm64 2> /dev/null
@@ -335,6 +341,7 @@ while [ "$menu" != 1 ]; do
 									update3="$(grep '' './kali-khanhnguyenup.sh')"
 									if [[ $update3 -eq '' ]]; then
 										printf "${red}\n\n No connection are available! \n\n"
+										printf "${red}\n Required Internet to Reinstall Kali! \n\n"
 										rm -f kali-khanhnguyenup.sh 2> /dev/null
 									else
 										chmod +x ~/kali-khanhnguyenup.sh 2> /dev/null
@@ -436,6 +443,7 @@ while [ "$menu" != 1 ]; do
 								 update4="$(grep '' './restore-kali-khanhnguyen.sh')"
 								 if [[ $update4 -eq '' ]]; then
 							 		 printf "${red}\n\n No connection are available! \n\n"
+							 		 printf "${red}\n Required Internet to Restore Image! \n\n"
 							 		 rm -f restore-kali-khanhnguyen.sh 2> /dev/null
 								 else
 								 	 cp /sdcard/$restoreimage restore-khanhnguyen.tar.xz
@@ -464,13 +472,29 @@ while [ "$menu" != 1 ]; do
 				printf "${red}\n  @ RECOVERY MENU \n\n"
                 printf "${green} -> KhanhNguyen9872 \n\n\n"
 				printf "${yellow} Name: Nguyen Van Khanh \n"
-				printf " Facebook: https://fb.me/khanh10a1 \n"
-				printf " Youtube: https://youtube.com/channel/UC8didcLVaL4iTfbuWBGv51w \n"
-				printf " Github: https://github.com/KhanhNguyen9872 \n"
-				printf " Instagram: khanh10a1 \n\n"
-				read -p " Press Enter to exit" anykey
-                break
-                ;;
+				printf " 1. Facebook\n"
+				printf " 2. Youtube\n"
+				printf " 3. Github\n"
+				printf " 4. Return to menu\n\n"
+				read -r -p "Your choose: " response1
+				case "$response1" in
+					  [1])
+							termux-open-url https://fb.me/khanh10a1
+							;;
+					  [2]) 
+							termux-open-url https://youtube.com/channel/UC8didcLVaL4iTfbuWBGv51w
+							;;
+					  [3]) 
+							termux-open-url https://github.com/KhanhNguyen9872
+							;;
+					  [4])
+							clear
+							;;
+						*)
+							;;
+				esac
+				break
+                ;;					
             "Uninstall Kali-Linux")
                 clear
 				printf "${red}\n  @ RECOVERY MENU \n\n"
@@ -616,19 +640,37 @@ while [ "$menu" != 1 ]; do
 					cd
 					cd ..
 					if [ -f usr/bin/khanhlocked ]; then
-						locked='True'
+						locked='Locked'
 						lockednum=1
 					else
-						locked='False'
+						locked='NOT Locked'
 						lockednum=0
+					fi
+					if [ -f usr/bin/khanh ]; then
+						lockkali='Locked'
+					else
+						lockkali='NOT Locked'
+					fi
+					if [ -f usr/bin/khanh ]; then
+						lockrecovery='Locked'
+					else
+						lockrecovery='NOT Locked'
 					fi
 					cd
 					clear
 					printf "${red}\n  @ RECOVERY MENU \n\n"
 					printf "${green} -> Set Password \n\n"
 					printf "%b\n" "${yellow} Password was set!\n\n"
-					printf "${red} 1. Lock Termux [$locked]\n"
-					printf "${light_cyan} 2. Change password\n"
+					printf "${red} Status:\n"
+					printf "  [Recovery: $lockrecovery]\n"
+					printf "  [Kali: $lockkali]\n"
+					printf "  [Termux: $locked]\n\n"
+					if [[ $lockednum -eq 1 ]]; then
+						printf "${light_cyan} 1. Unlock Termux\n"
+					else
+						printf "${light_cyan} 1. Lock Termux\n"
+					fi
+					printf " 2. Change password\n"
 					printf " 3. Remove password\n"
 					printf " 4. Return to menu\n\n ${reset}"
 					read -r -p "Your choose: " response1
@@ -671,13 +713,13 @@ while [ "$menu" != 1 ]; do
 										bashprofile="$(grep '' './bash_profile')"
 									else
 										printf "${red}\n No connection are available! \n\n"
+										printf "${red}\n Required Internet to Lock Termux! \n\n"
 										read -p "Press Enter to exit!" anykey
-										exit 0
 									fi
-									if [[ $bashprofile -eq '' ]]; then
+									if [[ $bashprofile -eq '' ]] 2> /dev/null; then
 										printf "${red}\n No connection are available! \n\n"
+										printf "${red}\n Required Internet to Lock Termux! \n\n"
 										read -p "Press Enter to exit!" anykey
-										exit 0
 									else
 										mv bash_profile ~/.bash_profile 2> /dev/null
 									fi
@@ -690,6 +732,7 @@ while [ "$menu" != 1 ]; do
 								else
 									break
 								fi
+								break
 							fi
 				          	 ;;
 						[2])
