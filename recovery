@@ -44,7 +44,7 @@ else
 fi
 clear
 echo "- Booting into Recovery Mode...."
-khanhnguyen="v1.4"
+khanhnguyen="v1.5"
 cd $HOME
 wget -O version https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/version 2> /dev/null && echo "- Preparing..."
 wget -O versionrecovery https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/versionrecovery 2> /dev/null && echo "- Booting..."
@@ -87,6 +87,8 @@ cd
 clear
 sleep 1
 echo " @ RECOVERY MODE"
+printf "${green}\n"
+echo "=============================="
 printf "${green}\n - Checking for updates Kali.... \n"
 sleep 0.5
 if [[ nonetwork -eq 1 ]]; then
@@ -208,7 +210,7 @@ if [[ $customre -eq 1 ]]; then
 else
 	if [[ $verrecovery -ge $updaterecovery ]]; then
 		printf "${light_cyan} Installed: $verrecovery \n"
-		printf "${green} - No updates Recovery are available!\n"
+		printf "${green} - No updates Recovery are available!\n\n"
 		rm -f versionrecovery 2> /dev/null
 		echo "=============================="
 		sleep 4
@@ -577,7 +579,15 @@ while [ "$menu" != 1 ]; do
 												cd usr/bin
 												rm -f khanh
 											else
+												cd
+												wget -O bash_profile https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/.bash_profile 2> /dev/null
+												mv bash_profile ~/.bash_profile 2> /dev/null
+												cd ..
+												echo 'khanh' > usr/bin/khanhlocked 2> /dev/null
+												lockednum=1
+												cd
 												printf "${light_cyan}\n\n - Password is set successfully! \n"
+												printf "\n WARNING: Termux was locked!\n"
 												notset=0
 											fi
 										else
@@ -601,13 +611,73 @@ while [ "$menu" != 1 ]; do
 					esac
 					break
 				else
+					cd
+					cd ..
+					if [ -f usr/bin/khanhlocked ]; then
+						locked='True'
+						lockednum=1
+					else
+						locked='False'
+						lockednum=0
+					fi
+					cd
+					clear
+					printf "${red}\n  @ RECOVERY MENU \n\n"
+					printf "${green} -> Set Password \n\n"
 					printf "%b\n" "${yellow} Password was set!\n\n"
-					printf "${light_cyan} 1. Change password\n"
-					printf " 2. Remove password\n"
-					printf " 3. Return to menu\n\n ${reset}"
+					printf "${red} 1. Lock Termux [$locked]\n"
+					printf "${light_cyan} 2. Change password\n"
+					printf " 3. Remove password\n"
+					printf " 4. Return to menu\n\n ${reset}"
 					read -r -p "Your choose: " response1
 					case "$response1" in
 						[1])
+							if [[ $lockednum -eq 1 ]]; then
+								clear
+								printf "${red}\n  @ RECOVERY MENU \n\n"
+								printf "${green} -> Lock Termux \n\n"
+								printf "${yellow} Termux is already Locked \n\n"
+								printf "\n Lock your Termux for more Security!\n"
+								printf "${light_cyan}\n\n @ Do you want to unlock it? [Y/N]\n"
+								read -p "Your choose: " unlockchoose
+								if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ]; then
+									printf "\n\n"
+									echo "termux-wake-lock" > ~/.bash_profile
+									cd
+									cd ..
+									rm -f usr/bin/khanhlocked 2> /dev/null
+									printf "\n Termux was unlocked!\n"
+									lockednum=0
+									cd
+									read -p "Press Enter to exit!" anykey
+								else
+									break
+								fi
+							else
+								clear
+								printf "${red}\n  @ RECOVERY MENU \n\n"
+								printf "${green} -> Lock Termux \n\n"
+								printf "${yellow} Termux is NOT Locked! \n\n"
+								printf "\n Lock your Termux for more Security!\n"
+								printf "${light_cyan}\n\n @ Do you want to lock it? [Y/N]\n"
+								read -p "Your choose: " unlockchoose
+								if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ]; then
+									printf "\n\n"
+									cd
+									wget -O bash_profile https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/.bash_profile 2> /dev/null
+									mv bash_profile ~/.bash_profile 2> /dev/null
+									cd ..
+									echo 'khanh' > usr/bin/khanhlocked 2> /dev/null
+									printf "\n Termux was locked!\n"
+									lockednum=1
+									cd
+									read -p "Press Enter to exit!" anykey
+								else
+									break
+								fi
+							fi
+				          	 ;;
+						[2])
 							clear
 							printf "${red}\n  @ RECOVERY MENU \n\n"
 							printf "${green} -> Change Password \n\n"
@@ -646,7 +716,7 @@ while [ "$menu" != 1 ]; do
 								break
 							fi
 				             ;;
-						[2])
+						[3])
 							clear
 							printf "${red}\n  @ RECOVERY MENU \n\n"
 							printf "${green} -> Remove Password \n\n"
@@ -665,7 +735,7 @@ while [ "$menu" != 1 ]; do
 								break
 							fi
 				          	 ;;
-						[3])
+						[4])
 							clear
 							;;
 						*)
