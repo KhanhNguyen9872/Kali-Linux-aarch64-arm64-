@@ -1,8 +1,9 @@
 - Version 1.7
 - Change theme/color
 - Add "Settings" in Recovery
-- Add "Disable check update" on Settings Recovery
+- Add "Disable/Enable check update" on Settings
 - Add '0' or Enter to return to Menu
+- Add "Disable/Enable WakeLock" on Settings
 - Add Show Kali Version in Recovery
 - Compatible with Kali v1.2 or up!
 - Improve stable!
