@@ -133,6 +133,10 @@ function extract_rootfs() {
 		wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
 		mv version ${PREFIX}/bin/version 2> /dev/null
 		chmod 777 ${PREFIX}/bin/version 2> /dev/null
+		echo 'update_enable' > ${PREFIX}/bin/settingsupdate 2> /dev/null
+		echo 'update_enable' > ${PREFIX}/bin/settingsupdatekali 2> /dev/null
+		chmod 777 ${PREFIX}/bin/settingsupdate 2> /dev/null
+		chmod 777 ${PREFIX}/bin/settingsupdatekali 2> /dev/null
 }
 
 
