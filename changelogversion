@@ -1,6 +1,8 @@
-- Version 1.6
-- Add Status Lock in 'Set Password'!
-- Add remove more file when Uninstall! 
+- Version 1.7
+- Change theme/color
+- Add "Settings" in Recovery
+- Add "Disable check update" on Settings Recovery
+- Add '0' or Enter to return to Menu
+- Add Show Kali Version in Recovery
 - Compatible with Kali v1.2 or up!
 - Improve stable!
-- Will add check free space storage!
