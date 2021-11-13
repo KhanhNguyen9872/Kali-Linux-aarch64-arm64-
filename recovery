@@ -6,6 +6,15 @@ yellow='\033[1;33m'
 blue='\033[1;34m'
 light_cyan='\033[1;96m'
 reset='\033[0m'
+cd
+cd ..
+if [ -f usr/bin/firstbootcheck ] 2> /dev/null; then
+	firstbootcheck=1 2> /dev/null
+else
+	echo 'update_enable' > usr/bin/settingsupdate 2> /dev/null
+	echo 'update_enable' > usr/bin/settingsupdatekali 2> /dev/null
+	echo 'checkboot' > usr/bin/firstbootcheck 2> /dev/null
+fi
 clear
 cd
 cd ..
@@ -46,94 +55,94 @@ clear
 echo "- Booting into Recovery Mode...."
 echo "- Preparing..."
 echo "- Getting file... "
-khanhnguyen="v1.7"
-wake=1
-cd
-cd ..
-if [ -f usr/bin/settingsupdatekali ]; then
+khanhnguyen="v1.7" 2> /dev/null
+wake=1 2> /dev/null
+cd 2> /dev/null
+cd .. 2> /dev/null
+if [ -f usr/bin/settingsupdatekali ] 2> /dev/null; then
 	wget -O version https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/version 2> /dev/null && echo " " 2> /dev/null
 	wget -O changelogver https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogver 2> /dev/null && echo " " 2> /dev/null
-	if [ -f changelogver ]; then
-		updatechangelog="$(grep '' './changelogver')"
-		rm -f changelogver
+	if [ -f changelogver ] 2> /dev/null; then
+		updatechangelog="$(grep '' './changelogver')" 2> /dev/null
+		rm -f changelogver 2> /dev/null
 	else
-		nonetwork=1
+		nonetwork=1 2> /dev/null
 	fi
-	if [ -f version ]; then
-		update="$(grep '' './version')"
+	if [ -f version ] 2> /dev/null; then
+		update="$(grep '' './version')" 2> /dev/null
 	else
-		nonetwork=1
+		nonetwork=1 2> /dev/null
 	fi
-	if [[ $update -eq '' ]]; then
-		nonetwork=1
+	if [[ $update -eq '' ]] 2> /dev/null; then
+		nonetwork=1 2> /dev/null
 	fi
-	settingsupdatekalinum=1
+	settingsupdatekalinum=1 2> /dev/null
 else
-	settingsupdatekalinum=0
+	settingsupdatekalinum=0 2> /dev/null
 fi	
 cd
 cd ..
-if [ -f usr/bin/settingsupdate ]; then
+if [ -f usr/bin/settingsupdate ] 2> /dev/null; then
 	wget -O versionrecovery https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/versionrecovery 2> /dev/null && echo " " 2> /dev/null
 	wget -O changelogversion https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogversion 2> /dev/null && echo " " 2> /dev/null
-	if [ -f changelogversion ]; then
-		updaterecoverychangelog="$(grep '' './changelogversion')"
-		rm -f changelogversion
+	if [ -f changelogversion ] 2> /dev/null; then
+		updaterecoverychangelog="$(grep '' './changelogversion')" 2> /dev/null
+		rm -f changelogversion 2> /dev/null
 	else
-		nonetwork=1
+		nonetwork=1 2> /dev/null
 	fi
-	if [ -f versionrecovery ]; then
-		updaterecovery="$(grep '' './versionrecovery')"
+	if [ -f versionrecovery ] 2> /dev/null; then
+		updaterecovery="$(grep '' './versionrecovery')" 2> /dev/null
 	else
-		nonetwork=1
+		nonetwork=1 2> /dev/null
 	fi
-	if [[ $updaterecovery -eq '' ]]; then
-		nonetwork=1
+	if [[ $updaterecovery -eq '' ]] 2> /dev/null; then
+		nonetwork=1 2> /dev/null
 	fi
-	settingsupdatenum=1
+	settingsupdatenum=1 2> /dev/null
 else
-	settingsupdatenum=0
+	settingsupdatenum=0 2> /dev/null
 fi
-cd
-cd ..
-if [ -f usr/bin/version ]; then
-	ver="$(grep '' 'usr/bin/version')"
+cd 2> /dev/null
+cd .. 2> /dev/null
+if [ -f usr/bin/version ] 2> /dev/null; then
+	ver="$(grep '' 'usr/bin/version')" 2> /dev/null
 fi
-if [ -f usr/bin/versionrecovery ]; then
-	verrecovery="$(grep '' 'usr/bin/versionrecovery')"
+if [ -f usr/bin/versionrecovery ] 2> /dev/null; then
+	verrecovery="$(grep '' 'usr/bin/versionrecovery')" 2> /dev/null
 fi
-cd
+cd 2> /dev/null
 clear
-sleep 1
+sleep 1 2> /dev/null
 echo " @ RECOVERY MODE"
 printf "${green}\n"
-if [[ $settingsupdatekalinum -eq 1 ]]; then
+if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 	echo "=============================="
 	printf "\n"
 	printf "${green} - Checking for updates Kali.... \n"
-	sleep 0.5
-	if [[ nonetwork -eq 1 ]]; then
+	sleep 0.5 2> /dev/null
+	if [[ nonetwork -eq 1 ]] 2> /dev/null; then
 		printf "${red}\n No connection are available! \n\n"
 		printf "${red} Required Internet to check update! \n\n"
 		printf "${red} Skip check for update! \n\n"
-		sleep 1
+		sleep 1 2> /dev/null
 	else
 		cd ..
 		cd home 2> /dev/null
 		cd kali-arm64 2> /dev/null
 		cd bin 2> /dev/null
-		if [ -f cp ]; then
-			cd
-			cd ..
-			if [ -f usr/bin/version ]; then
-				echo '1' > /dev/null
+		if [ -f cp ] 2> /dev/null; then
+			cd 2> /dev/null
+			cd .. 2> /dev/null
+			if [ -f usr/bin/version ] 2> /dev/null; then
+				echo '1' 2> /dev/null
 			else
-				if [ -f usr/bin/versionrestore ]; then
+				if [ -f usr/bin/versionrestore ] 2> /dev/null; then
 					printf "${yellow}\n Custom Image is detected! Not Official! \n"
-					custom=1
+					custom=1 2> /dev/null
 				else
 					printf "${red}\n Installed / Can't detect version Kali! \n"
-					kalifail=1
+					kalifail=1 2> /dev/null
 				fi
 			fi
 		else
@@ -141,37 +150,37 @@ if [[ $settingsupdatekalinum -eq 1 ]]; then
 			cd ..
 			cd ..
 			cd bin 2> /dev/null
-			if [ -f cp ]; then
+			if [ -f cp ] 2> /dev/null; then
 				printf "${yellow}\n Detected installed on unknown location!\n"
 				printf "${yellow}\n Recovery will now exit!\n"
 				exit 0
 			else
 				printf "${red}\n Kali-Linux is not installed! \n"
-				kalifail=1
-				updatek=1
+				kalifail=1 2> /dev/null
+				updatek=1 2> /dev/null
 			fi
 		fi
-		cd $HOME
-		if [[ $ver -ge $update ]]; then
+		cd 2> /dev/null
+		if [[ $ver -ge $update ]] 2> /dev/null; then
 			printf "${light_cyan} Installed: $ver \n"
 			printf "${green} - No updates Kali are available!\n\n"
 			rm -f version 2> /dev/null
-			sleep 1
+			sleep 1 2> /dev/null
 		else
-			if [[ custom -eq 1 ]]; then
+			if [[ custom -eq 1 ]] 2> /dev/null; then
 				rm -f version 2> /dev/null
 				printf "${green} Skip check for update! \n\n"
 			else
-				if [[ kalifail -eq 1 ]]; then
-					ver="null"
+				if [[ kalifail -eq 1 ]] 2> /dev/null; then
+					ver="null" 2> /dev/null
 				fi
-				rm -f version
+				rm -f version 2> /dev/null
 				printf "${light_cyan} Installed: $ver \n"
 				printf "${yellow} - New updates Kali are available!\n"
 				printf "${yellow} - New version: $update \n"
 				printf "${light_cyan}\n - Changelogs: \n"
 				echo "$updatechangelog"
-				if [[ $updatek -eq 1 ]]; then
+				if [[ $updatek -eq 1 ]] 2> /dev/null; then
 					echo 'khanh' 2> /dev/null
 				else
 					printf "${yellow}\n\n - Update will keep your personal data! \n\n"
