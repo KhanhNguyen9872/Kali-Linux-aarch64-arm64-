@@ -135,7 +135,7 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 			cd 2> /dev/null
 			cd .. 2> /dev/null
 			if [ -f usr/bin/version ] 2> /dev/null; then
-				echo '1' 2> /dev/null
+				echo '1' > /dev/null
 			else
 				if [ -f usr/bin/versionrestore ] 2> /dev/null; then
 					printf "${yellow}\n Custom Image is detected! Not Official! \n"
