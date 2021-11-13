@@ -146,6 +146,10 @@ function extract_rootfs() {
 		chmod 777 ${PREFIX}/bin/version 2> /dev/null
 		mv versionrecovery ${PREFIX}/bin/versionrecovery 2> /dev/null
 		chmod 777 ${PREFIX}/bin/versionrecovery 2> /dev/null
+		echo 'update_enable' > ${PREFIX}/bin/settingsupdate 2> /dev/null
+		echo 'update_enable' > ${PREFIX}/bin/settingsupdatekali 2> /dev/null
+		chmod 777 ${PREFIX}/bin/settingsupdate 2> /dev/null
+		chmod 777 ${PREFIX}/bin/settingsupdatekali 2> /dev/null
 }
 
 
