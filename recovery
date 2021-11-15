@@ -55,7 +55,7 @@ clear
 echo "- Booting into Recovery Mode...."
 echo "- Preparing..."
 echo "- Getting file... "
-khanhnguyen="v1.7" 2> /dev/null
+khanhnguyen="v1.8" 2> /dev/null
 wake=1 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
