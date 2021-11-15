@@ -192,6 +192,29 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 					[y]|[Y]) 
 						cd $HOME
 						printf "%b\n" "${yellow} - Updating... \n"
+						wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
+						freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+						requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
+						if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
+							passfreespace=1
+						else
+							printf "${red}\n\n Your device don't have enough space!\n"
+							printf "${red}\n Do you want to continue?\n\n${reset}"
+							read -r -p "Your choose: " response
+							if [ $response = 'Y' ] | [ $response = 'y' ]; then
+								passfreespace=1
+							else
+								passfreespace=0
+							fi
+						fi
+						if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
+							echo "Free space check: OK"
+							echo " "
+						else
+							echo "Exit!"
+							echo " "
+							exit
+						fi
 						wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
 						wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
 						update5="$(grep '' './kali-khanhnguyenup.sh')"
@@ -318,6 +341,7 @@ while [ "$menu" != 1 ]; do
 					printf "${green} -> Booting System... \n\n"
 					printf "${red}\n Kali-Linux is not installed! \n\n"
 					printf "${red} Please install Kali first! \n\n ${reset}"
+					nonsystem=1
 					read -p " Press Enter to exit " anykey
 				fi
 				break
@@ -328,16 +352,69 @@ while [ "$menu" != 1 ]; do
 					clear
 					printf "${green}\n  @ RECOVERY MENU \n\n"
 					printf "${green} -> Reinstall Kali-Linux \n\n"
-					printf "${yellow} 1. Reinstall with Keep your data\n"
-					printf " 2. Reinstall with Lost your data\n"
-					printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
-					read -r -p "Your choose: " response1
-					if [[ $response1 -eq 0 ]]; then
-						settings=0
-						break
-					fi
-					case "$response1" in
-					  	[2])
+					if [[ $nonsystem -eq 1 ]]; then
+						printf "${yellow}\n No system are installed! \n\n"
+						read -r -p "Are you sure to reinstall Kali-Linux? [Y/N] " response
+						printf "%b\n" " "
+						case "$response" in
+							[y]|[Y]) 
+								cd
+								wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
+								freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+								requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
+								if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
+									passfreespace=1
+								else
+									printf "${red}\n\n Your device don't have enough space!\n"
+									printf "${red}\n Do you want to continue?\n\n${reset}"
+									read -r -p "Your choose: " response
+									if [ $response = 'Y' ] | [ $response = 'y' ]; then
+										passfreespace=1
+									else
+										passfreespace=0
+									fi
+								fi
+								if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
+									echo "Free space check: OK"
+									echo " "
+								else
+									echo "Exit!"
+									echo " "
+									exit
+								fi
+								wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
+								update3="$(grep '' './kali-khanhnguyen.sh')"
+								if [[ $update3 -eq '' ]]; then
+									printf "${red}\n\n No connection are available! \n\n"
+									printf "${red}\n Required Internet to Reinstall Kali! \n\n"
+									rm -f kali-khanhnguyen.sh 2> /dev/null
+								else
+									rm -rf kali-arm64 2> /dev/null
+									chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
+									sh ~/kali-khanhnguyen.sh && echo "Process ended!"
+									rm -f kali-khanhnguyen.sh 2> /dev/null
+									printf "%b" "\n\n"
+								fi
+								read -p " Press Enter to exit " anykey
+								;;
+							[n]|[N])
+								settings=0
+								break
+								;;
+							*)
+								;;
+						esac
+					else
+						printf "${yellow} 1. Reinstall with Keep your data\n"
+						printf " 2. Reinstall with Lost your data\n"
+						printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
+						read -r -p "Your choose: " response1
+						if [[ $response1 -eq 0 ]]; then
+							settings=0
+							break
+						fi
+						case "$response1" in
+						  	[2])
 								clear
 								printf "${green}\n  @ RECOVERY MENU \n\n"
 								printf "${green} -> Reinstall Kali-Linux \n\n"
@@ -346,7 +423,7 @@ while [ "$menu" != 1 ]; do
 								printf "%b\n" " "
 								case "$response" in
 									[y]|[Y]) 
-										cd $HOME
+										cd
 										wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
 										update3="$(grep '' './kali-khanhnguyen.sh')"
 										if [[ $update3 -eq '' ]]; then
@@ -356,6 +433,29 @@ while [ "$menu" != 1 ]; do
 										else
 											rm -rf kali-arm64 2> /dev/null
 											chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
+											wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
+											freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+											requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
+											if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
+												passfreespace=1
+											else
+												printf "${red}\n\n Your device don't have enough space!\n"
+												printf "${red}\n Do you want to continue?\n\n${reset}"
+												read -r -p "Your choose: " response
+												if [ $response = 'Y' ] | [ $response = 'y' ]; then
+													passfreespace=1
+												else
+													passfreespace=0
+												fi
+											fi
+											if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
+												echo "Free space check: OK"
+												echo " "
+											else
+												echo "Exit!"
+												echo " "
+												exit
+											fi
 											sh ~/kali-khanhnguyen.sh && echo "Process ended!"
 											rm -f kali-khanhnguyen.sh 2> /dev/null
 											printf "%b" "\n\n"
@@ -366,7 +466,7 @@ while [ "$menu" != 1 ]; do
 										;;
 								esac
 				             	;;
-					  	[1]) 
+						  	[1]) 
 								clear
 								printf "${green}\n  @ RECOVERY MENU \n\n"
 								printf "${green} -> Reinstall Kali-Linux \n\n"
@@ -375,7 +475,30 @@ while [ "$menu" != 1 ]; do
 								printf "%b\n" " "
 								case "$response" in
 									[y]|[Y]) 
-										cd $HOME
+										cd
+										wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate
+										freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+										requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
+										if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
+											passfreespace=1
+										else
+											printf "${red}\n Your device don't have enough space!\n"
+											printf "${red}\n Do you want to continue?\n\n${reset}"
+											read -r -p "Your choose: " response
+										fi
+										if [ $response = 'Y' ] | [ $response = 'y' ]; then
+											passfreespace=1
+										else
+											passfreespace=0
+										fi
+										if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
+											echo "Free space check: OK"
+											echo " "
+										else
+											echo "Exit!"
+											echo " "
+											exit
+										fi
 										wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
 										update3="$(grep '' './kali-khanhnguyenup.sh')"
 										if [[ $update3 -eq '' ]]; then
@@ -393,12 +516,13 @@ while [ "$menu" != 1 ]; do
 									*)
 										;;
 								esac
-				             	;;
-					  	[3])
-								;;
-							*)
-								;;
-					esac
+				         	    ;;
+					  		[3])
+									;;
+								*)
+									;;
+						esac
+					fi
 				done
 				break
 				;;
@@ -644,6 +768,7 @@ while [ "$menu" != 1 ]; do
 											rm -rf home
 											mkdir home
 											cd usr/bin
+											nonsystem=1
 											rm -f kali
 											rm -f version
 											rm -f versionrestore
