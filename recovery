@@ -55,6 +55,14 @@ clear
 echo "- Booting into Recovery Mode...."
 echo "- Preparing..."
 echo "- Getting file... "
+cd
+cd kali-arm64 2> /dev/null
+cd bin 2> /dev/null
+if [ -f cp ] 2> /dev/null; then
+	nonsystem=0 2> /dev/null
+else
+	nonsystem=1 2> /dev/null
+fi
 khanhnguyen="v1.8" 2> /dev/null
 wake=1 2> /dev/null
 cd 2> /dev/null
@@ -157,6 +165,7 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 			else
 				printf "${red}\n Kali-Linux is not installed! \n"
 				kalifail=1 2> /dev/null
+				nonsystem=1 2> /dev/null
 				updatek=1 2> /dev/null
 			fi
 		fi
