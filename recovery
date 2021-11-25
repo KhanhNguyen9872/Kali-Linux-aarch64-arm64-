@@ -63,10 +63,14 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v1.8" 2> /dev/null
-wake=1 2> /dev/null
+khanhnguyen="v1.9" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
+if [ -f usr/bin/khanhwake ] 2> /dev/null; then
+	wake=0
+else
+	wake=1
+fi
 if [ -f usr/bin/settingsupdatekali ] 2> /dev/null; then
 	wget -O version https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/version 2> /dev/null && echo " " 2> /dev/null
 	wget -O changelogver https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogver 2> /dev/null && echo " " 2> /dev/null
@@ -323,17 +327,113 @@ if [[ $settingsupdatenum -eq 1 ]]; then
 		fi
 	fi
 fi
+cd
+cd ..
+if [ -f usr/bin/version ] 2> /dev/null; then
+	ver="$(grep '' 'usr/bin/version')" 2> /dev/null
+else
+	ver="null"
+fi
+cd
+if [ -f /system/bin/su ] 2> /dev/null; then
+	su=1
+else
+	if [ -f /system/xbin/su ] 2> /dev/null; then
+		su=1
+	else
+		if [ -f /system/bin/magisk ] 2> /dev/null; then
+			su=1
+		else
+			if [ -f /system/bin/supolicy ] 2> /dev/null; then
+				su=1
+			else
+				if [ -f /system/bin/magiskinit ] 2> /dev/null; then
+					su=1
+				else
+					if [ -f /system/xbin/supolicy ] 2> /dev/null; then
+						su=1
+					else
+						if [ -f /sbin/su ] 2> /dev/null; then
+							su=1
+						else
+							if [ -f /data/local/xbin/su ] 2> /dev/null; then
+								su=1
+							else
+								if [ -f /data/local/bin/su ] 2> /dev/null; then
+									su=1
+								else
+									if [ -f /system/sd/xbin/su ] 2> /dev/null; then
+										su=1
+									else
+										su=0
+									fi
+								fi
+							fi
+						fi
+					fi
+				fi
+			fi
+		fi
+	fi
+fi
+androidver="$(getprop ro.build.version.sdk)"
+if [ $androidver -eq 24 ]; then
+	androidname="7.0"
+else
+	if [ $androidver -eq 25 ]; then
+		androidname="7.1"
+	else
+		if [ $androidver -eq 26 ]; then
+			androidname="8.0"
+		else
+			if [ $androidver -eq 27 ]; then
+				androidname="8.1"
+			else
+				if [ $androidver -eq 28 ]; then
+					androidname="9"
+				else
+					if [ $androidver -eq 29 ]; then
+						androidname="10"
+					else
+						if [ $androidver -eq 30 ]; then
+							androidname="11"
+						else
+							if [ $androidver -eq 31 ]; then
+								androidname="12"
+							else
+								androidname="$(grep ro.build.version.release)"
+							fi
+						fi
+					fi
+				fi
+			fi
+		fi
+	fi
+fi
+model="$(getprop ro.product.model)"
 #####
 PS3=' - Your Choose: ' 2> /dev/null
 entries=("Continue run Kali-Linux" "Set Password" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Uninstall Kali-Linux" "KhanhNguyen9872" "Settings" "Exit")
 while [ "$menu" != 1 ]; do
 	freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
 	freespace1=$((freespace/1024))
+	totalspace="$(df -h | awk 'END {print $2}')"
+	totalspace1="$(grep -Eo '[0-9]+' <<< $totalspace})"
+	totalspace2=$((totalspace1*1024))
 	clear
 	printf "${green}\n  @ RECOVERY MENU \n"
 	printf "${green}  @ Version: $khanhnguyen \n"
-	printf "${green}  @ Version Kali: $ver \n\n"
-	printf "${yellow}    @ Free space: $freespace1 MB\n\n"
+	printf "${green}  @ Version Kali: $ver \n"
+	printf "${blue}  @ Model: $model \n"
+	printf "${blue}  @ Android $androidname \n"
+	if [[ $su -eq 1 ]]; then
+		printf "${red}  @ Root: YES \n\n${reset}"
+	else
+		printf "${blue}  @ Root: NO \n\n${reset}"
+	fi
+	printf "${yellow}    @ Total space: $totalspace2 MB \n"
+	printf "${yellow}    @ Free space:  $freespace1 MB\n\n"
+	printf "${red} Menu: ${reset}\n"
 	printf "${light_cyan}"
 	select choice in "${entries[@]}"
 	do 
@@ -707,10 +807,20 @@ while [ "$menu" != 1 ]; do
 								;;
 						 [3]) 
 								if [[ $wake -eq 1 ]] 2> /dev/null; then
+									cd
+									cd ..
+									echo 'khanh' > usr/bin/khanhwake
 									wake=0 2> /dev/null
+									cd
+									sed -i '/termux-wake-lock/d' ./.bash_profile
 									termux-wake-unlock
 								else
 									wake=1 2> /dev/null
+									cd
+									echo "termux-wake-lock" >> ./.bash_profile
+									cd ..
+									rm -f usr/bin/khanhwake
+									cd
 									termux-wake-lock
 								fi
 								;;
@@ -967,7 +1077,11 @@ while [ "$menu" != 1 ]; do
 									read -p "Your choose: " unlockchoose
 									if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ]; then
 										printf "\n\n"
-										echo "termux-wake-lock" > ~/.bash_profile
+										if [[ $wake -eq 1 ]] 2> /dev/null; then
+											echo "termux-wake-lock" > ~/.bash_profile
+										else
+											rm -f ~/.bash_profile
+										fi
 										cd
 										cd ..
 										rm -f usr/bin/khanhlocked 2> /dev/null
@@ -1001,13 +1115,15 @@ while [ "$menu" != 1 ]; do
 											read -p "Press Enter to exit!" anykey
 										else
 											mv bash_profile ~/.bash_profile 2> /dev/null
+											cd ..
+											rm -f usr/bin/khanhwake 2> /dev/null
+											wake=1
+											echo 'khanh' > usr/bin/khanhlocked 2> /dev/null
+											printf "\n Termux was locked!\n"
+											lockednum=1
+											cd
+											read -p "Press Enter to exit!" anykey
 										fi
-										cd ..
-										echo 'khanh' > usr/bin/khanhlocked 2> /dev/null
-										printf "\n Termux was locked!\n"
-										lockednum=1
-										cd
-										read -p "Press Enter to exit!" anykey
 									fi
 								fi
 				          	 	;;
