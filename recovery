@@ -431,8 +431,8 @@ while [ "$menu" != 1 ]; do
 	else
 		printf "${blue}  @ Root: NO \n\n${reset}"
 	fi
-	printf "${yellow}    @ Total space: $totalspace2 MB \n"
-	printf "${yellow}    @ Free space:  $freespace1 MB\n\n"
+	printf "${yellow}    @ Total storage: $totalspace2 MB \n"
+	printf "${yellow}   @ Free space: $freespace1 MB\n\n"
 	printf "${red} Menu: ${reset}\n"
 	printf "${light_cyan}"
 	select choice in "${entries[@]}"
