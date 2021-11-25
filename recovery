@@ -63,7 +63,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v1.9" 2> /dev/null
+khanhnguyen="v2.0" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -365,7 +365,15 @@ else
 									if [ -f /system/sd/xbin/su ] 2> /dev/null; then
 										su=1
 									else
-										su=0
+										if [ -f /data/adb/magisk/magisk32 ] 2> /dev/null; then
+											su=1
+										else
+											if [ -f  /system/app/Superuser.apk ] 2> /dev/null; then
+												su=1
+											else
+												su=0
+											fi
+										fi
 									fi
 								fi
 							fi
@@ -411,6 +419,9 @@ else
 	fi
 fi
 model="$(getprop ro.product.model)"
+manu="$(getprop ro.product.manufacturer)"
+keyandroid="$(getprop ro.build.fingerprint)"
+id="$(getprop ro.build.id)"
 #####
 PS3=' - Your Choose: ' 2> /dev/null
 entries=("Continue run Kali-Linux" "Set Password" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Uninstall Kali-Linux" "KhanhNguyen9872" "Settings" "Exit")
@@ -420,19 +431,31 @@ while [ "$menu" != 1 ]; do
 	totalspace="$(df -h | awk 'END {print $2}')"
 	totalspace1="$(grep -Eo '[0-9]+' <<< $totalspace})"
 	totalspace2=$((totalspace1*1024))
+	if [[ $freespace1 -eq 0 ]]; then
+		freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')"
+		freespace1=$((freespace/1024))
+		key=1
+	fi
+	if [[ $key -eq 1 ]]; then
+			totalspace="$(df | grep '/data' | grep -Eo '[0-9]+' | awk 'NR==1{print $1}')"
+			totalspace2=$((totalspace/1024))
+	fi
 	clear
 	printf "${green}\n  @ RECOVERY MENU \n"
 	printf "${green}  @ Version: $khanhnguyen \n"
-	printf "${green}  @ Version Kali: $ver \n"
-	printf "${blue}  @ Model: $model \n"
-	printf "${blue}  @ Android $androidname \n"
+	printf "${green}  @ Version Kali: $ver \n\n"
+	printf "${blue}  @ Manufacturer: $manu\n"
+	printf "${blue}  @ Model: $model\n"
+	printf "${blue}  @ Android $androidname\n"
+	printf "${blue}  @ ID: $id\n"
+	printf "${blue}  @ Key: $keyandroid\n"
 	if [[ $su -eq 1 ]]; then
 		printf "${red}  @ Root: YES \n\n${reset}"
 	else
 		printf "${blue}  @ Root: NO \n\n${reset}"
 	fi
 	printf "${yellow}    @ Total storage: $totalspace2 MB \n"
-	printf "${yellow}   @ Free space: $freespace1 MB\n\n"
+	printf "${yellow}    @ Free space:    $freespace1 MB\n\n"
 	printf "${red} Menu: ${reset}\n"
 	printf "${light_cyan}"
 	select choice in "${entries[@]}"
