@@ -1,7 +1,7 @@
-- Version 1.9
-- Add check Model, Android, Root
-- Show Total storage
-- Fix wake lock Setting
-- Fix bug in previous version!
+- Version 2.0
+- Add check Manufacturer, ID, Key
+- Fix Total and Free Space (0 MB)
+- Add something can detect Root
 - Compatible with Kali v1.2 or up!
 - Improve stable!
+   THANKS FOR USED!!!
