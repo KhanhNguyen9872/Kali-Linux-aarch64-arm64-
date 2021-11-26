@@ -430,7 +430,11 @@ while [ "$menu" != 1 ]; do
 	freespace1=$((freespace/1024))
 	totalspace="$(df -h | awk 'END {print $2}')"
 	totalspace1="$(grep -Eo '[0-9]+' <<< $totalspace})"
-	totalspace2=$((totalspace1*1024))
+	if [ -z $totalspace1 ]; then
+		totalspace2=$totalspace1
+	else
+		totalspace2=$((totalspace1*1024))
+	fi
 	if [[ $freespace1 -eq 0 ]]; then
 		freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')"
 		freespace1=$((freespace/1024))
