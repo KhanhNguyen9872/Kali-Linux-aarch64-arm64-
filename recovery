@@ -431,19 +431,29 @@ while [ "$menu" != 1 ]; do
 	freespace1=$((freespace/1024))
 	totalspace="$(df -h | awk 'END {print $2}')"
 	totalspace1="$(grep -Eo '[0-9]+' <<< $totalspace})"
-	if ! [[ $numberkhanh =~ $totalspace1 ]]; then
+	if ! [[ $numberkhanh =~ $totalspace1 ]] 2> /dev/null; then
 		totalspace2=$totalspace1 2> /dev/null
 	else
 		totalspace2=$((totalspace1*1024)) 2> /dev/null
 	fi
-	if [[ $freespace1 -eq 0 ]]; then
+	if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
 		freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')"
 		freespace1=$((freespace/1024))
 		key=1
 	fi
-	if [[ $key -eq 1 ]]; then
+	if [[ $key -eq 1 ]] 2> /dev/null; then
 			totalspace="$(df | grep '/data' | grep -Eo '[0-9]+' | awk 'NR==1{print $1}')"
 			totalspace2=$((totalspace/1024))
+	fi
+	if [[ $totalspace2 -eq 0 ]] 2> /dev/null; then
+		key=2
+	fi
+	if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
+		key=2
+	fi
+	if [[ $key -eq 2 ]] 2> /dev/null; then
+		freespace1="Error"
+		totalspace2="Error"
 	fi
 	clear
 	printf "${green}\n  @ RECOVERY MENU \n"
