@@ -848,6 +848,7 @@ while [ "$menu" != 1 ]; do
 					printf "${yellow} 1. Check update Recovery [$settingsupdate] \n"
 					printf " 2. Check update Kali [$settingsupdatekali] \n"
 					printf " 3. Wake Lock [$settingswake] \n"
+					printf " 4. Reinstall Recovery [For Development] \n"
 					printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 					read -r -p "Your choose: " response1
 					if [[ $response1 -eq 0 ]] 2> /dev/null; then
@@ -898,6 +899,38 @@ while [ "$menu" != 1 ]; do
 									rm -f usr/bin/khanhwake 2> /dev/null
 									cd 2> /dev/null
 									termux-wake-lock
+								fi
+								;;
+						 [4]) 
+								clear
+								printf "${red}\n  @ RECOVERY MENU \n\n"
+                				printf "${green} -> Settings \n\n\n"
+                				printf "${yellow} @ Reinstall Recovery\n\n"
+                				printf "${red}- Reinstall only for Development or when you have Error\n\n${reset}"
+                				printf "${light_cyan} Do you want to reinstall Recovery? [Y/N] \n"
+                				read -p "Your Choose: " anykey
+                				if [ $anykey = 'y' ] 2> /dev/null || [ $anykey = 'Y' ] 2> /dev/null; then
+									printf "%b\n" "${yellow} - Reinstall Recovery... \n"
+									cd
+									wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null
+									wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
+									update2="$(grep '' './versionrecovery')" 2> /dev/null
+									if [[ $update2 -eq '' ]] 2> /dev/null; then
+										printf "${red}\n No connection are available! \n"
+										printf "${red}\n Required Internet to Reinstall Recovery! \n\n"
+										rm -f recovery 2> /dev/null
+										rm -f versionrecovery 2> /dev/null
+									else
+										cd .. 2> /dev/null
+										mv home/recovery usr/bin/recovery 2> /dev/null
+										mv home/versionrecovery usr/bin/versionrecovery 2> /dev/null
+										chmod 777 usr/bin/recovery 2> /dev/null
+										chmod 777 usr/bin/versionrecovery 2> /dev/null
+										printf "%b\n\n" "${green} - Reinstall successfully! \n"
+										printf "${green} - Run recovery again! \n\n"
+										exit 0
+									fi
+									read -p " Press Enter to continue " anykey
 								fi
 								;;
 							*)
@@ -1260,8 +1293,8 @@ while [ "$menu" != 1 ]; do
 								printf "${red}\n  @ RECOVERY MENU \n\n"
 								printf "${green} -> Remove Password \n\n"
 								printf "${red} @ Are you sure to remove Password? [Y/N]\n"
-								read -p "Your choose: " removepass
-								if [ $removepass = 'y' ] 2> /dev/null || [ $removepass = 'Y' ] 2> /dev/null; then
+								read -p "Your choose: " anykey
+								if [ $anykey = 'y' ] 2> /dev/null || [ $anykey = 'Y' ] 2> /dev/null; then
 									printf "\n\n"
 									cd 2> /dev/null
 									cd .. 2> /dev/null
