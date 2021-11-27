@@ -907,10 +907,10 @@ while [ "$menu" != 1 ]; do
                 				printf "${green} -> Settings \n\n\n"
                 				printf "${yellow} @ Reinstall Recovery\n\n"
                 				printf "${red}- Reinstall only for Development or when you have Error\n\n${reset}"
-                				printf "${light_cyan} Do you want to reinstall Recovery? [Y/N] \n"
+                				printf "${light_cyan} Do you want to Reinstall Recovery? [Y/N] \n"
                 				read -p "Your Choose: " anykey
                 				if [ $anykey = 'y' ] 2> /dev/null || [ $anykey = 'Y' ] 2> /dev/null; then
-									printf "%b\n" "${yellow} - Reinstall Recovery... \n"
+									printf "%b\n" "${yellow}\n - Reinstall Recovery.... \n"
 									cd
 									wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null
 									wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
