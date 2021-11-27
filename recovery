@@ -1,14 +1,16 @@
 #!/bin/bash
 clear
-red='\033[1;31m'
-green='\033[1;32m'
-yellow='\033[1;33m'
-blue='\033[1;34m'
-light_cyan='\033[1;96m'
-reset='\033[0m'
-numberkhanh='^[0-9]+$'
-cd
-cd ..
+red='\033[1;31m' 2> /dev/null
+green='\033[1;32m' 2> /dev/null
+yellow='\033[1;33m' 2> /dev/null
+blue='\033[1;34m' 2> /dev/null
+light_cyan='\033[1;96m' 2> /dev/null
+reset='\033[0m' 2> /dev/null
+numberkhanh='^[0-9]+$' 2> /dev/null
+exitkey=0 2> /dev/null
+key=0 2> /dev/null
+cd 2> /dev/null
+cd .. 2> /dev/null
 if [ -f usr/bin/firstbootcheck ] 2> /dev/null; then
 	firstbootcheck=1 2> /dev/null
 else
@@ -17,18 +19,18 @@ else
 	echo 'checkboot' > usr/bin/firstbootcheck 2> /dev/null
 fi
 clear
-cd
-cd ..
-khanh=usr/bin/khanh
+cd 2> /dev/null
+cd .. 2> /dev/null
+khanh=usr/bin/khanh 2> /dev/null
 if [ -f $khanh ]; then
-	left=4
-	khanh1="$(grep '' './usr/bin/khanh')"
-	while [[ $left -eq 4 ]] || [[ $left -eq 3 ]] || [[ $left -eq 2 ]] || [[ $left -eq 1 ]]; do
+	left=4 2> /dev/null
+	khanh1="$(grep '' './usr/bin/khanh')" 2> /dev/null
+	while [[ $left -eq 4 ]] || [[ $left -eq 3 ]] || [[ $left -eq 2 ]] || [[ $left -eq 1 ]] 2> /dev/null; do
 		clear
-		if [[ $wrong -eq 1 ]]; then
+		if [[ $wrong -eq 1 ]] 2> /dev/null; then
 			printf "\n ${red} - Wrong Password! $left attempts left! ${reset}\n\n"
 		fi
-		if [[ $left -eq 0 ]]; then
+		if [[ $left -eq 0 ]] 2> /dev/null; then
 			clear
 			printf "\n\n ${red} - Wrong Password! Exit! ${reset}\n\n"
 			exit 0
@@ -37,20 +39,20 @@ if [ -f $khanh ]; then
 		read -p "Password: " anykey
 		if [[ $anykey -eq $khanh1 ]] 2> /dev/null || [ $anykey = $khanh1 ] 2> /dev/null; then
 			printf "\n ${yellow} - PASS! ${reset}\n"
-			newpass=1
+			newpass=1 2> /dev/null
 			break
 		else
-			wrong=1
-			left=$((left-1))
+			wrong=1 2> /dev/null
+			left=$((left-1)) 2> /dev/null
 		fi
 	done
-	if [[ $left -eq 0 ]]; then
+	if [[ $left -eq 0 ]] 2> /dev/null; then
 		clear
 		printf "\n\n ${red} - Wrong Password! Exit! ${reset}\n\n"
 		exit 0
 	fi
 else
-	notset=1
+	notset=1 2> /dev/null
 fi
 clear
 echo "- Booting into Recovery Mode...."
@@ -64,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.0" 2> /dev/null
+khanhnguyen="v2.1" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -93,8 +95,8 @@ if [ -f usr/bin/settingsupdatekali ] 2> /dev/null; then
 else
 	settingsupdatekalinum=0 2> /dev/null
 fi	
-cd
-cd ..
+cd 2> /dev/null
+cd .. 2> /dev/null
 if [ -f usr/bin/settingsupdate ] 2> /dev/null; then
 	wget -O versionrecovery https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/versionrecovery 2> /dev/null && echo " " 2> /dev/null
 	wget -O changelogversion https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogversion 2> /dev/null && echo " " 2> /dev/null
@@ -206,35 +208,44 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 					[y]|[Y]) 
 						cd $HOME
 						printf "%b\n" "${yellow} - Updating... \n"
-						wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
-						freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
-						requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
-						if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
-							passfreespace=1
+						if [[ $key -eq 2 ]] 2> /dev/null; then
+							echo "Free space check: Skip! Because Not Compatible!"
 						else
-							printf "${red}\n\n Your device don't have enough space!\n"
-							printf "${red}\n Do you want to continue?\n\n${reset}"
-							read -r -p "Your choose: " response
-							if [ $response = 'Y' ] | [ $response = 'y' ]; then
-								passfreespace=1
+							wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
+							freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+							requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
+							if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
+								passfreespace=1 2> /dev/null
 							else
-								passfreespace=0
+								printf "${red}\n\n Your device don't have enough space!\n"
+								printf "${red}\n Do you want to continue?\n\n${reset}"
+								read -r -p "Your choose: " response
+								if [ $response = 'Y' ] | [ $response = 'y' ]; then
+									passfreespace=1 2> /dev/null
+								else
+									passfreespace=0 2> /dev/null
+								fi
 							fi
+							if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
+								echo "Free space check: OK"
+								echo " "
+							else
+								echo "Exit!"
+								echo " "
+								break
+							fi
+							break
+							exitcode=1 2> /dev/null
 						fi
-						if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
-							echo "Free space check: OK"
-							echo " "
-						else
-							echo "Exit!"
-							echo " "
+						if [[ $exitcode -eq 1 ]] 2> /dev/null; then
 							exit
 						fi
 						wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
 						wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
-						update5="$(grep '' './kali-khanhnguyenup.sh')"
-						update6="$(grep '' './version')"
-						if [[ $update5 -eq '' ]]; then
-							if [[ $update6 -eq '' ]]; then
+						update5="$(grep '' './kali-khanhnguyenup.sh')" 2> /dev/null
+						update6="$(grep '' './version')" 2> /dev/null
+						if [[ $update5 -eq '' ]] 2> /dev/null; then
+							if [[ $update6 -eq '' ]] 2> /dev/null; then
 								printf "${red}\n No connection are available! \n\n"
 								printf "${red} Required Internet to update! \n\n"
 								rm -f kali-khanhnguyenup.sh 2> /dev/null
@@ -259,30 +270,30 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 		fi
 	fi
 fi
-if [[ $settingsupdatenum -eq 1 ]]; then
+if [[ $settingsupdatenum -eq 1 ]] 2> /dev/null; then
 	echo "=============================="
 	printf "\n"
 	printf "${green} - Checking for updates Recovery.... \n"
 	sleep 0.5
-	if [[ nonetwork -eq 1 ]]; then
+	if [[ nonetwork -eq 1 ]] 2> /dev/null; then
 		printf "${red}\n No connection are available! \n\n"
 		printf "${red} Required Internet to check update! \n\n"
-		customre=1
+		customre=1 2> /dev/null
 	fi
 	cd ..
-	if [ -f usr/bin/versionrecovery ]; then
+	if [ -f usr/bin/versionrecovery ] 2> /dev/null; then
 		echo '1' > /dev/null
 	else
 		printf "${red}\n Can't detect version Recovery! \n"
-		verrecovery="null"
+		verrecovery="null" 2> /dev/null
 	fi
 	cd
-	if [[ $customre -eq 1 ]]; then
+	if [[ $customre -eq 1 ]] 2> /dev/null; then
 		rm -f versionrecovery 2> /dev/null
 		printf "${red} Skip check for update! \n\n"
 		sleep 5
 	else
-		if [[ $verrecovery -ge $updaterecovery ]]; then
+		if [[ $verrecovery -ge $updaterecovery ]] 2> /dev/null; then
 			printf "${light_cyan} Installed: $verrecovery \n"
 			printf "${green} - No updates Recovery are available!\n\n"
 			rm -f versionrecovery 2> /dev/null
@@ -304,18 +315,18 @@ if [[ $settingsupdatenum -eq 1 ]]; then
 					cd
 					wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null
 					wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
-					update2="$(grep '' './versionrecovery')"
-					if [[ $update2 -eq '' ]]; then
+					update2="$(grep '' './versionrecovery')" 2> /dev/null
+					if [[ $update2 -eq '' ]] 2> /dev/null; then
 						printf "${red}\n No connection are available! \n"
 						printf "${red}\n Required Internet to update Recovery! \n\n"
 						rm -f recovery 2> /dev/null
 						rm -f versionrecovery 2> /dev/null
 					else
-						cd ..
-						mv home/recovery usr/bin/recovery
-						mv home/versionrecovery usr/bin/versionrecovery
-						chmod 777 usr/bin/recovery
-						chmod 777 usr/bin/versionrecovery						
+						cd .. 2> /dev/null
+						mv home/recovery usr/bin/recovery 2> /dev/null
+						mv home/versionrecovery usr/bin/versionrecovery 2> /dev/null
+						chmod 777 usr/bin/recovery 2> /dev/null
+						chmod 777 usr/bin/versionrecovery 2> /dev/null
 						printf "%b\n\n" "${green} - Update successfully! \n"
 						printf "${green} - Run recovery again! \n\n"
 						exit 0
@@ -328,14 +339,14 @@ if [[ $settingsupdatenum -eq 1 ]]; then
 		fi
 	fi
 fi
-cd
-cd ..
+cd 2> /dev/null
+cd .. 2> /dev/null
 if [ -f usr/bin/version ] 2> /dev/null; then
 	ver="$(grep '' 'usr/bin/version')" 2> /dev/null
 else
-	ver="null"
+	ver="null" 2> /dev/null
 fi
-cd
+cd 2> /dev/null
 if [ -f /system/bin/su ] 2> /dev/null; then
 	su=1
 else
@@ -385,32 +396,32 @@ else
 		fi
 	fi
 fi
-androidver="$(getprop ro.build.version.sdk)"
-if [ $androidver -eq 24 ]; then
-	androidname="7.0"
+androidver="$(getprop ro.build.version.sdk)" 2> /dev/null
+if [ $androidver -eq 24 ] 2> /dev/null; then
+	androidname="7.0" 2> /dev/null
 else
-	if [ $androidver -eq 25 ]; then
-		androidname="7.1"
+	if [ $androidver -eq 25 ] 2> /dev/null; then
+		androidname="7.1" 2> /dev/null
 	else
-		if [ $androidver -eq 26 ]; then
-			androidname="8.0"
+		if [ $androidver -eq 26 ] 2> /dev/null; then
+			androidname="8.0" 2> /dev/null
 		else
-			if [ $androidver -eq 27 ]; then
-				androidname="8.1"
+			if [ $androidver -eq 27 ] 2> /dev/null; then
+				androidname="8.1" 2> /dev/null
 			else
-				if [ $androidver -eq 28 ]; then
-					androidname="9"
+				if [ $androidver -eq 28 ] 2> /dev/null; then
+					androidname="9" 2> /dev/null
 				else
-					if [ $androidver -eq 29 ]; then
-						androidname="10"
+					if [ $androidver -eq 29 ] 2> /dev/null; then
+						androidname="10" 2> /dev/null
 					else
-						if [ $androidver -eq 30 ]; then
-							androidname="11"
+						if [ $androidver -eq 30 ] 2> /dev/null; then
+							androidname="11" 2> /dev/null
 						else
-							if [ $androidver -eq 31 ]; then
-								androidname="12"
+							if [ $androidver -eq 31 ] 2> /dev/null; then
+								androidname="12" 2> /dev/null
 							else
-								androidname="$(grep ro.build.version.release)"
+								androidname="$(grep ro.build.version.release)" 2> /dev/null
 							fi
 						fi
 					fi
@@ -419,41 +430,40 @@ else
 		fi
 	fi
 fi
-model="$(getprop ro.product.model)"
-manu="$(getprop ro.product.manufacturer)"
-keyandroid="$(getprop ro.build.fingerprint)"
-id="$(getprop ro.build.id)"
+model="$(getprop ro.product.model)" 2> /dev/null
+manu="$(getprop ro.product.manufacturer)" 2> /dev/null
+keyandroid="$(getprop ro.build.fingerprint)" 2> /dev/null
+id="$(getprop ro.build.id)" 2> /dev/null
 #####
 PS3=' - Your Choose: ' 2> /dev/null
-entries=("Continue run Kali-Linux" "Set Password" "Reinstall Kali-Linux" "Backup Image" "Restore Image" "Uninstall Kali-Linux" "KhanhNguyen9872" "Settings" "Exit")
+entries=("Run Linux" "Backup" "Restore" "Reinstall" "Password" "Uninstall" "Settings" "About" "Exit")
 while [ "$menu" != 1 ]; do
 	freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
-	freespace1=$((freespace/1024))
-	totalspace="$(df -h | awk 'END {print $2}')"
-	totalspace1="$(grep -Eo '[0-9]+' <<< $totalspace})"
+	freespace1=$((freespace/1024)) 2> /dev/null
+	totalspace="$(df -h | awk 'END {print $2}')" 2> /dev/null
+	totalspace1="$(grep -Eo '[0-9]+' <<< $totalspace})" 2> /dev/null
 	if ! [[ $numberkhanh =~ $totalspace1 ]] 2> /dev/null; then
 		totalspace2=$totalspace1 2> /dev/null
 	else
 		totalspace2=$((totalspace1*1024)) 2> /dev/null
 	fi
 	if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
-		freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')"
-		freespace1=$((freespace/1024))
-		key=1
+		freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')" 2> /dev/null
+		freespace1=$((freespace/1024)) 2> /dev/null
+		key=1 2> /dev/null
 	fi
 	if [[ $key -eq 1 ]] 2> /dev/null; then
-			totalspace="$(df | grep '/data' | grep -Eo '[0-9]+' | awk 'NR==1{print $1}')"
-			totalspace2=$((totalspace/1024))
+			totalspace="$(df | grep '/data' | grep -Eo '[0-9]+' | awk 'NR==1{print $1}')" 2> /dev/null
+			totalspace2=$((totalspace/1024)) 2> /dev/null
 	fi
 	if [[ $totalspace2 -eq 0 ]] 2> /dev/null; then
-		key=2
+		key=2 2> /dev/null
 	fi
 	if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
-		key=2
+		key=2 2> /dev/null
 	fi
 	if [[ $key -eq 2 ]] 2> /dev/null; then
-		freespace1="Error"
-		totalspace2="Error"
+		notcompatible=1
 	fi
 	clear
 	printf "${green}\n  @ RECOVERY MENU \n"
@@ -464,26 +474,31 @@ while [ "$menu" != 1 ]; do
 	printf "${blue}  @ Android $androidname\n"
 	printf "${blue}  @ ID: $id\n"
 	printf "${blue}  @ Key: $keyandroid\n"
-	if [[ $su -eq 1 ]]; then
+	if [[ $su -eq 1 ]] 2> /dev/null; then
 		printf "${red}  @ Root: YES \n\n${reset}"
 	else
 		printf "${blue}  @ Root: NO \n\n${reset}"
 	fi
-	printf "${yellow}    @ Total storage: $totalspace2 MB \n"
-	printf "${yellow}    @ Free space:    $freespace1 MB\n\n"
+	if [[ $notcompatible -eq 1 ]]; then
+		printf "${red}    @ Total storage: Not Compatible\n"
+		printf "${red}    @ Free space:    Not Compatible\n\n"
+	else
+		printf "${yellow}    @ Total storage: $totalspace2 MB \n"
+		printf "${yellow}    @ Free space:    $freespace1 MB\n\n"
+	fi
 	printf "${red} Menu: ${reset}\n"
 	printf "${light_cyan}"
 	select choice in "${entries[@]}"
 	do 
 		case $choice in
-			"Continue run Kali-Linux")
+			"Run Linux")
 				clear
-				cd
+				cd 2> /dev/null
 				cd kali-arm64 2> /dev/null
 				cd bin 2> /dev/null
-				if [ -f cp ]; then
+				if [ -f cp ] 2> /dev/null; then
 					kali
-					menu=1
+					menu=1 2> /dev/null
 					exit 0
 				else
 					clear
@@ -491,50 +506,59 @@ while [ "$menu" != 1 ]; do
 					printf "${green} -> Booting System... \n\n"
 					printf "${red}\n Kali-Linux is not installed! \n\n"
 					printf "${red} Please install Kali first! \n\n ${reset}"
-					nonsystem=1
+					nonsystem=1 2> /dev/null
 					read -p " Press Enter to exit " anykey
 				fi
 				break
 				;;
-			"Reinstall Kali-Linux")
+			"Reinstall")
 				settings=1 2> /dev/null
 				while [[ $settings -eq 1 ]] 2> /dev/null; do
 					clear
 					printf "${green}\n  @ RECOVERY MENU \n\n"
 					printf "${green} -> Reinstall Kali-Linux \n\n"
-					if [[ $nonsystem -eq 1 ]]; then
+					if [[ $nonsystem -eq 1 ]] 2> /dev/null; then
 						printf "${yellow}\n No system are installed! \n\n"
 						read -r -p "Are you sure to reinstall Kali-Linux? [Y/N] " response
 						printf "%b\n" " "
 						case "$response" in
 							[y]|[Y]) 
-								cd
-								wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
-								freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
-								requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
-								if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
-									passfreespace=1
+								cd 2> /dev/null
+								if [[ $key -eq 2 ]]; then
+									echo "Free space check: Skip! Because Not Compatible!"
 								else
-									printf "${red}\n\n Your device don't have enough space!\n"
-									printf "${red}\n Do you want to continue?\n\n${reset}"
-									read -r -p "Your choose: " response
-									if [ $response = 'Y' ] | [ $response = 'y' ]; then
-										passfreespace=1
+									wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
+									freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+									requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
+									if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
+										passfreespace=1 2> /dev/null
 									else
-										passfreespace=0
+										printf "${red}\n\n Your device don't have enough space!\n"
+										printf "${red}\n Do you want to continue?\n\n${reset}"
+										read -r -p "Your choose: " response
+										if [ $response = 'Y' ] | [ $response = 'y' ] 2> /dev/null; then
+											passfreespace=1 2> /dev/null
+										else
+											passfreespace=0 2> /dev/null
+										fi
 									fi
+									if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
+										echo "Free space check: OK"
+										echo " "
+									else
+										echo "Exit!"
+										echo " "
+										break
+									fi
+									break
+									exitkey=1
 								fi
-								if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
-									echo "Free space check: OK"
-									echo " "
-								else
-									echo "Exit!"
-									echo " "
+								if [[ $exitkey -eq 1 ]]; then
 									exit
 								fi
 								wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
-								update3="$(grep '' './kali-khanhnguyen.sh')"
-								if [[ $update3 -eq '' ]]; then
+								update3="$(grep '' './kali-khanhnguyen.sh')" 2> /dev/null
+								if [[ $update3 -eq '' ]] 2> /dev/null; then
 									printf "${red}\n\n No connection are available! \n\n"
 									printf "${red}\n Required Internet to Reinstall Kali! \n\n"
 									rm -f kali-khanhnguyen.sh 2> /dev/null
@@ -545,10 +569,18 @@ while [ "$menu" != 1 ]; do
 									rm -f kali-khanhnguyen.sh 2> /dev/null
 									printf "%b" "\n\n"
 								fi
+								cd 2> /dev/null
+								cd kali-arm64 2> /dev/null
+								cd bin 2> /dev/null
+								if [ -f cp ] 2> /dev/null; then
+									nonsystem=0 2> /dev/null
+								else
+									nonsystem=1 2> /dev/null
+								fi
 								read -p " Press Enter to exit " anykey
 								;;
 							[n]|[N])
-								settings=0
+								settings=0 2> /dev/null
 								break
 								;;
 							*)
@@ -559,8 +591,8 @@ while [ "$menu" != 1 ]; do
 						printf " 2. Reinstall with Lost your data\n"
 						printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 						read -r -p "Your choose: " response1
-						if [[ $response1 -eq 0 ]]; then
-							settings=0
+						if [[ $response1 -eq 0 ]] 2> /dev/null; then
+							settings=0 2> /dev/null
 							break
 						fi
 						case "$response1" in
@@ -573,37 +605,46 @@ while [ "$menu" != 1 ]; do
 								printf "%b\n" " "
 								case "$response" in
 									[y]|[Y]) 
-										cd
+										cd 2> /dev/null
 										wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
-										update3="$(grep '' './kali-khanhnguyen.sh')"
-										if [[ $update3 -eq '' ]]; then
+										update3="$(grep '' './kali-khanhnguyen.sh')" 2> /dev/null
+										if [[ $update3 -eq '' ]] 2> /dev/null; then
 											printf "${red}\n\n No connection are available! \n\n"
 											printf "${red}\n Required Internet to Reinstall Kali! \n\n"
 											rm -f kali-khanhnguyen.sh 2> /dev/null
 										else
 											rm -rf kali-arm64 2> /dev/null
 											chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
-											wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
-											freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
-											requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
-											if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
-												passfreespace=1
+											if [[ $key -eq 2 ]] 2> /dev/null; then
+												echo "Free space check: Skip! Because Not Compatible!"
 											else
-												printf "${red}\n\n Your device don't have enough space!\n"
-												printf "${red}\n Do you want to continue?\n\n${reset}"
-												read -r -p "Your choose: " response
-												if [ $response = 'Y' ] | [ $response = 'y' ]; then
-													passfreespace=1
+												wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
+												freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+												requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
+												if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
+													passfreespace=1 2> /dev/null
 												else
-													passfreespace=0
+													printf "${red}\n\n Your device don't have enough space!\n"
+													printf "${red}\n Do you want to continue?\n\n${reset}"
+													read -r -p "Your choose: " response
+													if [ $response = 'Y' ] | [ $response = 'y' ] 2> /dev/null; then
+														passfreespace=1 2> /dev/null
+													else
+														passfreespace=0 2> /dev/null
+													fi
 												fi
+												if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
+													echo "Free space check: OK"
+													echo " "
+												else
+													echo "Exit!"
+													echo " "
+													break
+												fi
+												break
+												exitcode=1 2> /dev/null
 											fi
-											if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
-												echo "Free space check: OK"
-												echo " "
-											else
-												echo "Exit!"
-												echo " "
+											if [[ $exitcode -eq 1 ]] 2> /dev/null; then
 												exit
 											fi
 											sh ~/kali-khanhnguyen.sh && echo "Process ended!"
@@ -626,32 +667,41 @@ while [ "$menu" != 1 ]; do
 								case "$response" in
 									[y]|[Y]) 
 										cd
-										wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate
-										freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
-										requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
-										if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
-											passfreespace=1
+										if [[ $key -eq 2 ]] 2> /dev/null; then
+											echo "Free space check: Skip! Because Not Compatible!"
 										else
-											printf "${red}\n Your device don't have enough space!\n"
-											printf "${red}\n Do you want to continue?\n\n${reset}"
-											read -r -p "Your choose: " response
+											wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
+											freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+											requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
+											if [[ $freespace -ge $requiredfreespace ]] 2> /dev/null; then
+												passfreespace=1 2> /dev/null
+											else
+												printf "${red}\n Your device don't have enough space!\n"
+												printf "${red}\n Do you want to continue?\n\n${reset}"
+												read -r -p "Your choose: " response
+											fi
+											if [ $response = 'Y' ] | [ $response = 'y' ]; then
+												passfreespace=1 2> /dev/null
+											else
+												passfreespace=0 2> /dev/null
+											fi
+											if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
+												echo "Free space check: OK"
+												echo " "
+											else
+												echo "Exit!"
+												echo " "
+												break
+											fi
+											break
+											exitcode=1 2> /dev/null
 										fi
-										if [ $response = 'Y' ] | [ $response = 'y' ]; then
-											passfreespace=1
-										else
-											passfreespace=0
-										fi
-										if [[ $passfreespace -eq 1 ]] 2> /dev/null; then
-											echo "Free space check: OK"
-											echo " "
-										else
-											echo "Exit!"
-											echo " "
+										if [[ $exitcode -eq 1 ]] 2> /dev/null; then
 											exit
 										fi
 										wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
-										update3="$(grep '' './kali-khanhnguyenup.sh')"
-										if [[ $update3 -eq '' ]]; then
+										update3="$(grep '' './kali-khanhnguyenup.sh')" 2> /dev/null
+										if [[ $update3 -eq '' ]] 2> /dev/null; then
 											printf "${red}\n\n No connection are available! \n\n"
 											printf "${red}\n Required Internet to Reinstall Kali! \n\n"
 											rm -f kali-khanhnguyenup.sh 2> /dev/null
@@ -676,7 +726,7 @@ while [ "$menu" != 1 ]; do
 				done
 				break
 				;;
-			"Backup Image")  
+			"Backup")  
 				clear
 				printf "${red}\n  @ RECOVERY MENU \n\n"
 				printf "${green} -> Backup Image \n\n"
@@ -690,25 +740,26 @@ while [ "$menu" != 1 ]; do
 				case "$response" in
 					[y]|[Y]) 
 							cd $HOME
-							if [ -f kali-arm64-backup.tar.xz ]; then
+							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								rm -f kali-arm64-backup.tar.xz
 							fi
 							XZ_OPT=-$level tar cJf - ~/kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
-							if [ -f kali-arm64-backup.tar.xz ]; then
-								7z e kali-arm64-backup.tar.xz
+							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
+								printf "${yellow}\n - Please wait....\n ${reset}"
+								7z e kali-arm64-backup.tar.xz 2> /dev/null
 							else
 								printf "%b\n" " ${red} - Backup image failed! \n"
 								exit 1
 							fi
-							if [ -f kali-arm64-backup.tar ]; then
-								if [ -f kali-arm64-backup.tar.xz ]; then
-									rm -f kali-arm64-backup.tar.xz
+							if [ -f kali-arm64-backup.tar ] 2> /dev/null; then
+								if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
+									rm -f kali-arm64-backup.tar.xz 2> /dev/null
 								fi
-								mv kali-arm64-backup.tar kali-arm64-backup.tar.xz
-								mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz
+								mv kali-arm64-backup.tar kali-arm64-backup.tar.xz 2> /dev/null
+								mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz 2> /dev/null
 							else
 								printf "%b\n" " ${red} - Backup image failed! \n"
-								rm -f kali-arm64-backup.tar.xz
+								rm -f kali-arm64-backup.tar.xz 2> /dev/null
 								exit 1
 							fi
 							clear
@@ -716,12 +767,12 @@ while [ "$menu" != 1 ]; do
 							printf "${green} -> Backup Image \n\n"
 							printf "${yellow} @ Default location backup is /sdcard \n\n"
 							cd $HOME
-							if [ -f /sdcard/kali-arm64-backup.tar.xz ]; then
+							if [ -f /sdcard/kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								printf "%b\n" " ${yellow} - Completed Backup Image! \n"
 							else
 								printf "%b\n" " ${red} - Backup image failed! \n"
-								rm -f kali-arm64-backup.tar.xz
-								rm -f kali-arm64-backup.tar
+								rm -f kali-arm64-backup.tar.xz 2> /dev/null
+								rm -f kali-arm64-backup.tar 2> /dev/null
 								exit 1
 							fi
 							read -p " Press Enter to exit " anykey
@@ -731,7 +782,7 @@ while [ "$menu" != 1 ]; do
 				esac
 				break
 				;;
-			"Restore Image")
+			"Restore")
                 clear
 				printf "${red}\n  @ RECOVERY MENU \n\n"
                 printf "${green} -> Restore Image \n\n"
@@ -739,7 +790,7 @@ while [ "$menu" != 1 ]; do
 				printf "${yellow}  @@ Example your file in /sdcard/kali-arm64.tar.xz \n"
                 printf "${yellow}  @@ Enter name image: kali-arm64.tar.xz \n\n"
                 read -p "Enter Full name image: " restoreimage
-				checkfile=/sdcard/$restoreimage
+				checkfile=/sdcard/$restoreimage 2> /dev/null
                 printf "%b\n" "\n-----------------\n\n"
 				printf "${blue} Target Image: /sdcard/$restoreimage \n"
 				printf "${red}  @@@ Restore Image will erase current data! \n\n"
@@ -747,18 +798,18 @@ while [ "$menu" != 1 ]; do
                 case "$response" in
                       [y]|[Y]) 
                              printf "%b\n" "${yellow}\n -- Restore Image is in progress, please wait.... \n"
-							 if [ -f $checkfile ]; then
+							 if [ -f $checkfile ] 2> /dev/null; then
 					  			 printf "${green} restore image exist! \n"
 					  			 printf "${yellow}\n -Preparing.... \n"
 								 cd $HOME
 								 wget -O restore-kali-khanhnguyen.sh https://tinyurl.com/37fhdpjb 2> /dev/null
-								 update4="$(grep '' './restore-kali-khanhnguyen.sh')"
-								 if [[ $update4 -eq '' ]]; then
+								 update4="$(grep '' './restore-kali-khanhnguyen.sh')" 2> /dev/null
+								 if [[ $update4 -eq '' ]] 2> /dev/null; then
 							 		 printf "${red}\n\n No connection are available! \n\n"
 							 		 printf "${red}\n Required Internet to Restore Image! \n\n"
 							 		 rm -f restore-kali-khanhnguyen.sh 2> /dev/null
 								 else
-								 	 cp /sdcard/$restoreimage restore-khanhnguyen.tar.xz
+								 	 cp /sdcard/$restoreimage restore-khanhnguyen.tar.xz 2> /dev/null
 								 	 rm -rf ~/kali-arm64 2> /dev/null
 								     chmod +x ~/restore-kali-khanhnguyen.sh 2> /dev/null
 								 	 sh ~/restore-kali-khanhnguyen.sh && echo " - Process ended!"
@@ -812,8 +863,8 @@ while [ "$menu" != 1 ]; do
 					printf " 3. Wake Lock [$settingswake] \n"
 					printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 					read -r -p "Your choose: " response1
-					if [[ $response1 -eq 0 ]]; then
-						settings=0
+					if [[ $response1 -eq 0 ]] 2> /dev/null; then
+						settings=0 2> /dev/null
 						break
 					fi
 					case "$response1" in
@@ -826,7 +877,7 @@ while [ "$menu" != 1 ]; do
 								else
 									cd 2> /dev/null
 									cd .. 2> /dev/null
-									echo 'update_enable' > usr/bin/settingsupdate
+									echo 'update_enable' > usr/bin/settingsupdate 2> /dev/null
 									settingsupdatenum=1 2> /dev/null
 								fi
 								;;
@@ -839,26 +890,26 @@ while [ "$menu" != 1 ]; do
 								else
 									cd 2> /dev/null
 									cd .. 2> /dev/null
-									echo 'update_enable' > usr/bin/settingsupdatekali
+									echo 'update_enable' > usr/bin/settingsupdatekali 2> /dev/null
 									settingsupdatekalinum=1 2> /dev/null
 								fi
 								;;
 						 [3]) 
 								if [[ $wake -eq 1 ]] 2> /dev/null; then
-									cd
-									cd ..
-									echo 'khanh' > usr/bin/khanhwake
+									cd 2> /dev/null
+									cd .. 2> /dev/null
+									echo 'khanh' > usr/bin/khanhwake 2> /dev/null
 									wake=0 2> /dev/null
-									cd
-									sed -i '/termux-wake-lock/d' ./.bash_profile
+									cd 2> /dev/null
+									sed -i '/termux-wake-lock/d' ./.bash_profile 2> /dev/null
 									termux-wake-unlock
 								else
 									wake=1 2> /dev/null
-									cd
-									echo "termux-wake-lock" >> ./.bash_profile
-									cd ..
-									rm -f usr/bin/khanhwake
-									cd
+									cd 2> /dev/null
+									echo "termux-wake-lock" >> ./.bash_profile 2> /dev/null
+									cd .. 2> /dev/null
+									rm -f usr/bin/khanhwake 2> /dev/null
+									cd 2> /dev/null
 									termux-wake-lock
 								fi
 								;;
@@ -868,7 +919,7 @@ while [ "$menu" != 1 ]; do
 				done
 				break
                 ;;					
-            "KhanhNguyen9872")
+            "About")
 				settings=1 2> /dev/null
 				while [[ $settings -eq 1 ]] 2> /dev/null; do
                 	clear
@@ -880,19 +931,19 @@ while [ "$menu" != 1 ]; do
 					printf " 3. Github\n"
 					printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 					read -r -p "Your choose: " response1
-					if [[ $response1 -eq 0 ]]; then
+					if [[ $response1 -eq 0 ]] 2> /dev/null; then
 						settings=0
 						break
 					fi
 					case "$response1" in
 					  	[1])
-								termux-open-url https://fb.me/khanh10a1
+								termux-open-url https://fb.me/khanh10a1 2> /dev/null
 								;;
 						[2]) 
-								termux-open-url https://youtube.com/channel/UC8didcLVaL4iTfbuWBGv51w
+								termux-open-url https://youtube.com/channel/UC8didcLVaL4iTfbuWBGv51w 2> /dev/null
 								;;
 					 	[3]) 
-								termux-open-url https://github.com/KhanhNguyen9872
+								termux-open-url https://github.com/KhanhNguyen9872 2> /dev/null
 								;;
 							*)
 								;;
@@ -900,7 +951,7 @@ while [ "$menu" != 1 ]; do
 				done
 				break
                 ;;					
-            "Uninstall Kali-Linux")
+            "Uninstall")
 				settings=1 2> /dev/null
 				while [[ $settings -eq 1 ]] 2> /dev/null; do
                 	clear
@@ -910,7 +961,7 @@ while [ "$menu" != 1 ]; do
 					printf " 2. Remove Kali-Linux without recovery \n"
 					printf "${light_cyan} 0. Return to menu (or Enter) ${reset} \n\n"
 					read -r -p "Your choose: " response1
-					if [[ $response1 -eq 0 ]]; then
+					if [[ $response1 -eq 0 ]] 2> /dev/null; then
 						settings=0
 						break
 					fi
@@ -923,15 +974,23 @@ while [ "$menu" != 1 ]; do
 								read -r -p "Are you sure to uninstall Kali? [Y/N] " response
 								case "$response" in
 									[y]|[Y]) 
-											cd
-											cd ..
-											rm -rf home
-											mkdir home
-											cd usr/bin
-											nonsystem=1
-											rm -f kali
-											rm -f version
-											rm -f versionrestore
+											cd 2> /dev/null
+											cd .. 2> /dev/null
+											cp home/.bash_profile usr/bash_profile_backup 2> /dev/null
+											rm -rf home 2> /dev/null
+											mkdir home 2> /dev/null
+											cd usr/bin 2> /dev/null
+											nonsystem=1 2> /dev/null
+											rm -f kali 2> /dev/null
+											rm -f version 2> /dev/null
+											rm -f versionrestore 2> /dev/null
+											cd 2> /dev/null
+											cd .. 2> /dev/null
+											rm -rf home 2> /dev/null
+											mkdir home 2> /dev/null
+											cp usr/bash_profile_backup home/.bash_profile 2> /dev/null
+											rm -f home/.bash_profile 2> /dev/null
+											cd 2> /dev/null
 											printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
 											read -p "Press Enter to exit" anykey
 											;;
@@ -947,21 +1006,26 @@ while [ "$menu" != 1 ]; do
 								read -r -p "Are you sure to uninstall Kali? [Y/N] " response
 								case "$response" in
 									[y]|[Y]) 
-											cd
-											rm ~/.bash_profile
-											cd ..
-											rm -rf home
-											mkdir home
-											cd usr/bin
-											rm -f kali
-											rm -f settingsupdatekali
-											rm -f settingsupdate
-											rm -f khanh
-											rm -f khanhlocked
-											rm -f version
-											rm -f versionrecovery
-											rm -f recovery
-											rm -f versionrestore
+											cd 2> /dev/null
+											rm ~/.bash_profile 2> /dev/null
+											cd .. 2> /dev/null
+											rm -rf home 2> /dev/null
+											rm -rf home 2> /dev/null
+											mkdir home 2> /dev/null
+											cd usr/bin 2> /dev/null
+											rm -f kali 2> /dev/null
+											rm -f settingsupdatekali 2> /dev/null
+											rm -f settingsupdate 2> /dev/null
+											rm -f khanh 2> /dev/null
+											rm -f khanhlocked 2> /dev/null
+											rm -f version 2> /dev/null
+											rm -f versionrecovery 2> /dev/null
+											rm -f recovery 2> /dev/null
+											rm -f versionrestore 2> /dev/null
+											cd 2> /dev/null
+											cd .. 2> /dev/null
+											rm -rf home 2> /dev/null
+											mkdir home 2> /dev/null
 											printf "%b\n" "${yellow} Completed uninstall Kali-Linux! \n"
 											printf "%b\n" "${red} Recovery will now exit! \n"
 											menu=1
@@ -983,69 +1047,69 @@ while [ "$menu" != 1 ]; do
             "Exit" )
 				clear
 				printf "%b\n" "${green} \n\n - Good bye! \n"
-                menu=1
+                menu=1 2> /dev/null
 				exit 0
                 ;;
-            "Set Password" )
+            "Password" )
 				settings=1 2> /dev/null
 				while [[ $settings -eq 1 ]] 2> /dev/null; do
 					clear
 					printf "${red}\n  @ RECOVERY MENU \n\n"
 					printf "${green} -> Set Password \n\n"
-					if [[ $notset -eq 1 ]]; then
+					if [[ $notset -eq 1 ]] 2> /dev/null; then
 						printf "%b\n" "${yellow} Password is not set! \n\n"
 						printf "${light_cyan} Do you want setup New Password? [Y/N] ${reset}\n"
 						read -p "Your choose: " anykey
 						if [ $anykey = 'N' ] 2> /dev/null || [ $anykey = 'n' ] 2> /dev/null; then
-							settings=0
+							settings=0 2> /dev/null
 							break
 						fi
 						case "$anykey" in
 							[y]|[Y]) 
 									pass=1
-									while [[ $pass -eq 1 ]]; do
+									while [[ $pass -eq 1 ]] 2> /dev/null; do
 										clear
 										printf "${red}\n  @ RECOVERY MENU \n\n"
 										printf "${green} -> Set Password ${reset} \n\n"
 										read -p "New password: " password
 										read -p "Confirm password: " confirm
-										cd
-										cd ..
-										cd usr/bin
+										cd 2> /dev/null
+										cd .. 2> /dev/null
+										cd usr/bin 2> /dev/null
 										if [[ $password -eq $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null; then
-											echo $password > khanh
-											if [[ $custom -eq 1 ]]; then
+											echo $password > khanh 2> /dev/null
+											if [[ $custom -eq 1 ]] 2> /dev/null; then
 												printf "\n ${red} Custom Image Detected!\n\n"
 											fi
-											cd
-											cd ..
-											cd usr/bin
+											cd 2> /dev/null
+											cd .. 2> /dev/null
+											cd usr/bin 2> /dev/null
 											if [[ -f khanh ]]; then
-												pass1="$(grep '' './khanh')"
+												pass1="$(grep '' './khanh')" 2> /dev/null
 												if [[ $pass1 -eq '' ]] 2> /dev/null; then
 													printf "${red}\n\n - Password is not empty! \n"
-													cd
-													cd ..
-													cd usr/bin
-													rm -f khanh
+													cd 2> /dev/null
+													cd .. 2> /dev/null
+													cd usr/bin 2> /dev/null
+													rm -f khanh 2> /dev/null
 												else
-													cd
+													cd 2> /dev/null
 													wget -O bash_profile https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/.bash_profile 2> /dev/null
 													mv bash_profile ~/.bash_profile 2> /dev/null
-													cd ..
+													cd .. 2> /dev/null
 													echo 'khanh' > usr/bin/khanhlocked 2> /dev/null
-													lockednum=1
-													cd
+													lockednum=1 2> /dev/null
+													cd 2> /dev/null
 													printf "${light_cyan}\n\n - Password is set successfully! \n\n"
 													printf "${red}\n WARNING: Termux was locked!\n\n${reset}"
-													notset=0
+													notset=0 2> /dev/null
 												fi
 											else
 												printf "${red}\n\n - Error when set Password! \n"
-												cd
-												cd ..
-												cd usr/bin
-												rm -f khanh
+												cd 2> /dev/null
+												cd .. 2> /dev/null
+												cd usr/bin 2> /dev/null
+												rm -f khanh 2> /dev/null
 											fi
 											read -p "Press Enter to exit!" anykey
 											break
@@ -1062,22 +1126,25 @@ while [ "$menu" != 1 ]; do
 					else
 						cd
 						cd ..
-						if [ -f usr/bin/khanhlocked ]; then
-							locked='Locked'
-							lockednum=1
+						if [ -f usr/bin/khanhlocked ] 2> /dev/null; then
+							locked='Locked' 2> /dev/null
+							lockednum=1 2> /dev/null
 						else
-							locked='NOT Locked'
-							lockednum=0
+							locked='NOT Locked' 2> /dev/null
+							lockednum=0 2> /dev/null
 						fi
-						if [ -f usr/bin/khanh ]; then
-							lockkali='Locked'
+						if [ -f usr/bin/khanh ] 2> /dev/null; then
+							lockkali='Locked' 2> /dev/null
 						else
-							lockkali='NOT Locked'
+							lockkali='NOT Locked' 2> /dev/null
 						fi
-						if [ -f usr/bin/khanh ]; then
-							lockrecovery='Locked'
+						if [[ $nonsystem -eq 1 ]] 2> /dev/null; then
+							lockkali='Not Installed' 2> /dev/null
+						fi
+						if [ -f usr/bin/khanh ] 2> /dev/null; then
+							lockrecovery='Locked' 2> /dev/null
 						else
-							lockrecovery='NOT Locked'
+							lockrecovery='NOT Locked' 2> /dev/null
 						fi
 						cd
 						clear
@@ -1090,7 +1157,7 @@ while [ "$menu" != 1 ]; do
 						printf "  [Termux: $locked]\n\n"
 						echo "=========="
 						printf "\n"
-						if [[ $lockednum -eq 1 ]]; then
+						if [[ $lockednum -eq 1 ]] 2> /dev/null; then
 							printf "${yellow} 1. Unlock Termux\n"
 						else
 						printf "${yellow} 1. Lock Termux\n"
@@ -1099,13 +1166,13 @@ while [ "$menu" != 1 ]; do
 						printf " 3. Remove password\n"
 						printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 						read -r -p "Your choose: " response1
-						if [[ $response1 -eq 0 ]]; then
-							settings=0
+						if [[ $response1 -eq 0 ]] 2> /dev/null; then
+							settings=0 2> /dev/null
 							break
 						fi
 						case "$response1" in
 							[1])
-								if [[ $lockednum -eq 1 ]]; then
+								if [[ $lockednum -eq 1 ]] 2> /dev/null; then
 									clear
 									printf "${red}\n  @ RECOVERY MENU \n\n"
 									printf "${green} -> Lock Termux \n\n"
@@ -1113,18 +1180,18 @@ while [ "$menu" != 1 ]; do
 									printf "\n Lock your Termux for more Security!\n"
 									printf "${light_cyan}\n\n @ Do you want to unlock it? [Y/N]\n"
 									read -p "Your choose: " unlockchoose
-									if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ]; then
+									if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ] 2> /dev/null; then
 										printf "\n\n"
 										if [[ $wake -eq 1 ]] 2> /dev/null; then
-											echo "termux-wake-lock" > ~/.bash_profile
+											echo "termux-wake-lock" > ~/.bash_profile 2> /dev/null
 										else
-											rm -f ~/.bash_profile
+											rm -f ~/.bash_profile 2> /dev/null
 										fi
 										cd
 										cd ..
 										rm -f usr/bin/khanhlocked 2> /dev/null
 										printf "\n Termux was unlocked!\n"
-										lockednum=0
+										lockednum=0 2> /dev/null
 										cd
 										read -p "Press Enter to exit!" anykey
 									fi
@@ -1136,12 +1203,12 @@ while [ "$menu" != 1 ]; do
 									printf "\n Lock your Termux for more Security!\n"
 									printf "${light_cyan}\n\n @ Do you want to lock it? [Y/N]\n"
 									read -p "Your choose: " unlockchoose
-									if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ]; then
+									if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ] 2> /dev/null; then
 										printf "\n\n"
 										cd
 										wget -O bash_profile https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/.bash_profile 2> /dev/null
-										if [ -f bash_profile ]; then
-											bashprofile="$(grep '' './bash_profile')"
+										if [ -f bash_profile ] 2> /dev/null; then
+											bashprofile="$(grep '' './bash_profile')" 2> /dev/null
 										else
 											printf "${red}\n No connection are available! \n\n"
 											printf "${red}\n Required Internet to Lock Termux! \n\n"
@@ -1153,12 +1220,12 @@ while [ "$menu" != 1 ]; do
 											read -p "Press Enter to exit!" anykey
 										else
 											mv bash_profile ~/.bash_profile 2> /dev/null
-											cd ..
+											cd .. 2> /dev/null
 											rm -f usr/bin/khanhwake 2> /dev/null
-											wake=1
+											wake=1 2> /dev/null
 											echo 'khanh' > usr/bin/khanhlocked 2> /dev/null
 											printf "\n Termux was locked!\n"
-											lockednum=1
+											lockednum=1 2> /dev/null
 											cd
 											read -p "Press Enter to exit!" anykey
 										fi
@@ -1171,22 +1238,22 @@ while [ "$menu" != 1 ]; do
 								printf "${green} -> Change Password \n\n"
 								printf "${red} @ Are you sure to change Password? [Y/N]\n"
 								read -p "Your choose: " changepass1
-								if [ $changepass1 = 'y' ] || [ $changepass1 = 'Y' ]; then
-									while [[ $newpass -eq 1 ]]; do
+								if [ $changepass1 = 'y' ] || [ $changepass1 = 'Y' ] 2> /dev/null; then
+									while [[ $newpass -eq 1 ]] 2> /dev/null; do
 										clear
 										printf "${red}\n  @ RECOVERY MENU \n\n"
 										printf "${green} -> Change Password ${reset} \n\n"
 										read -p "New password: " password
 										read -p "Confirm password: " confirm
-										cd
-										cd ..
-										cd usr/bin
+										cd 2> /dev/null
+										cd .. 2> /dev/null
+										cd usr/bin 2> /dev/null
 										if [[ $password -eq $confirm ]] 2> /dev/null || [ $password = $confirm ] 2> /dev/null; then
-											if [[ -f khanh ]]; then
+											if [[ -f khanh ]] 2> /dev/null; then
 												if [[ $password -eq '' ]] 2> /dev/null || [ $password = '' ] 2> /dev/null; then
 													printf "${red}\n\n - Password is not empty! \n"
 												else
-													echo $password > khanh
+													echo $password > khanh 2> /dev/null
 													printf "${light_cyan}\n\n - Password is change successfully! \n"
 												fi
 											else
@@ -1208,13 +1275,13 @@ while [ "$menu" != 1 ]; do
 								printf "${green} -> Remove Password \n\n"
 								printf "${red} @ Are you sure to remove Password? [Y/N]\n"
 								read -p "Your choose: " removepass
-								if [ $removepass = 'y' ] || [ $removepass = 'Y' ]; then
+								if [ $removepass = 'y' ] || [ $removepass = 'Y' ] 2> /dev/null; then
 									printf "\n\n"
-									cd
-									cd ..
-									rm -f usr/bin/khanh 2> /dev/null
+									cd 2> /dev/null
+									cd .. 2> /dev/null
+									rm -f usr/bin/khanh 2> /dev/null 2> /dev/null
 									printf "\n Password was removed!\n"
-									notset=1
+									notset=1 2> /dev/null
 									cd
 									read -p "Press Enter to exit!" anykey
 								fi
