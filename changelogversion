@@ -1,12 +1,12 @@
 - Version 2.2
 - Fix bugs!
-- Add ReInstall Recovery on Settings in v2.1
-- Fix Reinstall not work in v2.1
-- Add 'Level is unavailable' in Compress Level in v2.0!
-- Add 'Not Compatible' when can't check Storage in v2.0!
+- Add ReInstall Recovery on Settings in v2.2!
+- Fix Reinstall not work in v2.1!
+- Add 'Level is unavailable' in Compress Level in v2.1!
+- Add 'Not Compatible' when can't check Storage in v2.1!
 - Change Menu name in v2.0!
-- Fix Not install after install kali in v2.0!
-- Fix Termux Lock not work after Uninstall Kali-Linux in v2.1!
+- Fix Not install after install kali in v2.1!
+- Fix Termux Lock not work after Uninstall Kali-Linux in v2.2!
 - Compatible with Kali v1.2 or up!
 - Improve stable!
       THANKS FOR USED!!!
