@@ -25,7 +25,7 @@ khanh=usr/bin/khanh 2> /dev/null
 if [ -f $khanh ]; then
 	left=4 2> /dev/null
 	khanh1="$(grep '' './usr/bin/khanh')" 2> /dev/null
-	while [[ $left -eq 4 ]] || [[ $left -eq 3 ]] || [[ $left -eq 2 ]] || [[ $left -eq 1 ]] 2> /dev/null; do
+	while [[ $left -eq 4 ]] 2> /dev/null || [[ $left -eq 3 ]] 2> /dev/null || [[ $left -eq 2 ]] 2> /dev/null || [[ $left -eq 1 ]] 2> /dev/null; do
 		clear
 		if [[ $wrong -eq 1 ]] 2> /dev/null; then
 			printf "\n ${red} - Wrong Password! $left attempts left! ${reset}\n\n"
@@ -220,7 +220,7 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 								printf "${red}\n\n Your device don't have enough space!\n"
 								printf "${red}\n Do you want to continue?\n\n${reset}"
 								read -r -p "Your choose: " response
-								if [ $response = 'Y' ] | [ $response = 'y' ]; then
+								if [ $response = 'Y' ] | [ $response = 'y' ] 2> /dev/null; then
 									passfreespace=1 2> /dev/null
 								else
 									passfreespace=0 2> /dev/null
@@ -269,7 +269,7 @@ if [[ $settingsupdatenum -eq 1 ]] 2> /dev/null; then
 	echo "=============================="
 	printf "\n"
 	printf "${green} - Checking for updates Recovery.... \n"
-	sleep 0.5
+	sleep 0.5 2> /dev/null
 	if [[ nonetwork -eq 1 ]] 2> /dev/null; then
 		printf "${red}\n No connection are available! \n\n"
 		printf "${red} Required Internet to check update! \n\n"
@@ -293,7 +293,7 @@ if [[ $settingsupdatenum -eq 1 ]] 2> /dev/null; then
 			printf "${green} - No updates Recovery are available!\n\n"
 			rm -f versionrecovery 2> /dev/null
 			echo "=============================="
-			sleep 4
+			sleep 4 2> /dev/null
 		else
 			rm -f versionrecovery 2> /dev/null
 			printf "${light_cyan} Installed: $verrecovery \n"
@@ -458,7 +458,7 @@ while [ "$menu" != 1 ]; do
 		key=2 2> /dev/null
 	fi
 	if [[ $key -eq 2 ]] 2> /dev/null; then
-		notcompatible=1
+		notcompatible=1 2> /dev/null
 	fi
 	clear
 	printf "${green}\n  @ RECOVERY MENU \n"
@@ -474,7 +474,7 @@ while [ "$menu" != 1 ]; do
 	else
 		printf "${blue}  @ Root: NO \n\n${reset}"
 	fi
-	if [[ $notcompatible -eq 1 ]]; then
+	if [[ $notcompatible -eq 1 ]] 2> /dev/null; then
 		printf "${red}    @ Total storage: Not Compatible\n"
 		printf "${red}    @ Free space:    Not Compatible\n\n"
 	else
@@ -519,7 +519,7 @@ while [ "$menu" != 1 ]; do
 						case "$response" in
 							[y]|[Y]) 
 								cd 2> /dev/null
-								if [[ $key -eq 2 ]]; then
+								if [[ $key -eq 2 ]] 2> /dev/null; then
 									echo "Free space check: Skip! Because Not Compatible!"
 								else
 									wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
@@ -665,7 +665,7 @@ while [ "$menu" != 1 ]; do
 												printf "${red}\n Do you want to continue?\n\n${reset}"
 												read -r -p "Your choose: " response
 											fi
-											if [ $response = 'Y' ] | [ $response = 'y' ]; then
+											if [ $response = 'Y' ] 2> /dev/null || [ $response = 'y' ] 2> /dev/null; then
 												passfreespace=1 2> /dev/null
 											else
 												passfreespace=0 2> /dev/null
@@ -713,7 +713,7 @@ while [ "$menu" != 1 ]; do
 				printf "${yellow} @ Default location backup is /sdcard \n\n"
 				printf "${yellow} @@ High level may take a long time, recommend is 0 \n\n"
 				read -p "Compress level (0-9): " level
-				if [[ $level -ge 0 ]] && [[ $level -le 9 ]]; then
+				if [[ $level -ge 0 ]] && [[ $level -le 9 ]] 2> /dev/null; then
 					printf "${yellow}\n Level is $level"
 				else
 					printf "${red}\n Level is unavailable! ${reset}\n\n"
@@ -728,7 +728,7 @@ while [ "$menu" != 1 ]; do
 					[y]|[Y]) 
 							cd $HOME
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
-								rm -f kali-arm64-backup.tar.xz
+								rm -f kali-arm64-backup.tar.xz 2> /dev/null
 							fi
 							XZ_OPT=-$level tar cJf - ~/kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
@@ -788,7 +788,7 @@ while [ "$menu" != 1 ]; do
 							 if [ -f $checkfile ] 2> /dev/null; then
 					  			 printf "${green} restore image exist! \n"
 					  			 printf "${yellow}\n -Preparing.... \n"
-								 cd $HOME
+								 cd 2> /dev/null
 								 wget -O restore-kali-khanhnguyen.sh https://tinyurl.com/37fhdpjb 2> /dev/null
 								 update4="$(grep '' './restore-kali-khanhnguyen.sh')" 2> /dev/null
 								 if [[ $update4 -eq '' ]] 2> /dev/null; then
@@ -1070,7 +1070,7 @@ while [ "$menu" != 1 ]; do
 											cd 2> /dev/null
 											cd .. 2> /dev/null
 											cd usr/bin 2> /dev/null
-											if [[ -f khanh ]]; then
+											if [[ -f khanh ]] 2> /dev/null; then
 												pass1="$(grep '' './khanh')" 2> /dev/null
 												if [[ $pass1 -eq '' ]] 2> /dev/null; then
 													printf "${red}\n\n - Password is not empty! \n"
@@ -1166,7 +1166,7 @@ while [ "$menu" != 1 ]; do
 									printf "\n Lock your Termux for more Security!\n"
 									printf "${light_cyan}\n\n @ Do you want to unlock it? [Y/N]\n"
 									read -p "Your choose: " unlockchoose
-									if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ] 2> /dev/null; then
+									if [ $unlockchoose = 'y' ] 2> /dev/null || [ $unlockchoose = 'Y' ] 2> /dev/null; then
 										printf "\n\n"
 										if [[ $wake -eq 1 ]] 2> /dev/null; then
 											echo "termux-wake-lock" > ~/.bash_profile 2> /dev/null
@@ -1189,7 +1189,7 @@ while [ "$menu" != 1 ]; do
 									printf "\n Lock your Termux for more Security!\n"
 									printf "${light_cyan}\n\n @ Do you want to lock it? [Y/N]\n"
 									read -p "Your choose: " unlockchoose
-									if [ $unlockchoose = 'y' ] || [ $unlockchoose = 'Y' ] 2> /dev/null; then
+									if [ $unlockchoose = 'y' ] 2> /dev/null || [ $unlockchoose = 'Y' ] 2> /dev/null; then
 										printf "\n\n"
 										cd
 										wget -O bash_profile https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/.bash_profile 2> /dev/null
@@ -1224,7 +1224,7 @@ while [ "$menu" != 1 ]; do
 								printf "${green} -> Change Password \n\n"
 								printf "${red} @ Are you sure to change Password? [Y/N]\n"
 								read -p "Your choose: " changepass1
-								if [ $changepass1 = 'y' ] || [ $changepass1 = 'Y' ] 2> /dev/null; then
+								if [ $changepass1 = 'y' ] 2> /dev/null || [ $changepass1 = 'Y' ] 2> /dev/null; then
 									while [[ $newpass -eq 1 ]] 2> /dev/null; do
 										clear
 										printf "${red}\n  @ RECOVERY MENU \n\n"
@@ -1261,7 +1261,7 @@ while [ "$menu" != 1 ]; do
 								printf "${green} -> Remove Password \n\n"
 								printf "${red} @ Are you sure to remove Password? [Y/N]\n"
 								read -p "Your choose: " removepass
-								if [ $removepass = 'y' ] || [ $removepass = 'Y' ] 2> /dev/null; then
+								if [ $removepass = 'y' ] 2> /dev/null || [ $removepass = 'Y' ] 2> /dev/null; then
 									printf "\n\n"
 									cd 2> /dev/null
 									cd .. 2> /dev/null
