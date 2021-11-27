@@ -733,6 +733,13 @@ while [ "$menu" != 1 ]; do
 				printf "${yellow} @ Default location backup is /sdcard \n\n"
 				printf "${yellow} @@ High level may take a long time, recommend is 0 \n\n"
 				read -p "Compress level (0-9): " level
+				if [[ $level -ge 0 ]] && [[ $level -le 9 ]]; then
+					printf "${yellow}\n Level is $level"
+				else
+					printf "${red}\n Level is unavailable! ${reset}\n\n"
+					read -p "Press Enter to exit!" anykey
+					break
+				fi
                 printf "%b\n" "\n-----------------\n\n"
 				printf "${blue} Target Backup: /sdcard/kali-arm64-backup.tar.xz \n"
 				read -r -p "Are you sure to backup image? [Y/N] " response
