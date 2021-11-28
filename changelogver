@@ -1,4 +1,14 @@
-- Add Password!
-- You can use Recovery to setup your password!
-- Add mount /mnt /storage /data /product /vendor
+- Version 1.3
+- Updated all package on 27/11/2021
+- Updated GPU to MESA 21.2.5
+- Updated Sublime Text, VSCode, Python!
+- Change new Hutao Wallpaper!
+- Add Termit (Terminal)
+- Add Neofetch for check info OS!
+- Add theme in Settings Manager!
+- Remove Thunar icon in taskbar!
+- Hide all Kali web on Start Menu!
+- Change icon look like Windows!
+- Add Dock, move taskbar at the top of the screen!
+- Compatible with Recovery version 2.2 or up!
 - Fix some issue!
