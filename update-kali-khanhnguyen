@@ -1,5 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
 
+rm -f kali-khanhnguyenup.sh
+
 VERSION=20211128
 USERNAME="kali"
 
@@ -123,6 +125,7 @@ function verify_sha() {
             printf "${red} File cai dat bi hong. Vui long cai lai \n${reset}"
             exit 1
         }
+	rm -f $SHA_NAME
 }
 
 function extract_rootfs() {
