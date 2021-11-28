@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
 
-VERSION=20211012
+VERSION=20211128
 USERNAME="kali"
 
 function ask() {
