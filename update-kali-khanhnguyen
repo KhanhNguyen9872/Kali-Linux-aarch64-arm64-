@@ -130,6 +130,7 @@ function extract_rootfs() {
 		printf "\n${blue}    @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n"
 		printf "\n${red}             @@ Tam 8-20 phut @@ ${reset}\n\n"
 		proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
+		rm -f $IMAGE_NAME 2> /dev/null
 		wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
 		mv version ${PREFIX}/bin/version 2> /dev/null
 		chmod 777 ${PREFIX}/bin/version 2> /dev/null
@@ -137,7 +138,6 @@ function extract_rootfs() {
 		echo 'update_enable' > ${PREFIX}/bin/settingsupdatekali 2> /dev/null
 		chmod 777 ${PREFIX}/bin/settingsupdate 2> /dev/null
 		chmod 777 ${PREFIX}/bin/settingsupdatekali 2> /dev/null
-		rm -f $IMAGE_NAME 2> /dev/null
 }
 
 
