@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.2" 2> /dev/null
+khanhnguyen="v2.3" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -741,7 +741,7 @@ while [ "$menu" != 1 ]; do
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								rm -f kali-arm64-backup.tar.xz 2> /dev/null
 							fi
-							XZ_OPT=-$level tar cJf - ~/kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
+							XZ_OPT=-$level tar cJf - kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								printf "${yellow}\n - Please wait....\n ${reset}"
 								7z e kali-arm64-backup.tar.xz 2> /dev/null
@@ -755,23 +755,21 @@ while [ "$menu" != 1 ]; do
 								fi
 								mv kali-arm64-backup.tar kali-arm64-backup.tar.xz 2> /dev/null
 								mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz 2> /dev/null
+								bakfail=0
 							else
-								printf "%b\n" " ${red} - Backup image failed! \n"
-								rm -f kali-arm64-backup.tar.xz 2> /dev/null
-								exit 1
+								bakfail=1
 							fi
 							clear
 							printf "${red}\n  @ RECOVERY MENU \n\n"
 							printf "${green} -> Backup Image \n\n"
 							printf "${yellow} @ Default location backup is /sdcard \n\n"
 							cd $HOME
-							if [ -f /sdcard/kali-arm64-backup.tar.xz ] 2> /dev/null; then
+							if [[ $bakfail -eq 0 ]] 2> /dev/null; then
 								printf "%b\n" " ${yellow} - Completed Backup Image! \n"
 							else
 								printf "%b\n" " ${red} - Backup image failed! \n"
 								rm -f kali-arm64-backup.tar.xz 2> /dev/null
 								rm -f kali-arm64-backup.tar 2> /dev/null
-								exit 1
 							fi
 							read -p " Press Enter to exit " anykey
 							;;
