@@ -100,7 +100,7 @@ function get_sha() {
     if [ -f ${SHA_NAME} ]; then
 		rm -f ${SHA_NAME}
     fi
-    wget -O kali-arm64-khanhnguyen.sha512sum "${SHA_URL}"
+    wget -O kali-arm64-khanhnguyen.sha512sum "${SHA_URL}" 2> /dev/null
 }
 
 function verify_sha() {
