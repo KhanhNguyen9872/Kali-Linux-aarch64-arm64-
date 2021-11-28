@@ -180,7 +180,9 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 		if [[ $ver -ge $update ]] 2> /dev/null; then
 			printf "${light_cyan} Installed: $ver \n"
 			printf "${green} - No updates Kali are available!\n\n"
+			cd .. 2> /dev/null
 			rm -f version 2> /dev/null
+			cd 2> /dev/null
 			sleep 1 2> /dev/null
 		else
 			if [[ custom -eq 1 ]] 2> /dev/null; then
@@ -190,7 +192,10 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 				if [[ kalifail -eq 1 ]] 2> /dev/null; then
 					ver="null" 2> /dev/null
 				fi
+				cd 2> /dev/null
+				cd .. 2> /dev/null
 				rm -f version 2> /dev/null
+				cd 2> /dev/null
 				printf "${light_cyan} Installed: $ver \n"
 				printf "${yellow} - New updates Kali are available!\n"
 				printf "${yellow} - New version: $update \n"
@@ -218,7 +223,7 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 								passfreespace=1 2> /dev/null
 							else
 								printf "${red}\n\n Your device don't have enough space!\n"
-								printf "${red}\n Do you want to continue?\n\n${reset}"
+								printf "${red}\n Do you want to continue? [Y/N]\n\n${reset}"
 								read -r -p "Your choose: " response
 								if [ $response = 'Y' ] | [ $response = 'y' ] 2> /dev/null; then
 									passfreespace=1 2> /dev/null
@@ -284,18 +289,24 @@ if [[ $settingsupdatenum -eq 1 ]] 2> /dev/null; then
 	fi
 	cd
 	if [[ $customre -eq 1 ]] 2> /dev/null; then
+		cd .. 2> /dev/null
 		rm -f versionrecovery 2> /dev/null
+		cd 2> /dev/null
 		printf "${red} Skip check for update! \n\n"
 		sleep 5
 	else
 		if [[ $verrecovery -ge $updaterecovery ]] 2> /dev/null; then
 			printf "${light_cyan} Installed: $verrecovery \n"
 			printf "${green} - No updates Recovery are available!\n\n"
+			cd .. 2> /dev/null
 			rm -f versionrecovery 2> /dev/null
+			cd 2> /dev/null
 			echo "=============================="
 			sleep 4 2> /dev/null
 		else
+			cd .. 2> /dev/null
 			rm -f versionrecovery 2> /dev/null
+			cd 2> /dev/null
 			printf "${light_cyan} Installed: $verrecovery \n"
 			printf "${yellow} - New updates Recovery are available!\n"
 			printf "${yellow} - New version: $updaterecovery \n"
@@ -307,7 +318,7 @@ if [[ $settingsupdatenum -eq 1 ]] 2> /dev/null; then
 			case "$response" in
 				[y]|[Y]) 
 					printf "%b\n" "${yellow} - Updating... \n"
-					cd
+					cd 2> /dev/null
 					wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null
 					wget -O versionrecovery https://tinyurl.com/fvcj5463 2> /dev/null
 					update2="$(grep '' './versionrecovery')" 2> /dev/null
@@ -529,7 +540,7 @@ while [ "$menu" != 1 ]; do
 										passfreespace=1 2> /dev/null
 									else
 										printf "${red}\n\n Your device don't have enough space!\n"
-										printf "${red}\n Do you want to continue?\n\n${reset}"
+										printf "${red}\n Do you want to continue? [Y/N]\n\n${reset}"
 										read -r -p "Your choose: " response
 										if [ $response = 'Y' ] | [ $response = 'y' ] 2> /dev/null; then
 											passfreespace=1 2> /dev/null
@@ -615,7 +626,7 @@ while [ "$menu" != 1 ]; do
 													passfreespace=1 2> /dev/null
 												else
 													printf "${red}\n\n Your device don't have enough space!\n"
-													printf "${red}\n Do you want to continue?\n\n${reset}"
+													printf "${red}\n Do you want to continue? [Y/N]\n\n${reset}"
 													read -r -p "Your choose: " response
 													if [ $response = 'Y' ] | [ $response = 'y' ] 2> /dev/null; then
 														passfreespace=1 2> /dev/null
@@ -662,7 +673,7 @@ while [ "$menu" != 1 ]; do
 												passfreespace=1 2> /dev/null
 											else
 												printf "${red}\n Your device don't have enough space!\n"
-												printf "${red}\n Do you want to continue?\n\n${reset}"
+												printf "${red}\n Do you want to continue? [Y/N]\n\n${reset}"
 												read -r -p "Your choose: " response
 											fi
 											if [ $response = 'Y' ] 2> /dev/null || [ $response = 'y' ] 2> /dev/null; then
