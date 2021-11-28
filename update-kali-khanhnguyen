@@ -137,6 +137,7 @@ function extract_rootfs() {
 		echo 'update_enable' > ${PREFIX}/bin/settingsupdatekali 2> /dev/null
 		chmod 777 ${PREFIX}/bin/settingsupdate 2> /dev/null
 		chmod 777 ${PREFIX}/bin/settingsupdatekali 2> /dev/null
+		rm -f $IMAGE_NAME 2> /dev/null
 }
 
 
