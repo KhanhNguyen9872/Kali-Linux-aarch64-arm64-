@@ -131,6 +131,9 @@ if [ -f usr/bin/settingsupdatekali ] 2> /dev/null; then
 	if [[ $key -eq 2 ]] 2> /dev/null; then
 		notcompatible=1 2> /dev/null
 	fi
+else
+	key=0
+	notcompatible=0
 fi
 cd 2> /dev/null
 cd .. 2> /dev/null
