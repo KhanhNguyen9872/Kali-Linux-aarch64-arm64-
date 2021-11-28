@@ -860,6 +860,7 @@ while [ "$menu" != 1 ]; do
 					printf " 2. Check update Kali [$settingsupdatekali] \n"
 					printf " 3. Wake Lock [$settingswake] \n"
 					printf " 4. Reinstall Recovery [For Development] \n"
+					printf " 5. Reinstall Launcher [if you can't start kali command] \n"
 					printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 					read -r -p "Your choose: " response1
 					if [[ $response1 -eq 0 ]] 2> /dev/null; then
@@ -940,6 +941,33 @@ while [ "$menu" != 1 ]; do
 										printf "%b\n\n" "${green} - Reinstall successfully! \n"
 										printf "${green} - Run recovery again! \n\n"
 										exit 0
+									fi
+									read -p " Press Enter to continue " anykey
+								fi
+								;;
+						 [5]) 
+								clear
+								printf "${red}\n  @ RECOVERY MENU \n\n"
+                				printf "${green} -> Settings \n\n\n"
+                				printf "${yellow} @ Reinstall Kali Launcher\n\n"
+                				printf "${red}- Reinstall Kali Launcher (kali) if you can't start kali command!\n\n${reset}"
+                				printf "${light_cyan} Do you want to Reinstall Launcher? [Y/N] \n"
+                				read -p "Your Choose: " anykey
+                				if [ $anykey = 'y' ] 2> /dev/null || [ $anykey = 'Y' ] 2> /dev/null; then
+									printf "%b\n" "${yellow}\n - Reinstall Kali Launcher.... \n"
+									cd
+									wget -O kali https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/kali 2> /dev/null
+									update2="$(grep '' './kali')" 2> /dev/null
+									if [[ $update2 -eq '' ]] 2> /dev/null; then
+										printf "${red}\n No connection are available! \n"
+										printf "${red}\n Required Internet to Reinstall Launcher! \n\n"
+										rm -f kali 2> /dev/null
+									else
+										cd .. 2> /dev/null
+										mv home/kali usr/bin/kali 2> /dev/null
+										chmod 777 usr/bin/kali 2> /dev/null
+										printf "%b\n\n" "${green} - Reinstall successfully! \n"
+										printf "${green} - You can try run Kali again! \n\n"
 									fi
 									read -p " Press Enter to continue " anykey
 								fi
