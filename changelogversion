@@ -1,5 +1,6 @@
-- Version 2.3
-- Fix bugs in v2.3!
+- Version 2.4
+- Fix bugs in v2.4!
+- Fix check free storage in reinstall or update in v2.4!
 - Fix Backup / Restore bug failed image in v2.3!
 - Fix stuck Recovery in many devices in v2.3!
 - Fix not skip check storage when 'Not Compatible' in v2.3!
