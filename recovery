@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.3" 2> /dev/null
+khanhnguyen="v2.4" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
