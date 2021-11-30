@@ -63,8 +63,8 @@ function status-kex() {
 			echo "Download 'Simple Protocol Player' and use this IP"
 			echo " "
 		else
-			echo "PulseAudio is not installed"
-			echo "Use: 'sudo apt install pulseaudio' to install it!"
+			printf "${red}PulseAudio is not installed\n"
+			printf "Use: 'sudo apt install pulseaudio' to install it!\n${reset}"
 			echo " "
 		fi
     else
