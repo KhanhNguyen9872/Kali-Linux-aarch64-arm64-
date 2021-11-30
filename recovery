@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.4" 2> /dev/null
+khanhnguyen="v2.5" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -975,17 +975,30 @@ while [ "$menu" != 1 ]; do
 									printf "%b\n" "${yellow}\n - Reinstall Kali Launcher.... \n"
 									cd
 									wget -O kali https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/kali 2> /dev/null
+									wget -O khanh https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/khanh 2> /dev/null
 									update2="$(grep '' './kali')" 2> /dev/null
+									update3="$(grep '' './khanh')" 2> /dev/null
 									if [[ $update2 -eq '' ]] 2> /dev/null; then
 										printf "${red}\n No connection are available! \n"
 										printf "${red}\n Required Internet to Reinstall Launcher! \n\n"
 										rm -f kali 2> /dev/null
+										rm -f khanh 2> /dev/null
 									else
-										cd .. 2> /dev/null
-										mv home/kali usr/bin/kali 2> /dev/null
-										chmod 777 usr/bin/kali 2> /dev/null
-										printf "%b\n\n" "${green} - Reinstall successfully! \n"
-										printf "${green} - You can try run Kali again! \n\n"
+										if [[ $update3 -eq '' ]] 2> /dev/null; then
+											printf "${red}\n No connection are available! \n"
+											printf "${red}\n Required Internet to Reinstall Launcher! \n\n"
+											rm -f kali 2> /dev/null
+											rm -f khanh 2> /dev/null
+										else
+											cd 2> /dev/null
+											mv khanh kali-arm64/usr/bin/khanh
+											chmod 777 kali-arm64/usr/bin/khanh
+											cd .. 2> /dev/null
+											mv home/kali usr/bin/kali 2> /dev/null
+											chmod 777 usr/bin/kali 2> /dev/null
+											printf "%b\n\n" "${green} - Reinstall successfully! \n"
+											printf "${green} - You can try run Kali again! \n\n"
+										fi
 									fi
 									read -p " Press Enter to continue " anykey
 								fi
