@@ -1,4 +1,7 @@
-- Version 1.4
+- Version 1.5
+- Add PulseAudio (127.0.0.1:8000)
+- Add VLC
+- Add colors for 'khanh' command
 - Fix theme Windows 10
 - Change cursor MacOS BigSir
 - Updated all package on 27/11/2021
@@ -12,6 +15,6 @@
 - Hide all Kali web on Start Menu!
 - Change icon look like Windows!
 - Add Dock, move taskbar at the top of the screen!
-- Compatible with Recovery version 2.3 or up!
+- Compatible with Recovery version 2.4 or up!
 - Fix some issue!
-  @ Please update upto Recovery v2.3 or up!
+  @ Please update upto Recovery v2.4 or up!
