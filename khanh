@@ -1,28 +1,32 @@
-
 #!/bin/bash
+red='\033[1;31m' 2> /dev/null
+green='\033[1;32m' 2> /dev/null
+yellow='\033[1;33m' 2> /dev/null
+light_cyan='\033[1;96m' 2> /dev/null
+reset='\033[0m' 2> /dev/null
 
 function start-kex() {
-    printf "%b\n" " Starting VNC..."
-    if [ ! -f ~/.vnc/passwd ]; then
+    printf "%b\n" "${yellow} @ Starting VNC....\n${reset}"
+    if [ ! -f ~/.vnc/passwd ] 2> /dev/null; then
         passwd-kex
     fi
-    USR=$(whoami)
-    if [ $USR == "root" ]; then
-        SCREEN=":2"
+    USR=$(whoami) 2> /dev/null
+    if [ $USR == "root" ] 2> /dev/null; then
+        SCREEN=":2" 2> /dev/null && echo 'khanh' > /tmp/screen2 2> /dev/null
     else
-        SCREEN=":1"
+        SCREEN=":1" 2> /dev/null && echo 'khanh' > /tmp/screen1 2> /dev/null
     fi 
     export HOME=${HOME}; export USER=${USR}; LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgcc_s.so.1 nohup vncserver $SCREEN >/dev/null 2>&1 </dev/null
-    starting_kex=1
+    starting_kex=1 2> /dev/null
     return 0
 }
 
 function stop-kex() {
-    printf "%b\n" " @ Kali-Linux by KhanhNguyen @"
-    printf "%b\n" " Stopping VNC..."
-    printf "%b\n" " "
-    vncserver -kill :1
-    vncserver -kill :2
+    printf "%b\n" "${light_cyan} @ Kali-Linux by KhanhNguyen @${reset}"
+    printf "%b\n" "${yellow} @ Stopping VNC....${reset}\n"
+    vncserver -kill :1 2> /dev/null && rm -f /tmp/screen1 2> /dev/null
+    vncserver -kill :2 2> /dev/null && rm -f /tmp/screen2 2> /dev/null
+    printf "\n"
     return 0
 }
 
@@ -34,10 +38,38 @@ function passwd-kex() {
 function status-kex() {
     sessions=$(vncserver -list)
     if [[ $sessions == *"590"* ]]; then
-        printf "${sessions}\n"
+        printf "\n${light_cyan} @ VNC Server is started! \n"
+        if [ -f /tmp/screen1 ] 2> /dev/null; then
+            echo "IP: localhost:1  or  127.0.0.1:1"
+			rm -f /tmp/screen1 2> /dev/null
+        fi
+        if [ -f /tmp/screen2 ] 2> /dev/null; then
+            echo "IP: localhost:2  or  127.0.0.1:2"
+			rm -f /tmp/screen2 2> /dev/null
+        fi
+        echo "Download 'VNC Viewer' and use this IP"
+        printf "${green}\n @ Starting PulseAudio at 127.0.0.1:8000\n"
+		if [ -f /etc/pulse/client.conf ] 2> /dev/null; then
+			rm -f /etc/pulse/client.conf 2> /dev/null
+			rm -f /etc/pulse/client.conf.d 2> /dev/null
+			rm -rf /etc/pulse/client.conf 2> /dev/null
+			rm -rf /etc/pulse/client.conf.d 2> /dev/null
+		fi
+		if [ -f /bin/pulseaudio ] 2> /dev/null; then
+			pulseaudio --start 2> /dev/null
+			khanhaudio_tcp 2> /dev/null
+			echo "Pulse Audio is started!"
+			echo "IP: 127.0.0.1:8000"
+			echo "Download 'Simple Protocol Player' and use this IP"
+			echo " "
+		else
+			echo "PulseAudio is not installed"
+			echo "Use: 'sudo apt install pulseaudio' to install it!"
+			echo " "
+		fi
     else
         if [ ! -z $starting_kex ]; then
-            printf '\nError starting the VNC Server.\nPlease try "kali khanh kill" or restart your termux.\n\n'
+            printf "${red}\nError starting the VNC Server.\nPlease try 'kali khanh kill' or restart your termux.\n\n${reset}"
         fi
     fi
     return 0
