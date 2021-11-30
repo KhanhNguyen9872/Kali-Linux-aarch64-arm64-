@@ -237,6 +237,7 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 						else
 							wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
 							requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
+							rm -f freespaceimageupdate 2> /dev/null
 							if [[ $freespace1 -ge $requiredfreespace ]] 2> /dev/null; then
 								passfreespace=1 2> /dev/null
 							else
@@ -557,6 +558,7 @@ while [ "$menu" != 1 ]; do
 								else
 									wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
 									requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
+									rm -f freespaceimage 2> /dev/null
 									if [[ $freespace1 -ge $requiredfreespace ]] 2> /dev/null; then
 										passfreespace=1 2> /dev/null
 									else
@@ -642,6 +644,7 @@ while [ "$menu" != 1 ]; do
 											else
 												wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
 												requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
+												rm -f freespaceimage 2> /dev/null
 												if [[ $freespace1 -ge $requiredfreespace ]] 2> /dev/null; then
 													passfreespace=1 2> /dev/null
 												else
@@ -688,6 +691,7 @@ while [ "$menu" != 1 ]; do
 										else
 											wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
 											requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
+											rm -f freespaceimageupdate 2> /dev/null
 											if [[ $freespace1 -ge $requiredfreespace ]] 2> /dev/null; then
 												passfreespace=1 2> /dev/null
 											else
