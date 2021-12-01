@@ -1,4 +1,7 @@
-- Version 1.5
+- Version 1.6
+- Add Chromium
+- If audio not work, force stop Termux and try again!
+- Disable some task run as startup
 - Add PulseAudio (127.0.0.1:8000)
 - Add VLC
 - Add colors for 'khanh' command
