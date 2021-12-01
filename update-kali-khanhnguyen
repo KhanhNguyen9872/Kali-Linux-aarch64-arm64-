@@ -93,7 +93,7 @@ function get_rootfs() {
         rm -f ${IMAGE_NAME}
     fi
     printf "${blue}[*] Dang tai Kali-Linux (arm64)...."
-    printf " (1.70GB)${reset}\n\n"
+    printf " (1.90GB)${reset}\n\n"
     get_url
     wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
 }
