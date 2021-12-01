@@ -1,5 +1,4 @@
-- Version 1.6
-- Add Chromium
+- Version 1.5
 - If audio not work, force stop Termux and try again!
 - Disable some task run as startup
 - Add PulseAudio (127.0.0.1:8000)
