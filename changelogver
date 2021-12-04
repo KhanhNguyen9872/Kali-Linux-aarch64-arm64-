@@ -1,22 +1,15 @@
-- Version 1.5
-- If audio not work, force stop Termux and try again!
+- Version 1.6
+- All package updated on 04/12/2021
+- Add Chromium (fix crash/opengl)
+- Remove more package not used!
+- Optimizing storage!
+- Remove Orca
 - Disable some task run as startup
+- If audio not work, force stop Termux and try again!
 - Add PulseAudio (127.0.0.1:8000)
 - Add VLC
-- Add colors for 'khanh' command
-- Fix theme Windows 10
-- Change cursor MacOS BigSir
-- Updated all package on 27/11/2021
-- Updated GPU to MESA 21.2.5
-- Updated Sublime Text, VSCode, Python!
-- Change new Hutao Wallpaper!
-- Add Termit (Terminal)
-- Add Neofetch for check info OS!
-- Add theme in Settings Manager!
-- Remove Thunar icon in taskbar!
+- Add colors for 'khanhnguyen9872' command
 - Hide all Kali web on Start Menu!
-- Change icon look like Windows!
-- Add Dock, move taskbar at the top of the screen!
-- Compatible with Recovery version 2.4 or up!
+- Compatible with Recovery version 2.5 or up!
 - Fix some issue!
-  @ Please update upto Recovery v2.4 or up!
+  @ Please update upto Recovery v2.5 or up!
