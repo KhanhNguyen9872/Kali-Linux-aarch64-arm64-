@@ -773,7 +773,7 @@ while [ "$menu" != 1 ]; do
 					read -p "Press Enter to exit!" anykey
 					break
 				fi
-                printf "%b\n" "\n-----------------\n\n"
+                printf "%b\n" "\n\n-----------------\n\n"
 				printf "${blue} Target Backup: /sdcard/kali-arm64-backup.tar.xz \n"
 				read -r -p "Are you sure to backup image? [Y/N] " response
 				printf "%b\n" " "
