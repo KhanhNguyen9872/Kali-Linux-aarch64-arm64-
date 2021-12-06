@@ -1,9 +1,7 @@
-- Version 2.5
+- Version 2.6
+- Add Set CPU Cores for Backup Image in v2.6!
 - Add something into ReInstall in v2.5
 - Fix check free storage in reinstall or update in v2.4!
-- Fix Backup / Restore bug failed image in v2.3!
-- Fix stuck Recovery in many devices in v2.3!
-- Fix not skip check storage when 'Not Compatible' in v2.3!
 - Compatible with Kali v1.2 or up!
 - Improve stable!
       THANKS FOR USED!!!
