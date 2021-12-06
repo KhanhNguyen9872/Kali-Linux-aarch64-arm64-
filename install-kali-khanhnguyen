@@ -2,7 +2,7 @@
 
 rm -f kali-khanhnguyenup.sh
 
-VERSION=20211204
+VERSION=20211206
 USERNAME="kali"
 
 function ask() {
@@ -139,7 +139,7 @@ function extract_rootfs() {
         printf "\n${blue}[*] Dang cai dat Kali-Linux (arm64).... ${reset}\n"
 		printf "\n${blue}    @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n"
 		printf "\n${red}             @@ Tam 5-15 phut @@ ${reset}\n\n"
-        	proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
+        	proot --link2symlink tar -xJf $IMAGE_NAME 2> /dev/null || :
 		rm -f $IMAGE_NAME
 		wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null && echo "- Installing Recovery..."
 		wget -O version https://tinyurl.com/53n7htrn 2> /dev/null && echo "- Updating version..."
