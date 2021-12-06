@@ -1,5 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
 
+rm -f restore-kali-khanhnguyen.sh
+
 VERSION=20211206
 USERNAME="kali"
 
