@@ -761,8 +761,10 @@ while [ "$menu" != 1 ]; do
 						read -p "Press Enter to exit!" anykey
 						break
 					fi
+				else
+					printf "${yellow}\n Level is $level (9 - Extreme)"
 				fi
-				printf "\n\n${light_cyan} @@ High CPU Cores will cause slow phone down, recommend is 4 or lowest\n"
+				printf "\n\n${light_cyan}@ High CPU Cores will cause slow phone down, recommend is 4 or lowest\n"
 				read -p "CPU Cores (1-8): " level1
 				if [[ $level1 -ge 1 ]] && [[ $level1 -le 8 ]] 2> /dev/null; then
 					printf "${yellow}\n CPU Cores is $level"
