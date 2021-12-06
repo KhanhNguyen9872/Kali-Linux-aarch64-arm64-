@@ -112,7 +112,7 @@ function extract_rootfs() {
         printf "\n${blue}[*] Dang restore.... ${reset}\n"
 		printf "\n${blue}    @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n"
 		printf "\n${red}             @@ Tam 7-25 phut @@ ${reset}\n\n"
-		proot --link2symlink tar -xf $IMAGE_NAME 2> /dev/null || :
+		proot --link2symlink tar -xJf $IMAGE_NAME 2> /dev/null || :
 		rm -f $IMAGE_NAME
 		echo 'oemunlock' > versionrestore
 		mv versionrestore ${PREFIX}/bin/versionrestore 2> /dev/null
