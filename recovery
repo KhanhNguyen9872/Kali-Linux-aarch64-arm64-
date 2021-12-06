@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.5" 2> /dev/null
+khanhnguyen="v2.6" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -754,6 +754,15 @@ while [ "$menu" != 1 ]; do
 					read -p "Press Enter to exit!" anykey
 					break
 				fi
+				printf "${light_cyan} @@ High CPU Cores will cause slow phone down, recommend is 1 \n\n"
+				read -p "CPU Cores (1-8): " level1
+				if [[ $level1 -ge 1 ]] && [[ $level1 -le 8 ]] 2> /dev/null; then
+					printf "${yellow}\n CPU Cores is $level"
+				else
+					printf "${red}\n CPU Cores is unavailable! ${reset}\n\n"
+					read -p "Press Enter to exit!" anykey
+					break
+				fi
                 printf "%b\n" "\n-----------------\n\n"
 				printf "${blue} Target Backup: /sdcard/kali-arm64-backup.tar.xz \n"
 				read -r -p "Are you sure to backup image? [Y/N] " response
@@ -764,7 +773,7 @@ while [ "$menu" != 1 ]; do
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								rm -f kali-arm64-backup.tar.xz 2> /dev/null
 							fi
-							XZ_OPT=-$level tar cJf - kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
+							XZ_OPT='-$level -T$level1' tar cJf - kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								printf "${yellow}\n - Please wait....\n ${reset}"
 								7z e kali-arm64-backup.tar.xz 2> /dev/null
