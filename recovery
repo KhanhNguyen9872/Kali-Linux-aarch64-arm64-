@@ -757,7 +757,7 @@ while [ "$menu" != 1 ]; do
 				printf "\n\n${light_cyan} @@ High CPU Cores will cause slow phone down, recommend is 4 or lowest\n"
 				read -p "CPU Cores (1-8): " level1
 				if [[ $level1 -ge 1 ]] && [[ $level1 -le 8 ]] 2> /dev/null; then
-					printf "${yellow}\n CPU Cores is $level1"
+					printf "${yellow}\n CPU Cores is $level1\n"
 				else
 					printf "${red}\n CPU Cores is unavailable! ${reset}\n\n"
 					read -p "Press Enter to exit!" anykey
@@ -773,7 +773,7 @@ while [ "$menu" != 1 ]; do
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								rm -f kali-arm64-backup.tar.xz 2> /dev/null
 							fi
-							XZ_OPT='-$level -T$level1' tar cJf - kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
+							XZ_OPT="-$level -T$level1" tar cJf - kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								printf "${yellow}\n - Please wait....\n ${reset}"
 								7z e kali-arm64-backup.tar.xz 2> /dev/null
