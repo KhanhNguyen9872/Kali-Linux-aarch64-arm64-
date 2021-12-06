@@ -746,6 +746,7 @@ while [ "$menu" != 1 ]; do
 				printf "${green} -> Backup Image \n\n"
 				printf "${yellow} @ Default location backup is /sdcard \n\n"
 				printf "${yellow} @@ High level may take a long time, recommend is 0\n"
+				unset level
 				read -p "Compress level (0-9) or 9e: " level
 				if [ $level == "9e" ] 2> /dev/null; then
 					bypass=1
