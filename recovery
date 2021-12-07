@@ -745,7 +745,7 @@ while [ "$menu" != 1 ]; do
 				printf "${red}\n  @ RECOVERY MENU \n\n"
 				printf "${green} -> Backup Image \n\n"
 				printf "${yellow} @ Default location backup is /sdcard \n\n"
-				printf "${yellow} @@ High level may take a long time, recommend is 0\n"
+				printf "${light_cyan} @@ High level may take a long time, recommend is 0\n"
 				unset level
 				read -p "Compress level (0-9) or 9e: " level
 				if [ $level == "9e" ] 2> /dev/null; then
@@ -764,7 +764,7 @@ while [ "$menu" != 1 ]; do
 				else
 					printf "${yellow}\n Level is $level (9 - Extreme)"
 				fi
-				printf "\n\n${light_cyan}@ High CPU Cores will cause slow phone down, recommend is 4 or lowest\n"
+				printf "\n\n${light_cyan}@ High CPU Cores will cause slow phone down and may crash app!, recommend is 4, 2 or lowest\n"
 				read -p "CPU Cores (1-8): " level1
 				if [[ $level1 -ge 1 ]] && [[ $level1 -le 8 ]] 2> /dev/null; then
 					printf "${yellow}\n CPU Cores is $level"
