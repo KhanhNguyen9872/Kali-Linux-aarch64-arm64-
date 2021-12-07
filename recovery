@@ -766,9 +766,9 @@ while [ "$menu" != 1 ]; do
 				fi
 				printf "\n\n${light_cyan}@ High CPU Cores will cause slow phone down and may crash app!, recommend is 4, 2 or lowest\n"
 				read -p "CPU Cores (1-8): " level1
-				if [[ $level1 -ge 1 ]] && [[ $level1 -le 8 ]] 2> /dev/null; then
+				if [[ $level1 -ge 1 ]] 2> /dev/null && [[ $level1 -le 8 ]] 2> /dev/null; then
 					printf "${yellow}\n CPU Cores is $level1"
-					if [[ $level 1 -ge 2 ]]; then
+					if [[ $level1 -ge 2 ]] 2> /dev/null; then
 						printf "${red}\n May take lag and crash app if you not have high end phone!"
 					fi
 				else
