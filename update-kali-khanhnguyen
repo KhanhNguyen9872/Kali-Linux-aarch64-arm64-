@@ -123,6 +123,10 @@ function verify_sha() {
         printf "\n${blue}[*] Dang kiem tra file cai dat....${reset}\n"
         sha512sum -c $SHA_NAME || {
             printf "${red} File cai dat bi hong. Vui long cai lai \n${reset}"
+	    rm -f $SHA_NAME 2> /dev/null
+	    rm -f $IMAGE_NAME 2> /dev/null
+	    rm -f install-kali-khanhnguyen 2> /dev/null
+	    rm -f update-kali-khanhnguyen 2> /dev/null
             exit 1
         }
 	rm -f $SHA_NAME
