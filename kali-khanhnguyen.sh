@@ -1,4 +1,5 @@
 #kali_arm64_khanhnguyen9872
+termux-setup-storage
 termux-wake-lock
 cd $HOME
 echo "termux-wake-lock" > ~/.bash_profile
