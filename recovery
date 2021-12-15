@@ -784,6 +784,7 @@ while [ "$menu" != 1 ]; do
 				printf "%b\n" " "
 				case "$response" in
 					[y]|[Y]) 
+							printf "\n${green} - Process: \n${light_cyan}"
 							cd $HOME
 							cd kali-arm64
 							rm -rf tmp 2> /dev/null && mkdir tmp 2> /dev/null && chmod 777 tmp
