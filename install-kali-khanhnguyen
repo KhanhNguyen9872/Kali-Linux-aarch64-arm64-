@@ -68,7 +68,7 @@ function prepare_fs() {
         if ask " Ban co muon xoa tat ca data va cai lai khong?" "Y"; then
             rm -rf ${CHROOT}
         else
-            KEEP_CHROOT=1
+            exit 1
         fi
     fi
 } 
