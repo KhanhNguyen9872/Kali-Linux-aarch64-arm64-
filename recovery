@@ -748,7 +748,7 @@ while [ "$menu" != 1 ]; do
 				printf "${light_cyan} @@ High level may take a long time\n"
 				printf "@@ Recommend is 0\n"
 				unset level
-				read -p "Compress level (0-9) or 9e: " level
+				read -p "Compress level (0-9 or 9e): " level
 				if [ $level == "9e" ] 2> /dev/null; then
 					bypass=1
 				else
