@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.6" 2> /dev/null
+khanhnguyen="v2.7" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -783,6 +783,14 @@ while [ "$menu" != 1 ]; do
 				case "$response" in
 					[y]|[Y]) 
 							cd $HOME
+							cd kali-arm64
+							rm -rf tmp 2> /dev/null && mkdir tmp 2> /dev/null && chmod 777 tmp
+							rm -rf data 2> /dev/null && rm -rf vendor 2> /dev/null && rm -rf product 2> /dev/null && rm -rf storage 2> /dev/null
+							cd home 2> /dev/null
+							cd kali 2> /dev/null
+							rm -rf .cache 2> /dev/null
+							rm -rf .gnupg 2> /dev/null
+							cd 2> /dev/null
 							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
 								rm -f kali-arm64-backup.tar.xz 2> /dev/null
 							fi
