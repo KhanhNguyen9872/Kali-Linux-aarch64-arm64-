@@ -89,6 +89,8 @@ fi
 
 cmdline="proot \
         --link2symlink \
+	--kernel-release=5.4.0_KhanhNguyen_Kernel \
+	--kill-on-exit \
         -0 \
         -r kali-arm64 \
         -b /dev \
