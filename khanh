@@ -38,9 +38,9 @@ function passwd-kex() {
 function status-kex() {
     sessions=$(vncserver -list)
     if [[ $sessions == *"590"* ]]; then
-		export GTK_IM_MODULE=ibus 2> /dev/null
-		export XMODIFIER=@im=ibus 2> /dev/null
-		export QT_IM_MODULE=ibus 2> /dev/null
+		export GTK_IM_MODULE=ibus
+		export XMODIFIER=@im=ibus
+		export QT_IM_MODULE=ibus
         printf "\n${light_cyan} @ VNC Server is started! \n"
         if [ -f /tmp/screen1 ] 2> /dev/null; then
             echo "IP: localhost:1  or  127.0.0.1:1"
