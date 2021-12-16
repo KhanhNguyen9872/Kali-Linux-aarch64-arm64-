@@ -1,5 +1,7 @@
 - Version 1.7
 - All package updated on 15/12/2021
+- Change to 5.4.0_KhanhNguyen_Kernel
+- Add kill all process when type 'exit'
 - Add Java Runtime
 - Add MicroEmulator for run Java program
 - Add Box64 for run x86_64 program
