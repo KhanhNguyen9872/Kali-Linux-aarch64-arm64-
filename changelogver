@@ -1,15 +1,12 @@
-- Version 1.6
-- All package updated on 04/12/2021
-- Add Chromium (fix crash/opengl)
-- Remove more package not used!
-- Optimizing storage!
-- Remove Orca
-- Disable some task run as startup
-- If audio not work, force stop Termux and try again!
-- Add PulseAudio (127.0.0.1:8000)
-- Add VLC
-- Add colors for 'khanhnguyen9872' command
-- Hide all Kali web on Start Menu!
-- Compatible with Recovery version 2.5 or up!
+- Version 1.7
+- All package updated on 15/12/2021
+- Add Java Runtime
+- Add MicroEmulator for run Java program
+- Add Box64 for run x86_64 program
+- Remove test-type Chromium
+- Change icon start menu Windows 10
+- Remove Notify and user on taskbar for optimizing RAM
+- Remove some package not used!
+- Compatible with Recovery version 2.7 or up!
 - Fix some issue!
-  @ Please update upto Recovery v2.5 or up!
+  @ Please update upto Recovery v2.7 or up!
