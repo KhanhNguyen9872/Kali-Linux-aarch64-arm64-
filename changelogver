@@ -1,14 +1,13 @@
-- Version 1.7
-- All package updated on 15/12/2021
-- Change to 5.4.0_KhanhNguyen_Kernel
-- Add kill all process when type 'exit'
-- Add Java Runtime
-- Add MicroEmulator for run Java program
-- Add Box64 for run x86_64 program
-- Remove test-type Chromium
-- Change icon start menu Windows 10
-- Remove Notify and user on taskbar for optimizing RAM
-- Remove some package not used!
+- Version 1.8
+- All package updated on 17/12/2021
+- Keep 5.4.0_KhanhNguyen_Kernel
+- Add Full LibreOffice + Fix Runtime
+- Add OBS Studio
+- Make look like Windows 10
+- Change cursor Windows
+- Remove Plank
+- Add some icon
+- Change wallpaper Windows 10 (Not Hutao)
 - Compatible with Recovery version 2.7 or up!
 - Fix some issue!
   @ Please update upto Recovery v2.7 or up!
