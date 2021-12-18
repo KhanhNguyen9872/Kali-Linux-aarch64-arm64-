@@ -752,7 +752,7 @@ while [ "$menu" != 1 ]; do
 				printf "${yellow} @ Default location backup is /sdcard \n\n"
 				printf "${light_cyan} @@ High level may take a long time\n"
 				printf "@@ Recommend is 0\n"
-				unset level
+				level=99
 				read -p "Compress level (0-9 or 9e): " level
 				if [ $level == "9e" ] 2> /dev/null; then
 					bypass=1
@@ -796,6 +796,13 @@ while [ "$menu" != 1 ]; do
 							rm -rf data 2> /dev/null && rm -rf vendor 2> /dev/null && rm -rf product 2> /dev/null && rm -rf storage 2> /dev/null
 							cd home 2> /dev/null
 							cd kali 2> /dev/null
+							rm -f .bash_history 2> /dev/null
+							rm -rf .cache 2> /dev/null
+							rm -rf .gnupg 2> /dev/null
+							cd 2> /dev/null
+							cd kali-arm64 2> /dev/null
+							cd root 2> /dev/null
+							rm -f .bash_history 2> /dev/null
 							rm -rf .cache 2> /dev/null
 							rm -rf .gnupg 2> /dev/null
 							cd 2> /dev/null
