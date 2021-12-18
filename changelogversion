@@ -1,4 +1,6 @@
-- Version 2.7
+- Version 2.8
+- Fix cannot start Recovery in some device!
+- Remove Check Free Space!
 - Fix cache warning ignored on Backup
 - Add Set CPU Cores for Backup Image in v2.6!
 - Add something into ReInstall in v2.5
