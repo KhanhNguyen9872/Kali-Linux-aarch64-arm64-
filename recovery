@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.7" 2> /dev/null
+khanhnguyen="v2.8" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -121,18 +121,19 @@ fi
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/settingsupdatekali ] 2> /dev/null; then
-	freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
-	freespace1=$((freespace/1024)) 2> /dev/null
-	if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
-		freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')" 2> /dev/null
-		freespace1=$((freespace/1024)) 2> /dev/null
-	fi
-	if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
-		key=2 2> /dev/null
-	fi
-	if [[ $key -eq 2 ]] 2> /dev/null; then
-		notcompatible=1 2> /dev/null
-	fi
+	#freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+	#freespace1=$((freespace/1024)) 2> /dev/null
+	#if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
+		#freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')" 2> /dev/null
+		#freespace1=$((freespace/1024)) 2> /dev/null
+	#fi
+	#if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
+		#key=2 2> /dev/null
+	#fi
+	#if [[ $key -eq 2 ]] 2> /dev/null; then
+		#notcompatible=1 2> /dev/null
+	#fi
+	pass
 else
 	key=0
 	notcompatible=0
@@ -235,11 +236,12 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 						if [[ $key -eq 2 ]] 2> /dev/null; then
 							echo "Free space check: Skip! Because Not Compatible!"
 						else
-							wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
-							requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
-							rm -f freespaceimageupdate 2> /dev/null
+							#wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
+							#requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
+							#rm -f freespaceimageupdate 2> /dev/null
 							if [[ $freespace1 -ge $requiredfreespace ]] 2> /dev/null; then
-								passfreespace=1 2> /dev/null
+								#passfreespace=1 2> /dev/null
+								pass000=1
 							else
 								printf "${red}\n\n Your device don't have enough space!\n"
 								printf "${red}\n Do you want to continue? [Y/N]\n\n${reset}"
@@ -463,37 +465,37 @@ id="$(getprop ro.build.id)" 2> /dev/null
 PS3=' - Your Choose: ' 2> /dev/null
 entries=("Run Linux" "Backup" "Restore" "Reinstall" "Password" "Uninstall" "Settings" "About" "Exit")
 while [ "$menu" != 1 ]; do
-	if [[ $key -eq 2 ]]; then
-		notcompatible=1
-	else
-		freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
-		freespace1=$((freespace/1024)) 2> /dev/null
-		totalspace="$(df -h | awk 'END {print $2}')" 2> /dev/null
-		totalspace1="$(grep -Eo '[0-9]+' <<< $totalspace})" 2> /dev/null
-		if ! [[ $numberkhanh =~ $totalspace1 ]] 2> /dev/null; then
-			totalspace2=$totalspace1 2> /dev/null
-		else
-			totalspace2=$((totalspace1*1024)) 2> /dev/null
-		fi
-		if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
-			freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')" 2> /dev/null
-			freespace1=$((freespace/1024)) 2> /dev/null
-			key=1 2> /dev/null
-		fi
-		if [[ $key -eq 1 ]] 2> /dev/null; then
-			totalspace="$(df | grep '/data' | grep -Eo '[0-9]+' | awk 'NR==1{print $1}')" 2> /dev/null
-			totalspace2=$((totalspace/1024)) 2> /dev/null
-		fi
-		if [[ $totalspace2 -eq 0 ]] 2> /dev/null; then
-			key=2 2> /dev/null
-		fi
-		if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
-			key=2 2> /dev/null
-		fi
-		if [[ $key -eq 2 ]] 2> /dev/null; then
-			notcompatible=1 2> /dev/null
-		fi
-	fi
+	#if [[ $key -eq 2 ]]; then
+		#notcompatible=1
+	#else
+		#freespace="$(df | grep -o '/data.*%' | grep -o '[0-9]* *[0-9]*%' | grep -o '[0-9][0-9]* ')" 2> /dev/null
+		#freespace1=$((freespace/1024)) 2> /dev/null
+		#totalspace="$(df -h | awk 'END {print $2}')" 2> /dev/null
+		#totalspace1="$(grep -Eo '[0-9]+' <<< $totalspace})" 2> /dev/null
+		#if ! [[ $numberkhanh =~ $totalspace1 ]] 2> /dev/null; then
+			#totalspace2=$totalspace1 2> /dev/null
+		#else
+			#totalspace2=$((totalspace1*1024)) 2> /dev/null
+		#fi
+		#if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
+			#freespace="$(df | tr -s ' ' $'\t' | grep data | cut -f4 | awk 'END {print $1}')" 2> /dev/null
+			#freespace1=$((freespace/1024)) 2> /dev/null
+			#key=1 2> /dev/null
+		#fi
+		#if [[ $key -eq 1 ]] 2> /dev/null; then
+			#totalspace="$(df | grep '/data' | grep -Eo '[0-9]+' | awk 'NR==1{print $1}')" 2> /dev/null
+			#totalspace2=$((totalspace/1024)) 2> /dev/null
+		#fi
+		#if [[ $totalspace2 -eq 0 ]] 2> /dev/null; then
+			#key=2 2> /dev/null
+		#fi
+		#if [[ $freespace1 -eq 0 ]] 2> /dev/null; then
+			#key=2 2> /dev/null
+		#fi
+		#if [[ $key -eq 2 ]] 2> /dev/null; then
+			#notcompatible=1 2> /dev/null
+		#fi
+	#fi
 	clear
 	printf "${green}\n  @ RECOVERY MENU \n"
 	printf "${green}  @ Version: $khanhnguyen \n"
@@ -508,13 +510,13 @@ while [ "$menu" != 1 ]; do
 	else
 		printf "${blue}  @ Root: NO \n\n${reset}"
 	fi
-	if [[ $notcompatible -eq 1 ]] 2> /dev/null; then
-		printf "${red}    @ Total storage: Not Compatible\n"
-		printf "${red}    @ Free space:    Not Compatible\n\n"
-	else
-		printf "${yellow}    @ Total storage: $totalspace2 MB \n"
-		printf "${yellow}    @ Free space:    $freespace1 MB\n\n"
-	fi
+	#if [[ $notcompatible -eq 1 ]] 2> /dev/null; then
+		#printf "${red}    @ Total storage: Not Compatible\n"
+		#printf "${red}    @ Free space:    Not Compatible\n\n"
+	#else
+		#printf "${yellow}    @ Total storage: $totalspace2 MB \n"
+		#printf "${yellow}    @ Free space:    $freespace1 MB\n\n"
+	#fi
 	printf "${red} Menu: ${reset}\n"
 	printf "${light_cyan}"
 	select choice in "${entries[@]}"
@@ -556,11 +558,12 @@ while [ "$menu" != 1 ]; do
 								if [[ $key -eq 2 ]] 2> /dev/null; then
 									echo "Free space check: Skip! Because Not Compatible!"
 								else
-									wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
-									requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
-									rm -f freespaceimage 2> /dev/null
+									#wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
+									#requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
+									#rm -f freespaceimage 2> /dev/null
 									if [[ $freespace1 -ge $requiredfreespace ]] 2> /dev/null; then
-										passfreespace=1 2> /dev/null
+										#passfreespace=1 2> /dev/null
+										pass000=1
 									else
 										printf "${red}\n\n Your device don't have enough space!\n"
 										printf "${red}\n Do you want to continue? [Y/N]\n\n${reset}"
@@ -642,11 +645,12 @@ while [ "$menu" != 1 ]; do
 											if [[ $key -eq 2 ]] 2> /dev/null; then
 												echo "Free space check: Skip! Because Not Compatible!"
 											else
-												wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
-												requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
-												rm -f freespaceimage 2> /dev/null
+												#wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
+												#requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
+												#rm -f freespaceimage 2> /dev/null
 												if [[ $freespace1 -ge $requiredfreespace ]] 2> /dev/null; then
-													passfreespace=1 2> /dev/null
+													#passfreespace=1 2> /dev/null
+													pass000=1
 												else
 													printf "${red}\n\n Your device don't have enough space!\n"
 													printf "${red}\n Do you want to continue? [Y/N]\n\n${reset}"
@@ -689,11 +693,12 @@ while [ "$menu" != 1 ]; do
 										if [[ $key -eq 2 ]] 2> /dev/null; then
 											echo "Free space check: Skip! Because Not Compatible!"
 										else
-											wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
-											requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
-											rm -f freespaceimageupdate 2> /dev/null
+											#wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
+											#requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
+											#rm -f freespaceimageupdate 2> /dev/null
 											if [[ $freespace1 -ge $requiredfreespace ]] 2> /dev/null; then
-												passfreespace=1 2> /dev/null
+												#passfreespace=1 2> /dev/null
+												pass000=1
 											else
 												printf "${red}\n Your device don't have enough space!\n"
 												printf "${red}\n Do you want to continue? [Y/N]\n\n${reset}"
