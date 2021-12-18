@@ -2,7 +2,7 @@
 
 rm -f kali-khanhnguyenup.sh
 
-VERSION=20211216
+VERSION=20211218
 USERNAME="kali"
 
 function ask() {
@@ -49,7 +49,7 @@ function get_arch() {
             ;;
         *)
 			printf " ARCH: $(getprop ro.product.cpu.abi) (unknown))"
-			printf " @ Unsupported CPU"
+			printf "\n\n\n @ Unsupported CPU \n\n"
 			exit 1
             ;;
     esac
@@ -100,7 +100,7 @@ function get_rootfs() {
         rm -f ${IMAGE_NAME}
     fi
     printf "${blue}[*] Dang tai Kali-Linux (arm64)...."
-    printf " (1.29GB)${reset}\n\n"
+    printf " (1.40GB)${reset}\n\n"
     get_url
     wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
 }
