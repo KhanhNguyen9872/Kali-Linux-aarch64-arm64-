@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.8" 2> /dev/null
+khanhnguyen="v2.9" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -233,9 +233,9 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 					[y]|[Y]) 
 						cd $HOME
 						printf "%b\n" "${yellow} - Updating... \n"
-						if [[ $key -eq 2 ]] 2> /dev/null; then
-							echo "Free space check: Skip! Because Not Compatible!"
-						else
+						#if [[ $key -eq 2 ]] 2> /dev/null; then
+							#echo "Free space check: Skip! Because Not Compatible!"
+						#else
 							#wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
 							#requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
 							#rm -f freespaceimageupdate 2> /dev/null
@@ -260,7 +260,7 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 								#echo " "
 								#exit
 							#fi
-						fi
+						#fi
 						wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
 						wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
 						update5="$(grep '' './kali-khanhnguyenup.sh')" 2> /dev/null
@@ -555,9 +555,9 @@ while [ "$menu" != 1 ]; do
 						case "$response" in
 							[y]|[Y]) 
 								cd 2> /dev/null
-								if [[ $key -eq 2 ]] 2> /dev/null; then
-									echo "Free space check: Skip! Because Not Compatible!"
-								else
+								#if [[ $key -eq 2 ]] 2> /dev/null; then
+									#echo "Free space check: Skip! Because Not Compatible!"
+								#else
 									#wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
 									#requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
 									#rm -f freespaceimage 2> /dev/null
@@ -582,7 +582,7 @@ while [ "$menu" != 1 ]; do
 										#echo " "
 										#exit
 									#fi
-								fi
+								#fi
 								wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
 								update3="$(grep '' './kali-khanhnguyen.sh')" 2> /dev/null
 								if [[ $update3 -eq '' ]] 2> /dev/null; then
@@ -642,9 +642,9 @@ while [ "$menu" != 1 ]; do
 										else
 											rm -rf kali-arm64 2> /dev/null
 											chmod +x ~/kali-khanhnguyen.sh 2> /dev/null
-											if [[ $key -eq 2 ]] 2> /dev/null; then
-												echo "Free space check: Skip! Because Not Compatible!"
-											else
+											#if [[ $key -eq 2 ]] 2> /dev/null; then
+												#echo "Free space check: Skip! Because Not Compatible!"
+											#else
 												#wget -O freespaceimage https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimage 2> /dev/null
 												#requiredfreespace="$(grep '' './freespaceimage')" 2> /dev/null
 												#rm -f freespaceimage 2> /dev/null
@@ -669,7 +669,7 @@ while [ "$menu" != 1 ]; do
 													#echo " "
 													#exit
 												#fi
-											fi
+											#fi
 											sh ~/kali-khanhnguyen.sh && echo "Process ended!"
 											rm -f kali-khanhnguyen.sh 2> /dev/null
 											printf "%b" "\n\n"
@@ -690,9 +690,9 @@ while [ "$menu" != 1 ]; do
 								case "$response" in
 									[y]|[Y]) 
 										cd
-										if [[ $key -eq 2 ]] 2> /dev/null; then
-											echo "Free space check: Skip! Because Not Compatible!"
-										else
+										#if [[ $key -eq 2 ]] 2> /dev/null; then
+											#echo "Free space check: Skip! Because Not Compatible!"
+										#else
 											#wget -O freespaceimageupdate https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/freespaceimageupdate 2> /dev/null
 											#requiredfreespace="$(grep '' './freespaceimageupdate')" 2> /dev/null
 											#rm -f freespaceimageupdate 2> /dev/null
@@ -717,7 +717,7 @@ while [ "$menu" != 1 ]; do
 												#echo " "
 												#exit
 											#fi
-										fi
+										#fi
 										wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
 										update3="$(grep '' './kali-khanhnguyenup.sh')" 2> /dev/null
 										if [[ $update3 -eq '' ]] 2> /dev/null; then
