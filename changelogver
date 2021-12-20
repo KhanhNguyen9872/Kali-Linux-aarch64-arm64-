@@ -1,13 +1,9 @@
 - Version 1.8
-- All package updated on 17/12/2021
+- All package updated on 20/12/2021
+- Fixed systemctl command
+- Fixed shortcut desktop
 - Keep 5.4.0_KhanhNguyen_Kernel
-- Add Full LibreOffice + Fix Runtime
-- Add OBS Studio
 - Make look like Windows 10
-- Change cursor Windows
-- Remove Plank
-- Add some icon
-- Change wallpaper Windows 10 (Not Hutao)
 - Compatible with Recovery version 2.7 or up!
 - Fix some issue!
   @ Please update upto Recovery v2.7 or up!
