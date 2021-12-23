@@ -1,9 +1,12 @@
-- Version 1.9
-- All package updated on 20/12/2021
-- Fixed systemctl command
-- Fixed shortcut desktop
+- Version 2.0
+- All package updated on 23/12/2021
+- Add ZOOM Cloud Meetings on Debian i386
+- Add ARMCORD (Discord)
+- Fix taskbar
+- Add more package armhf
+- Add VirtualMIC
+- Change PS1 debian-kali
 - Keep 5.4.0_KhanhNguyen_Kernel
-- Make look like Windows 10
 - Compatible with Recovery version 2.7 or up!
 - Fix some issue!
   @ Please update upto Recovery v2.7 or up!
