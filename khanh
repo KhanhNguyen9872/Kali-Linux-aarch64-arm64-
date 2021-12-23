@@ -38,9 +38,6 @@ function passwd-kex() {
 function status-kex() {
     sessions=$(vncserver -list)
     if [[ $sessions == *"590"* ]]; then
-		export GTK_IM_MODULE=ibus
-		export XMODIFIER=@im=ibus
-		export QT_IM_MODULE=ibus
         printf "\n${light_cyan} @ VNC Server is started! \n"
         if [ -f /tmp/screen1 ] 2> /dev/null; then
             echo "IP: localhost:1  or  127.0.0.1:1"
@@ -64,11 +61,30 @@ function status-kex() {
 			echo "Pulse Audio is started!"
 			echo "IP: 127.0.0.1:8000"
 			echo "Download 'Simple Protocol Player' and use this IP"
-			printf "${light_cyan}If Audio not work, force stop Termux and try again\n${reset}"
+                        echo "If audio not work, force-stop Termux and try again!"
+			echo " "
 		else
 			printf "${red}PulseAudio is not installed\n"
 			printf "Use: 'sudo apt install pulseaudio' to install it!\n${reset}"
+			echo " "
 		fi
+                if [ -f /bin/virtmic ]; then
+                    if [ -f /bin/virtualmic ]; then
+                        printf "${light_cyan}"
+                        echo "If you want to use Microphone!"
+                        echo "Download 'IP Webcam' app in Play Store and open it"
+                        echo "Change 'Audio mode' -> 'Audio only' and 'Start server'"
+                        echo "Open Kali-Linux Terminal, type 'virtualmic' and Enter"
+                        echo "Now you can use Microphone!"
+                        echo "Don't forget change 'Microphone Devices' in your application"
+                        echo ""
+                        printf "${reset}"
+                    else
+                        printf "${reset}"
+                    fi
+                else
+                    printf "${reset}"
+                fi
     else
         if [ ! -z $starting_kex ]; then
             printf "${red}\nError starting the VNC Server.\nPlease try 'kali khanh kill' or restart your termux.\n\n${reset}"
