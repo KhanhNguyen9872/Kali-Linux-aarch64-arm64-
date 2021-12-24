@@ -60,7 +60,7 @@ function status-kex() {
 			khanhaudio_tcp 2> /dev/null
 			echo "Pulse Audio is started!"
 			echo "IP: 127.0.0.1:8000"
-			echo "Download 'Simple Protocol Player' and use this IP"
+			echo "Download 'Audio' app in Github and use this IP"
                         echo "If audio not work, force-stop Termux and try again!"
 			echo " "
 		else
@@ -71,9 +71,9 @@ function status-kex() {
                 if [ -f /bin/virtmic ]; then
                     if [ -f /bin/virtualmic ]; then
                         printf "${light_cyan}"
-                        echo "If you want to use Microphone!"
-                        echo "Download 'IP Webcam' app in Play Store and open it"
-                        echo "Change 'Audio mode' -> 'Audio only' and 'Start server'"
+                        echo "If you want to use Microphone"
+                        echo "Download 'Micro' app in Github and open it"
+                        echo "Tick 'RTSP', change Port to 8080 and press 'Start'"
                         echo "Open Kali-Linux Terminal, type 'virtualmic' and Enter"
                         echo "Now you can use Microphone!"
                         echo "Don't forget change 'Microphone Devices' in your application"
