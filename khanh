@@ -91,7 +91,7 @@ function status-kex() {
                 fi
     else
         if [ ! -z $starting_kex ]; then
-            printf "${red}\nError starting the VNC Server.\nPlease try 'kali khanh kill' or restart your termux.\n\n${reset}"
+            printf "${red}\nError starting the VNC Server.\nPlease try 'kali khanh stop' or restart your Termux.\n\n${reset}"
         fi
     fi
     return 0
