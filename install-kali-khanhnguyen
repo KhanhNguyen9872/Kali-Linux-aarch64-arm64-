@@ -2,7 +2,7 @@
 
 rm -f kali-khanhnguyenup.sh
 
-VERSION=20211223
+VERSION=20211224
 USERNAME="kali"
 
 function ask() {
