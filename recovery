@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v2.9" 2> /dev/null
+khanhnguyen="v3.0" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -796,12 +796,14 @@ while [ "$menu" != 1 ]; do
 							rm -rf data 2> /dev/null && rm -rf vendor 2> /dev/null && rm -rf product 2> /dev/null && rm -rf storage 2> /dev/null
 							cd home 2> /dev/null
 							cd kali 2> /dev/null
+							rm -f .axs-dsound-server 2> /dev/null
 							rm -f .bash_history 2> /dev/null
 							rm -rf .cache 2> /dev/null
 							rm -rf .gnupg 2> /dev/null
 							cd 2> /dev/null
 							cd kali-arm64 2> /dev/null
 							cd root 2> /dev/null
+							rm -f .axs-dsound-server 2> /dev/null
 							rm -f .bash_history 2> /dev/null
 							rm -rf .cache 2> /dev/null
 							rm -rf .gnupg 2> /dev/null
@@ -928,6 +930,8 @@ while [ "$menu" != 1 ]; do
 					printf " 3. Wake Lock [$settingswake] \n"
 					printf " 4. Reinstall Recovery [For Development] \n"
 					printf " 5. Reinstall Launcher [if you can't start kali command] \n"
+					printf " 6. Install Audio app [For audio Kali-Linux]\n"
+					printf " 7. Install Micro app [For microphone Kali-Linux]\n"
 					printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 					read -r -p "Your choose: " response1
 					if [[ $response1 -eq 0 ]] 2> /dev/null; then
@@ -1051,6 +1055,40 @@ while [ "$menu" != 1 ]; do
 									fi
 									read -p " Press Enter to continue " anykey
 								fi
+								;;
+						 [6])
+								cd 2> /dev/null
+								if [ -f audio.apk ] 2> /dev/null; then
+									rm -f audio.apk
+								fi
+								if [ -f micro.apk ] 2> /dev/null; then
+									rm -f micro.apk
+								fi
+								wget -O audio.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Audio.apk?raw=true" 2> /dev/null
+    							echo ""
+    							echo ""
+    							printf " Installing Audio app....."
+    							echo ""
+    							termux-open audio.apk
+    							read -p "Press Enter to continue!" anykey
+    							rm -f audio.apk
+								;;
+						 [7])
+								cd 2> /dev/null
+								if [ -f audio.apk ] 2> /dev/null; then
+									rm -f audio.apk
+								fi
+								if [ -f micro.apk ] 2> /dev/null; then
+									rm -f micro.apk
+								fi
+								wget -O micro.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Micro.apk?raw=true" 2> /dev/null
+    							echo ""
+    							echo ""
+    							printf " Installing Micro app....."
+    							echo ""
+    							termux-open micro.apk
+    							read -p "Press Enter to continue!" anykey
+    							rm -f micro.apk
 								;;
 							*)
 								;;
