@@ -2,7 +2,7 @@
 
 rm -f kali-khanhnguyenup.sh
 
-VERSION=20211223
+VERSION=20211224
 USERNAME="kali"
 
 function ask() {
@@ -195,6 +195,21 @@ function fix_uid() {
     nh -r groupmod -g $GRPID kali 2>/dev/null
 }
 
+function installapp_khanh() {
+    wget -O audio.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Audio.apk?raw=true"
+    wget -O micro.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Micro.apk?raw=true"
+    clear
+    echo ""
+    printf " Installing Audio app....."
+    echo ""
+    termux-open audio.apk
+    rm -f audio.apk
+    printf " Installing Micro app....."
+    echo ""
+    termux-open micro.apk
+    rm -f micro.apk
+}
+
 function print_banner() {
     clear
     printf "${blue}##################################################\n"
@@ -249,12 +264,13 @@ fix_profile_bash
 fix_sudo
 create_kex_launcher
 fix_uid
+installapp_khanh
 
 print_banner
 printf "${yellow}[=] Kali-Linux KhanhNguyen da duoc update${reset}\n\n"
 printf "${red}[@] Password VNC:  khanhnguyen ${reset}\n"
 printf "${red}[@] Password su:   khanhnguyen ${reset}\n"
-printf "${red}[@] Password sudo: khanhnguyen ${reset}\n"
+printf "${light_cyan} Github: https://github.com/khanhnguyen9872${reset}\n"
 printf "%b\n" " "
 printf "${green}[+] Thong tin lenh, type:${reset}\n"
 printf "${green}[+] kali                  # Start Kali-Linux chroot${reset}\n"
