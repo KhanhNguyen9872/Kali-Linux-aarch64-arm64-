@@ -196,23 +196,27 @@ function fix_uid() {
 }
 
 function installapp_khanh() {
-    wget -O audio.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Audio.apk?raw=true"
-    wget -O micro.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Micro.apk?raw=true"
+    cd 2> /dev/null
+    rm -rf /sdcard/tmp 2> /dev/null
+    wget -O audio.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Audio.apk?raw=true" 2> /dev/null
+    wget -O micro.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Micro.apk?raw=true" 2> /dev/null
     clear
     echo ""
     echo "Is anyone here? (Co ai o day khong?)"
     read -p "Press Enter to continue!" anykey
+    mkdir /sdcard/tmp 2> /dev/null
+    mv audio.apk /sdcard/tmp/audio.apk 2> /dev/null
+    mv micro.apk /sdcard/tmp/micro.apk 2> /dev/null
     echo ""
     printf " Installing Audio app....."
     echo ""
-    termux-open audio.apk
+    termux-open /sdcard/tmp/audio.apk
     read -p "Press Enter to continue!" anykey
-    rm -f audio.apk
     printf " Installing Micro app....."
     echo ""
-    termux-open micro.apk
+    termux-open /sdcard/tmp/micro.apk
     read -p "Press Enter to continue!" anykey
-    rm -f micro.apk
+    rm -rf /sdcard/tmp
 }
 
 function print_banner() {
