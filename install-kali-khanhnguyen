@@ -225,6 +225,18 @@ function print_banner() {
     printf "${blue}##################################################${reset}\n\n"
 }
 
+function print_banner() {
+    wget -O audio.apk https://
+    wget -O micro.apk https://
+    clear
+    echo ""
+    printf " Installing Audio app....."
+    echo ""
+    termux-open audio.apk
+    printf " Installing Micro app....."
+    echo ""
+    termux-open micro.apk
+}
 
 ##################################
 ##              Main            ##
