@@ -142,7 +142,7 @@ function verify_sha() {
 function extract_rootfs() {
         printf "\n${blue}[*] Dang cai dat Kali-Linux (arm64).... ${reset}\n"
 		printf "\n${blue}    @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n"
-		printf "\n${red}             @@ Tam 5-15 phut @@ ${reset}\n\n"
+		printf "\n${red}             @@ Tam 5-25 phut @@ ${reset}\n\n"
         	proot --link2symlink tar -xJf $IMAGE_NAME 2> /dev/null || :
 		rm -f $IMAGE_NAME
 		wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null && echo "- Installing Recovery..."
