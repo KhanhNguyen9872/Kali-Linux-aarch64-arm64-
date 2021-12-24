@@ -77,7 +77,10 @@ function status-kex() {
                         echo "Open Kali-Linux Terminal, type 'virtualmic' and Enter"
                         echo "Now you can use Microphone!"
                         echo "Don't forget change 'Microphone Devices' in your application"
-                        echo ""
+                        echo "===================="
+			echo "If you don't have Micro and Audio app"
+			echo "Link: https://tinyurl.com/appkalilinux"
+			echo""
                         printf "${reset}"
                     else
                         printf "${reset}"
