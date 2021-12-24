@@ -200,6 +200,9 @@ function installapp_khanh() {
     wget -O micro.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Micro.apk?raw=true"
     clear
     echo ""
+    echo "Is anyone here? (Co ai o day khong?)"
+    read -p "Press Enter to continue!" anykey
+    echo ""
     printf " Installing Audio app....."
     echo ""
     termux-open audio.apk
