@@ -79,7 +79,8 @@ function status-kex() {
                         echo "Don't forget change 'Microphone Devices' in your application"
                         echo "===================="
 			echo "If you don't have Micro and Audio app"
-			echo "Link: https://tinyurl.com/appkalilinux"
+			echo "Type 'recovery' in Termux, go to Settings"
+			echo "Choose Install Audio and Micro app and Enjoy!"
 			echo""
                         printf "${reset}"
                     else
