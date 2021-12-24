@@ -203,10 +203,12 @@ function installapp_khanh() {
     printf " Installing Audio app....."
     echo ""
     termux-open audio.apk
+    read -p "Press Enter to continue!" anykey
     rm -f audio.apk
     printf " Installing Micro app....."
     echo ""
     termux-open micro.apk
+    read -p "Press Enter to continue!" anykey
     rm -f micro.apk
 }
 
