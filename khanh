@@ -27,7 +27,7 @@ function start-vnc() {
     return 0
 }
 
-function stop-vnc() {
+function kill-vnc() {
     printf "%b\n" "${light_cyan} @ Kali-Linux by KhanhNguyen @${reset}"
     printf "%b\n" "${yellow} @ Stopping VNC....${reset}\n"
     vncserver -kill :0 2> /dev/null && rm -f /tmp/screen0 2> /dev/null
@@ -114,29 +114,72 @@ function status-vnc() {
     fi
     return 0
 }
-
+function help-vnc() {
+printf "${light_cyan}Command: khanh [options]\n\n${yellow}"
+echo "Options:"
+echo "  -s, --start  [Start VNC without Secure]"
+echo "  -x, --secure [Start VNC with Secure]"
+echo "  -k, --kill   [Stop all VNC]"
+echo "  -v, --status [View status VNC]"
+echo "  -p, --passwd [Set Password VNC]"
+echo "  -h, --help   [Help information]"
+printf "\n${green}"
+echo "Example:"
+echo "  StartVNC:              khanh --start"
+echo "  StartVNC with Secure:  khanh --secure"
+printf "${reset}"
+}
+if [[ $# -ge 2 ]]; then
+    printf "\n${red}    Too many argument${reset}\n" 
+fi
 case $1 in
-    secure)
-        stop-vnc
+    --help)
+        help-vnc
+        ;;
+    -h)
+        help-vnc
+        ;;
+    --secure)
+        kill-vnc
         secure-vnc
         start-vnc
         status-vnc
         ;;
-    start)
+    -x)
+        kill-vnc
+        secure-vnc
         start-vnc
-        ;;
-    stop)
-        stop-vnc
-        ;;
-    status)
+        status-vnc
+        ;; 
+    --start)
+        kill-vnc
+        start-vnc
         status-vnc
         ;;
-    passwd)
+    -s)
+        kill-vnc
+        start-vnc
+        status-vnc
+        ;;
+    --kill)
+        kill-vnc
+        ;;
+    -k)
+        kill-vnc
+        ;;
+    --status)
+        status-vnc
+        ;;
+    -v)
+        status-vnc
+        ;;
+    --passwd)
+        passwd-vnc
+        ;;
+    -p)
         passwd-vnc
         ;;
     *)
-        stop-vnc
-        start-vnc
-        status-vnc
+        help-vnc
         ;;
 esac
