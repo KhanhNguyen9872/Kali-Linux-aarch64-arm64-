@@ -2,7 +2,7 @@
 
 rm -f kali-khanhnguyenup.sh
 
-VERSION=20211224
+VERSION=20211228
 USERNAME="kali"
 
 function ask() {
@@ -90,7 +90,7 @@ function check_dependencies() {
 
 
 function get_url() {
-    ROOTFS_URL="https://tinyurl.com/nx64mce5"
+    ROOTFS_URL="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen.img"
     SHA_URL="https://tinyurl.com/xb7jsx2x"
 }
 
