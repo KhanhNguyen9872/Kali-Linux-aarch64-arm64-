@@ -56,9 +56,9 @@ function get_arch() {
 }
 
 function set_strings() {
-    CHROOT=kali-arm64
-    IMAGE_NAME=kali-arm64-khanhnguyen.tar.xz
-    SHA_NAME=kali-arm64-khanhnguyen.sha512sum
+    CHROOT="kali-arm64"
+    IMAGE_NAME="kali-arm64-khanhnguyen.tar.xz"
+    SHA_NAME="kali-arm64-khanhnguyen.sha512sum"
 }    
 
 function prepare_fs() {
