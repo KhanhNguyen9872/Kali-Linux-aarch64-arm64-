@@ -3,7 +3,7 @@
 if [ "$#" == "0" ]; then
     echo "encryptbash [bash_file]"
     echo ""
-    echo "Example: encrypt filebash.sh"
+    echo "Example: encryptbash filebash.sh"
     echo ""
     echo "Script created by KhanhNguyen9872"
     exit 1
