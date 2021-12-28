@@ -102,7 +102,7 @@ function get_rootfs() {
     printf "${blue}[*] Dang tai Kali-Linux (arm64)...."
     printf " (1.71GB)${reset}\n\n"
     get_url
-    wget -O kali-arm64-khanhnguyen.tar.xz "$ROOTFS_URL" && echo "- Get success"
+    wget -O kali-arm64-khanhnguyen.img "$ROOTFS_URL" && echo "- Get success"
 }
 
 function get_sha() {
@@ -143,6 +143,7 @@ function extract_rootfs() {
         printf "\n${blue}[*] Dang cai dat Kali-Linux (arm64).... ${reset}\n"
 		printf "\n${blue}    @@ Qua trinh co the mat kha nhieu thoi gian @@ ${reset}\n"
 		printf "\n${red}             @@ Tam 5-25 phut @@ ${reset}\n\n"
+		mv kali-arm64-khanhnguyen.img kali-arm64-khanhnguyen.tar.xz
         	proot --link2symlink tar -xJf $IMAGE_NAME 2> /dev/null || :
 		rm -f $IMAGE_NAME
 		wget -O recovery https://tinyurl.com/542f74rn 2> /dev/null && echo "- Installing Recovery..."
