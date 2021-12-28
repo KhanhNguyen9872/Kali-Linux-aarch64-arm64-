@@ -1032,30 +1032,60 @@ while [ "$menu" != 1 ]; do
 									printf "%b\n" "${yellow}\n - Reinstall Kali Launcher.... \n"
 									cd
 									wget -O kali https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/kali 2> /dev/null
-									wget -O khanh https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/khanh 2> /dev/null
+									wget -O khanh https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanh.sh 2> /dev/null
+									wget -O debian https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/debian.sh 2> /dev/null
+									wget -O khanhaudio_tcp https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhaudio_tcp.sh 2> /dev/null
+									wget -O khanhi386 https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhi386.sh 2> /dev/null
+									wget -O khanhzoom https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhzoom.sh 2> /dev/null
+									wget -O recovery https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/recovery.sh 2> /dev/null
+									wget -O virtualmic https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/virtualmic.sh 2> /dev/null
+									wget -O virtmic https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/virtmic.sh 2> /dev/null
+									wget -O khanhnguyen9872 https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhnguyen9872.sh 2> /dev/null
+									wget -O encryptbash https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/encryptbash.sh 2> /dev/null
+									wget -O khanh_tcp_stop https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanh_tcp_stop.sh 2> /dev/null
 									update2="$(grep '' './kali')" 2> /dev/null
-									#update3="$(grep '' './khanh')" 2> /dev/null
+									update3="$(grep '' './khanh')" 2> /dev/null
 									if [[ $update2 -eq '' ]] 2> /dev/null; then
 										printf "${red}\n No connection are available! \n"
 										printf "${red}\n Required Internet to Reinstall Launcher! \n\n"
 										rm -f kali 2> /dev/null
 										rm -f khanh 2> /dev/null
 									else
-										#if [[ $update3 -eq '' ]] 2> /dev/null; then
-											#printf "${red}\n No connection are available! \n"
-											#printf "${red}\n Required Internet to Reinstall Launcher! \n\n"
-											#rm -f kali 2> /dev/null
-											#rm -f khanh 2> /dev/null
-										#else
-										cd 2> /dev/null
-										mv khanh kali-arm64/usr/bin/khanh
-										chmod 777 kali-arm64/usr/bin/khanh
-										cd .. 2> /dev/null
-										mv home/kali usr/bin/kali 2> /dev/null
-										chmod 777 usr/bin/kali 2> /dev/null
-										printf "%b\n\n" "${green} - Reinstall successfully! \n"
-										printf "${green} - You can try run Kali again! \n\n"
-										#fi
+										if [[ $update3 -eq '' ]] 2> /dev/null; then
+											printf "${red}\n No connection are available! \n"
+											printf "${red}\n Required Internet to Reinstall Launcher! \n\n"
+											rm -f kali 2> /dev/null
+											rm -f khanh 2> /dev/null
+										else
+											cd 2> /dev/null
+											mv khanh kali-arm64/usr/bin/khanh
+											mv khanhi386 kali-arm64/usr/bin/khanhi386
+											mv debian kali-arm64/usr/bin/debian
+											mv khanhzoom kali-arm64/usr/bin/khanhzoom
+											mv recovery kali-arm64/usr/bin/recovery
+											mv khanhaudio_tcp kali-arm64/usr/bin/khanhaudio_tcp
+											mv khanh_tcp_stop kali-arm64/usr/bin/khanh_tcp_stop
+											mv encryptbash kali-arm64/usr/bin/encryptbash
+											mv virtmic kali-arm64/usr/bin/virtmic
+											mv virtualmic kali-arm64/usr/bin/virtualmic
+											mv KhanhNguyen9872 kali-arm64/usr/bin/khanhnguyen9872
+											chmod 777 kali-arm64/usr/bin/khanh
+											chmod 777 kali-arm64/usr/bin/khanhaudio_tcp
+											chmod 777 kali-arm64/usr/bin/khanh_tcp_stop
+											chmod 777 kali-arm64/usr/bin/khanhnguyen9872
+											chmod 777 kali-arm64/usr/bin/khanhzoom
+											chmod 777 kali-arm64/usr/bin/khanhi386
+											chmod 777 kali-arm64/usr/bin/recovery
+											chmod 777 kali-arm64/usr/bin/encryptbash
+											chmod 777 kali-arm64/usr/bin/virtualmic
+											chmod 777 kali-arm64/usr/bin/virtmic
+											chmod 777 kali-arm64/usr/bin/debian
+											cd .. 2> /dev/null
+											mv home/kali usr/bin/kali 2> /dev/null
+											chmod 777 usr/bin/kali 2> /dev/null
+											printf "%b\n\n" "${green} - Reinstall successfully! \n"
+											printf "${green} - You can try run Kali again! \n\n"
+										fi
 									fi
 									read -p " Press Enter to continue " anykey
 								fi
