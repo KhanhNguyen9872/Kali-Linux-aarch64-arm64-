@@ -1068,7 +1068,7 @@ while [ "$menu" != 1 ]; do
 											mv encryptbash kali-arm64/usr/bin/encryptbash
 											mv virtmic kali-arm64/usr/bin/virtmic
 											mv virtualmic kali-arm64/usr/bin/virtualmic
-											mv KhanhNguyen9872 kali-arm64/usr/bin/khanhnguyen9872
+											mv khanhnguyen9872 kali-arm64/usr/bin/khanhnguyen9872
 											chmod 777 kali-arm64/usr/bin/khanh
 											chmod 777 kali-arm64/usr/bin/khanhaudio_tcp
 											chmod 777 kali-arm64/usr/bin/khanh_tcp_stop
