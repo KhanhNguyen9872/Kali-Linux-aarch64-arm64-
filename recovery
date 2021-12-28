@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v3.0" 2> /dev/null
+khanhnguyen="v3.1" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -784,7 +784,7 @@ while [ "$menu" != 1 ]; do
 					break
 				fi
                 printf "%b\n" "\n\n-----------------\n\n"
-				printf "${blue} Target Backup: /sdcard/kali-arm64-backup.tar.xz \n"
+				printf "${blue} Target Backup: /sdcard/kali-arm64-backup.img \n"
 				read -r -p "Are you sure to backup image? [Y/N] " response
 				printf "%b\n" " "
 				case "$response" in
@@ -796,6 +796,7 @@ while [ "$menu" != 1 ]; do
 							rm -rf data 2> /dev/null && rm -rf vendor 2> /dev/null && rm -rf product 2> /dev/null && rm -rf storage 2> /dev/null
 							cd home 2> /dev/null
 							cd kali 2> /dev/null
+							rm -f .zsh_history 2> /dev/null
 							rm -f .axs-dsound-server 2> /dev/null
 							rm -f .bash_history 2> /dev/null
 							rm -rf .cache 2> /dev/null
@@ -803,28 +804,31 @@ while [ "$menu" != 1 ]; do
 							cd 2> /dev/null
 							cd kali-arm64 2> /dev/null
 							cd root 2> /dev/null
+							rm -f .zsh_history 2> /dev/null
 							rm -f .axs-dsound-server 2> /dev/null
 							rm -f .bash_history 2> /dev/null
 							rm -rf .cache 2> /dev/null
 							rm -rf .gnupg 2> /dev/null
 							cd 2> /dev/null
-							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
-								rm -f kali-arm64-backup.tar.xz 2> /dev/null
+							if [ -f temp.img ] 2> /dev/null; then
+								rm -f temp.img 2> /dev/null
 							fi
-							XZ_OPT="-$level -T$level1" tar cJf - kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > kali-arm64-backup.tar.xz && echo "- Done backup image" > /sdcard/log.txt
-							if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
+							XZ_OPT="-$level -T$level1" tar cJf - kali-arm64 -P | pv -s $(du -sb kali-arm64 | awk '{print $1}') | gzip > temp.tar.xz && echo "- Done backup image" > /sdcard/log.txt
+							if [ -f temp.tar.xz ] 2> /dev/null; then
 								printf "${yellow}\n - Please wait....\n ${reset}"
-								7z e kali-arm64-backup.tar.xz 2> /dev/null
+								7z e temp.tar.xz 2> /dev/null
 							else
 								printf "%b\n" " ${red} - Backup image failed! \n"
 								exit 1
 							fi
-							if [ -f kali-arm64-backup.tar ] 2> /dev/null; then
-								if [ -f kali-arm64-backup.tar.xz ] 2> /dev/null; then
-									rm -f kali-arm64-backup.tar.xz 2> /dev/null
+							if [ -f temp.tar ] 2> /dev/null; then
+								if [ -f temp.tar.xz ] 2> /dev/null; then
+									rm -f temp.tar.xz 2> /dev/null
 								fi
-								mv kali-arm64-backup.tar kali-arm64-backup.tar.xz 2> /dev/null
-								mv kali-arm64-backup.tar.xz /sdcard/kali-arm64-backup.tar.xz 2> /dev/null
+								if [ -f /sdcard/kali-arm64-backup.img ] 2> /dev/null; then
+									mv /sdcard/kali-arm64-backup.img /sdcard/kali-arm64-backup1.img 2> /dev/null
+								fi
+								mv temp.tar /sdcard/kali-arm64-backup.img 2> /dev/null
 								bakfail=0
 							else
 								bakfail=1
@@ -838,8 +842,8 @@ while [ "$menu" != 1 ]; do
 								printf "%b\n" " ${yellow} - Completed Backup Image! \n"
 							else
 								printf "%b\n" " ${red} - Backup image failed! \n"
-								rm -f kali-arm64-backup.tar.xz 2> /dev/null
-								rm -f kali-arm64-backup.tar 2> /dev/null
+								rm -f temp.tar.xz 2> /dev/null
+								rm -f temp.tar 2> /dev/null
 							fi
 							read -p " Press Enter to exit " anykey
 							;;
@@ -853,8 +857,8 @@ while [ "$menu" != 1 ]; do
 				printf "${red}\n  @ RECOVERY MENU \n\n"
                 printf "${green} -> Restore Image \n\n"
                 printf "${yellow} @ Please move Image to /sdcard and enter name file \n\n"
-				printf "${yellow}  @@ Example your file in /sdcard/kali-arm64.tar.xz \n"
-                printf "${yellow}  @@ Enter name image: kali-arm64.tar.xz \n\n"
+				printf "${yellow}  @@ Example your file in /sdcard/kali-arm64.img \n"
+                printf "${yellow}  @@ Enter name image: kali-arm64.img \n\n"
                 read -p "Enter Full name image: " restoreimage
 				checkfile=/sdcard/$restoreimage 2> /dev/null
                 printf "%b\n" "\n-----------------\n\n"
@@ -1077,11 +1081,11 @@ while [ "$menu" != 1 ]; do
 								;;
 						 [7])
 								cd 2> /dev/null
-								if [ -f audio.apk ] 2> /dev/null; then
-									rm -f audio.apk 2> /dev/null
+								if [ -f /sdcard/tmp/audio.apk ] 2> /dev/null; then
+									rm -rf /sdcard/tmp 2> /dev/null
 								fi
-								if [ -f micro.apk ] 2> /dev/null; then
-									rm -f micro.apk 2> /dev/null
+								if [ -f /sdcard/tmp/micro.apk ] 2> /dev/null; then
+									rm -rf /sdcard/tmp 2> /dev/null
 								fi
 								wget -O micro.apk "https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/blob/main/app/Micro.apk?raw=true" 2> /dev/null
 								mkdir /sdcard/tmp 2> /dev/null
