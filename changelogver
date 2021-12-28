@@ -1,6 +1,7 @@
 - Version 2.2
 - All package updated on 28/12/2021
 - Fix VNC
+- Add nmap (check ip)
 - Add Secure VNC and Public VNC
 - Add encryptbash
 - Compatible with Audio and Micro app on my Github!
