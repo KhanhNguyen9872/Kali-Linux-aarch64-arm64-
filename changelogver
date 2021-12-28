@@ -1,8 +1,8 @@
-- Version 2.1
-- All package updated on 23/12/2021
-- Change MIC and Audio app!
-- Fix connect VirtualMIC
-= But you can use other audio mic app!
+- Version 2.2
+- All package updated on 28/12/2021
+- Fix VNC
+- Add Secure VNC and Public VNC
+- Add encryptbash
 - Compatible with Audio and Micro app on my Github!
 - Compatible with Recovery version 2.7 or up!
   @ Please update upto Recovery v2.7 or up!
