@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 ##KhanhNguyen9872
 if [ "$#" == "0" ]; then
     echo "encryptbash [bash_file]"
