@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 clear
 red='\033[1;31m' 2> /dev/null
 green='\033[1;32m' 2> /dev/null
