@@ -1,8 +1,10 @@
-- Version 3.1
+- Version 3.2
 - YOU MUST UPDATE THIS VERSION BEFORE USING!
-- Remove .zsh_history when Backup
-- Rename backup file when existed!
-- Change rootfs type!
+- Remove doc folder when Backup
+- Add CPU Check 32/64bit
+- Fix pass command not found
+- Change Username
+- Change something in Reinstall Launcher
 - Compatible with Kali v2.2 or up!
 - Improve stable!
       THANKS FOR USED!!!
