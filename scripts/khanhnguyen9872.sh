@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 #khanhnguyen9872
 light='\033[1;96m'
 red='\033[1;31m'
