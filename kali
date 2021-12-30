@@ -94,7 +94,7 @@ cmdline="proot \
         -0 \
         -r kali-arm64 \
         -b /dev \
-        -b /data \
+        -b /data/data/com.termux \
         -b /vendor \
         -b /product \
         -b /mnt \
