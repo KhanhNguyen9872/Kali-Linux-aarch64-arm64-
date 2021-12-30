@@ -69,11 +69,11 @@ if [ ! -f kali-arm64/root/.version ]; then
     touch kali-arm64/root/.version
 fi
 
-user="kali"
+user="khanh"
 home="/home/$user"
-start="sudo -u kali /bin/bash"
+start="sudo -u khanh /bin/bash"
 
-if grep -q "kali" kali-arm64/etc/passwd; then
+if grep -q "khanh" kali-arm64/etc/passwd; then
     KALIUSR="1";
 else
     KALIUSR="0";
