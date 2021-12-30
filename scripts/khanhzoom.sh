@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 light_cyan='\033[1;96m' 2> /dev/null
 red='\033[1;31m' 2> /dev/null
 userkhanh="$(whoami)"
