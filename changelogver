@@ -1,9 +1,9 @@
-- Version 2.2
-- All package updated on 28/12/2021
-- Fix VNC
-- Add nmap (check ip)
-- Add Secure VNC and Public VNC
-- Add encryptbash
+- Version 2.3
+- All package updated on 30/12/2021
+- Change username -> khanh
+- Enable zsh on Terminal
+- Remove other icon for more space
+- Fix bash file
 - Compatible with Audio and Micro app on my Github!
-- Compatible with Recovery version 3.1 or up!
-  @ Please update upto Recovery v3.1 or up!
+- Compatible with Recovery version 3.2 or up!
+  @ Please update upto Recovery v3.2 or up!
