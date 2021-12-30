@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 clear
 red='\033[1;31m' 2> /dev/null
 green='\033[1;32m' 2> /dev/null
@@ -140,7 +140,7 @@ if [ -f usr/bin/settingsupdatekali ] 2> /dev/null; then
 	#if [[ $key -eq 2 ]] 2> /dev/null; then
 		#notcompatible=1 2> /dev/null
 	#fi
-	pass
+	pass=1
 else
 	key=0
 	notcompatible=0
