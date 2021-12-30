@@ -805,12 +805,13 @@ while [ "$menu" != 1 ]; do
 				case "$response" in
 					[y]|[Y]) 
 							printf "\n${green} - Process: \n${light_cyan}"
-							cd $HOME
-							cd kali-arm64
+							cd 2> /dev/null
+							cd kali-arm64 2> /dev/null
 							rm -rf tmp 2> /dev/null && mkdir tmp 2> /dev/null && chmod 777 tmp
 							rm -rf data 2> /dev/null && rm -rf vendor 2> /dev/null && rm -rf product 2> /dev/null && rm -rf storage 2> /dev/null
 							cd home 2> /dev/null
 							cd kali 2> /dev/null
+							rm -f .bashrc.original 2> /dev/null
 							rm -f .zsh_history 2> /dev/null
 							rm -f .axs-dsound-server 2> /dev/null
 							rm -f .bash_history 2> /dev/null
@@ -819,11 +820,16 @@ while [ "$menu" != 1 ]; do
 							cd 2> /dev/null
 							cd kali-arm64 2> /dev/null
 							cd root 2> /dev/null
+							rm -f .bashrc.original 2> /dev/null
 							rm -f .zsh_history 2> /dev/null
 							rm -f .axs-dsound-server 2> /dev/null
 							rm -f .bash_history 2> /dev/null
 							rm -rf .cache 2> /dev/null
 							rm -rf .gnupg 2> /dev/null
+							cd 2> /dev/null
+							cd kali-arm64 2> /dev/null
+							cd usr/share 2> /dev/null
+							rm -rf doc 2> /dev/null
 							cd 2> /dev/null
 							if [ -f temp.img ] 2> /dev/null; then
 								rm -f temp.img 2> /dev/null
