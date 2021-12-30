@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/usr/bin/bash -e
 clear
 red='\033[1;31m' 2> /dev/null
 green='\033[1;32m' 2> /dev/null
@@ -66,7 +66,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v3.1" 2> /dev/null
+khanhnguyen="v3.2" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -100,9 +100,16 @@ cd .. 2> /dev/null
 if [ -f usr/bin/settingsupdate ] 2> /dev/null; then
 	wget -O versionrecovery https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/versionrecovery 2> /dev/null && echo " " 2> /dev/null
 	wget -O changelogversion https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogversion 2> /dev/null && echo " " 2> /dev/null
+	wget -O requiredreinstall https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/requiredreinstall 2> /dev/null && echo " " 2> /dev/null
 	if [ -f changelogversion ] 2> /dev/null; then
 		updaterecoverychangelog="$(grep '' './changelogversion')" 2> /dev/null
 		rm -f changelogversion 2> /dev/null
+	else
+		nonetwork=1 2> /dev/null
+	fi
+	if [ -f requiredreinstall ] 2> /dev/null; then
+		requiredreinstalllog="$(grep '' './requiredreinstall')" 2> /dev/null
+		rm -f requiredreinstall 2> /dev/null
 	else
 		nonetwork=1 2> /dev/null
 	fi
@@ -224,15 +231,23 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 				if [[ $updatek -eq 1 ]] 2> /dev/null; then
 					echo 'khanh' 2> /dev/null
 				else
-					printf "${yellow}\n\n - Update will keep your personal data! \n\n"
+					if [ $requiredreinstalllog == "y" ] 2> /dev/null; then
+						printf "${red}\n\n - THIS UPDATE REQUIRED REINSTALL!\n"
+						printf " - This will remove your data! Please backup first!\n\n"
+					else
+						printf "${yellow}\n\n - Update will keep your personal data! \n\n"
+					fi
 				fi
 				printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
 				read -r -p "Your choose: " response
 				printf "%b\n" " "
 				case "$response" in
 					[y]|[Y]) 
-						cd $HOME
+						cd
 						printf "%b\n" "${yellow} - Updating... \n"
+						if [ $requiredreinstalllog == "y" ] 2> /dev/null; then
+							rm -rf kali-arm64 2> /dev/null
+						fi
 						#if [[ $key -eq 2 ]] 2> /dev/null; then
 							#echo "Free space check: Skip! Because Not Compatible!"
 						#else
@@ -1032,7 +1047,7 @@ while [ "$menu" != 1 ]; do
 									printf "%b\n" "${yellow}\n - Reinstall Kali Launcher.... \n"
 									cd
 									wget -O kali https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/kali 2> /dev/null
-									wget -O khanh https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanh.sh 2> /dev/null
+									wget -O khanh https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/khanh 2> /dev/null
 									wget -O debian https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/debian.sh 2> /dev/null
 									wget -O khanhaudio_tcp https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhaudio_tcp.sh 2> /dev/null
 									wget -O khanhi386 https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhi386.sh 2> /dev/null
@@ -1043,6 +1058,8 @@ while [ "$menu" != 1 ]; do
 									wget -O khanhnguyen9872 https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhnguyen9872.sh 2> /dev/null
 									wget -O encryptbash https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/encryptbash.sh 2> /dev/null
 									wget -O khanh_tcp_stop https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanh_tcp_stop.sh 2> /dev/null
+									wget -O khanhip https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhip.py 2> /dev/null
+									wget -O fixoffice https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/fixoffice.py 2> /dev/null
 									update2="$(grep '' './kali')" 2> /dev/null
 									update3="$(grep '' './khanh')" 2> /dev/null
 									if [[ $update2 -eq '' ]] 2> /dev/null; then
@@ -1069,6 +1086,8 @@ while [ "$menu" != 1 ]; do
 											mv virtmic kali-arm64/usr/bin/virtmic
 											mv virtualmic kali-arm64/usr/bin/virtualmic
 											mv khanhnguyen9872 kali-arm64/usr/bin/khanhnguyen9872
+											mv fixoffice kali-arm64/usr/bin/fixoffice
+											mv khanhip kali-arm64/usr/bin/khanhip
 											chmod 777 kali-arm64/usr/bin/khanh
 											chmod 777 kali-arm64/usr/bin/khanhaudio_tcp
 											chmod 777 kali-arm64/usr/bin/khanh_tcp_stop
@@ -1080,6 +1099,8 @@ while [ "$menu" != 1 ]; do
 											chmod 777 kali-arm64/usr/bin/virtualmic
 											chmod 777 kali-arm64/usr/bin/virtmic
 											chmod 777 kali-arm64/usr/bin/debian
+											chmod 777 kali-arm64/usr/bin/khanhip
+											chmod 777 kali-arm64/usr/bin/fixoffice
 											cd .. 2> /dev/null
 											mv home/kali usr/bin/kali 2> /dev/null
 											chmod 777 usr/bin/kali 2> /dev/null
