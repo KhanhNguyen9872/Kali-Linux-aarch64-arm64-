@@ -8,16 +8,12 @@ reset='\033[0m' 2> /dev/null
 sshd 2> /dev/null
 user="$(whoami)" 2> /dev/null
 cd ../usr/etc 2> /dev/null
-if [ -f passwd ] 2> /dev/null; then
-	clear
-else
-	clear
-	printf "${yellow}\n Type your password!\n"
+if [ ! -f passwd ] 2> /dev/null; then
+	printf "${yellow}\n Setup your password!\n"
 	passwd ${user}
 	echo 'khanh' > passwd
+	clear
 fi
 cd 2> /dev/null
-printf "\n\n"
-ifconfig | grep 'inet'
-printf "${light_cyan}\n\n Use this command for connect:\n"
-printf "ssh ${user}@[YourIP] -p 8022\n\n"
+printf "\n ${green}SSH Server is Enabled!"
+printf "\n${yellow} ssh ${user}@[YourIP] -p 8022\n\n${reset}"
