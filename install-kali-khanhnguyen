@@ -1,6 +1,9 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
-pkg install openssh -y
-clear
+cd
+if [ ! -f ../usr/bin/sshd ]; then
+	pkg install openssh -y
+	clear
+fi
 
 rm -f kali-khanhnguyenup.sh
 
