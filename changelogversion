@@ -1,10 +1,7 @@
-- Version 3.2
+- Version 3.3
 - YOU MUST UPDATE THIS VERSION BEFORE USING!
-- Remove doc folder when Backup
-- Add CPU Check 32/64bit
-- Fix pass command not found
-- Change Username
-- Change something in Reinstall Launcher
+- Enable SSH Server in Settings!
+- Fix bug Reinstall Launcher!
 - Compatible with Kali v2.3 or up!
 - Improve stable!
       THANKS FOR USED!!!
