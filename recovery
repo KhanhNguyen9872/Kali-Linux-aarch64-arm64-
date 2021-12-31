@@ -1236,6 +1236,9 @@ while [ "$menu" != 1 ]; do
 										mv start_ssh usr/bin/start_ssh 2> /dev/null
 										chmod 777 usr/bin/start_ssh 2> /dev/null
 									fi
+									if [ ! -f usr/bin/sshd ]; then
+										pkg update -y && pkg install openssh -y
+									fi
 									rm -f usr/bin/khanhssh 2> /dev/null
 									cd 2> /dev/null
 								fi
