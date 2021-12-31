@@ -33,6 +33,7 @@ else
 	echo 'update_enable' > usr/bin/settingsupdate 2> /dev/null
 	echo 'update_enable' > usr/bin/settingsupdatekali 2> /dev/null
 	echo 'checkboot' > usr/bin/firstbootcheck 2> /dev/null
+	echo 'khanh' > usr/bin/khanhssh 2> /dev/null
 fi
 clear
 cd 2> /dev/null
@@ -987,10 +988,11 @@ while [ "$menu" != 1 ]; do
 					printf " 2. Check update Kali [$settingsupdatekali]\n"
 					printf " 3. Wake Lock [$settingswake]\n"
 					printf " 4. SSH Server [$settingssh]\n"
-					printf " 5. Reinstall Recovery [For Development]\n"
-					printf " 6. Reinstall Launcher [if you can't start kali command]\n"
-					printf " 7. Install Audio app [For audio Kali-Linux]\n"
-					printf " 8. Install Micro app [For microphone Kali-Linux]\n"
+					printf " 5. Password SSH Server\n"
+					printf " 6. Reinstall Recovery [For Development]\n"
+					printf " 7. Reinstall Launcher [if you can't start kali command]\n"
+					printf " 8. Install Audio app [For audio Kali-Linux]\n"
+					printf " 9. Install Micro app [For microphone Kali-Linux]\n"
 					printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 					read -r -p "Your choose: " response1
 					if [[ $response1 -eq 0 ]] 2> /dev/null; then
@@ -1043,7 +1045,7 @@ while [ "$menu" != 1 ]; do
 									termux-wake-lock
 								fi
 								;;
-						 [5]) 
+						 [6]) 
 								clear
 								printf "${red}\n  @ RECOVERY MENU \n\n"
                 				printf "${green} -> Settings \n\n\n"
@@ -1075,7 +1077,7 @@ while [ "$menu" != 1 ]; do
 									read -p " Press Enter to continue " anykey
 								fi
 								;;
-						 [6]) 
+						 [7]) 
 								clear
 								printf "${red}\n  @ RECOVERY MENU \n\n"
                 				printf "${green} -> Settings \n\n\n"
@@ -1182,7 +1184,7 @@ while [ "$menu" != 1 ]; do
 									read -p " Press Enter to continue " anykey
 								fi
 								;;
-						 [7])
+						 [8])
 								cd 2> /dev/null
 								if [ -f audio.apk ] 2> /dev/null; then
 									rm -f audio.apk 2> /dev/null
@@ -1201,7 +1203,7 @@ while [ "$menu" != 1 ]; do
     							read -p "Press Enter to continue!" anykey
     							rm -rf /sdcard/tmp 2> /dev/null
 								;;
-						 [8])
+						 [9])
 								cd 2> /dev/null
 								if [ -f /sdcard/tmp/audio.apk ] 2> /dev/null; then
 									rm -rf /sdcard/tmp 2> /dev/null
@@ -1243,6 +1245,15 @@ while [ "$menu" != 1 ]; do
 									fi
 									rm -f usr/bin/khanhssh 2> /dev/null
 									cd 2> /dev/null
+								fi
+								;;
+						 [5])
+								printf "\n"
+								read -p "Do you want to setup new password SSH? [Y/N]" anykey
+								if [ $anykey == 'y' ] 2> /dev/null || [ $anykey == 'Y' ] 2> /dev/null; then
+									printf "\n"
+									user="$(whoami)"
+									passwd ${user}
 								fi
 								;;
 							*)
