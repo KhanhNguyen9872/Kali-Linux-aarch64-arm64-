@@ -1235,12 +1235,12 @@ while [ "$menu" != 1 ]; do
 									cd 2> /dev/null
 									echo "start_ssh" >> ./.bash_profile 2> /dev/null
 									cd .. 2> /dev/null
-									if [ ! -f usr/bin/start_ssh ]; then
+									if [ ! -f usr/bin/start_ssh ] 2> /dev/null; then
 										wget -O start_ssh https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/start_ssh 2> /dev/null
 										mv start_ssh usr/bin/start_ssh 2> /dev/null
 										chmod 777 usr/bin/start_ssh 2> /dev/null
 									fi
-									if [ ! -f usr/bin/sshd ]; then
+									if [ ! -f usr/bin/sshd ] 2> /dev/null; then
 										pkg update -y && pkg install openssh -y
 									fi
 									rm -f usr/bin/khanhssh 2> /dev/null
@@ -1249,11 +1249,11 @@ while [ "$menu" != 1 ]; do
 								;;
 						 [5])
 								printf "\n"
-								read -p "Do you want to setup new password SSH? [Y/N]" anykey
+								read -p "Do you want to setup new password SSH? [Y/N] " anykey
 								if [ $anykey == 'y' ] 2> /dev/null || [ $anykey == 'Y' ] 2> /dev/null; then
-									printf "\n"
-									user="$(whoami)"
+									user="$(whoami)" 2> /dev/null
 									passwd ${user}
+									echo 'khanh' > ../usr/etc/passwd
 								fi
 								;;
 							*)
