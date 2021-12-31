@@ -262,9 +262,11 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 				printf "${light_cyan}\n - Do you want to install it now? [Y/N] \n"
 				read -r -p "Your choose: " response
 				printf "%b\n" " "
-				if [ $requiredreinstalllog == "y" ] 2> /dev/null; then
-					printf "${light_cyan}\n - Last Warning! Kali-Linux will be removed! [Y/N] \n"
-					read -r -p "Your choose: " response
+				if [ $response == 'y' ] 2> /dev/null || [ $response == 'Y' ] 2> /dev/null; then
+					if [ $requiredreinstalllog == "y" ] 2> /dev/null; then
+						printf "${light_cyan}\n - Last Warning! Kali-Linux will be removed! [Y/N] \n"
+						read -r -p "Your choose: " response
+					fi
 				fi
 				case "$response" in
 					[y]|[Y]) 
