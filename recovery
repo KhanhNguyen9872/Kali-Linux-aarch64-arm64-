@@ -1511,10 +1511,12 @@ while [ "$menu" != 1 ]; do
 									read -p "Your choose: " unlockchoose
 									if [ $unlockchoose = 'y' ] 2> /dev/null || [ $unlockchoose = 'Y' ] 2> /dev/null; then
 										printf "\n\n"
+										rm -f ~/.bash_profile 2> /dev/null
 										if [[ $wake -eq 1 ]] 2> /dev/null; then
-											echo "termux-wake-lock" > ~/.bash_profile 2> /dev/null
-										else
-											rm -f ~/.bash_profile 2> /dev/null
+											echo "termux-wake-lock" >> ~/.bash_profile 2> /dev/null
+										fi
+										if [[ $startssh -eq 1 ]] 2> /dev/null; then
+											echo "start_ssh" >> ~/.bash_profile 2> /dev/null
 										fi
 										cd
 										cd ..
