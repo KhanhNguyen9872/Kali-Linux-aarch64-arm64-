@@ -1,4 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
+pkg install openssh nmap -y
+clear
 
 rm -f kali-khanhnguyenup.sh
 
