@@ -39,5 +39,6 @@ if [ -f $khanh ]; then
 	fi
 fi
 termux-wake-lock
+start_ssh
 cd
 clear
