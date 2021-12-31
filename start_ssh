@@ -9,7 +9,7 @@ sshd 2> /dev/null
 user="$(whoami)" 2> /dev/null
 cd ../usr/etc 2> /dev/null
 if [ ! -f passwd ] 2> /dev/null; then
-	printf "${yellow}\n Setup your password!\n"
+	printf "${yellow}\n Setup your SSH password!\n"
 	passwd ${user}
 	echo 'khanh' > passwd
 	clear
