@@ -1551,7 +1551,9 @@ while [ "$menu" != 1 ]; do
 											mv bash_profile ~/.bash_profile 2> /dev/null
 											cd .. 2> /dev/null
 											rm -f usr/bin/khanhwake 2> /dev/null
+											rm -f usr/bin/khanhssh 2> /dev/null
 											wake=1 2> /dev/null
+											startssh=1 2> /dev/null
 											echo 'khanh' > usr/bin/khanhlocked 2> /dev/null
 											printf "\n Termux was locked!\n"
 											lockednum=1 2> /dev/null
