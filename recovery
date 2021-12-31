@@ -90,6 +90,11 @@ if [ -f usr/bin/khanhwake ] 2> /dev/null; then
 else
 	wake=1
 fi
+if [ -f usr/bin/khanhssh ] 2> /dev/null; then
+	startssh=0
+else
+	startssh=1
+fi
 if [ -f usr/bin/settingsupdatekali ] 2> /dev/null; then
 	wget -O version https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/version 2> /dev/null && echo " " 2> /dev/null
 	wget -O changelogver https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/changelogver 2> /dev/null && echo " " 2> /dev/null
@@ -967,6 +972,11 @@ while [ "$menu" != 1 ]; do
 					else
 						settingswake='Disabled' 2> /dev/null
 					fi
+					if [[ $startssh -eq 1 ]] 2> /dev/null; then
+						settingssh='Enabled' 2> /dev/null
+					else
+						settingssh='Disabled' 2> /dev/null
+					fi
 					cd 2> /dev/null
                 	clear
 					printf "${red}\n  @ RECOVERY MENU \n\n"
@@ -974,10 +984,11 @@ while [ "$menu" != 1 ]; do
 					printf "${yellow} 1. Check update Recovery [$settingsupdate]\n"
 					printf " 2. Check update Kali [$settingsupdatekali]\n"
 					printf " 3. Wake Lock [$settingswake]\n"
-					printf " 4. Reinstall Recovery [For Development]\n"
-					printf " 5. Reinstall Launcher [if you can't start kali command]\n"
-					printf " 6. Install Audio app [For audio Kali-Linux]\n"
-					printf " 7. Install Micro app [For microphone Kali-Linux]\n"
+					printf " 4. SSH Server [$settingssh]\n"
+					printf " 5. Reinstall Recovery [For Development]\n"
+					printf " 6. Reinstall Launcher [if you can't start kali command]\n"
+					printf " 7. Install Audio app [For audio Kali-Linux]\n"
+					printf " 8. Install Micro app [For microphone Kali-Linux]\n"
 					printf "${light_cyan} 0. Return to menu (or Enter) ${reset}\n\n"
 					read -r -p "Your choose: " response1
 					if [[ $response1 -eq 0 ]] 2> /dev/null; then
@@ -1030,7 +1041,7 @@ while [ "$menu" != 1 ]; do
 									termux-wake-lock
 								fi
 								;;
-						 [4]) 
+						 [5]) 
 								clear
 								printf "${red}\n  @ RECOVERY MENU \n\n"
                 				printf "${green} -> Settings \n\n\n"
@@ -1062,7 +1073,7 @@ while [ "$menu" != 1 ]; do
 									read -p " Press Enter to continue " anykey
 								fi
 								;;
-						 [5]) 
+						 [6]) 
 								clear
 								printf "${red}\n  @ RECOVERY MENU \n\n"
                 				printf "${green} -> Settings \n\n\n"
@@ -1087,6 +1098,7 @@ while [ "$menu" != 1 ]; do
 									wget -O khanh_tcp_stop https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanh_tcp_stop.sh 2> /dev/null
 									wget -O khanhip https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/khanhip.py 2> /dev/null
 									wget -O fixoffice https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/scripts/fixoffice.py 2> /dev/null
+									wget -O start_ssh https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/start_ssh 2> /dev/null
 									update2="$(grep '' './kali')" 2> /dev/null
 									update3="$(grep '' './khanh')" 2> /dev/null
 									if [[ $update2 -eq '' ]] 2> /dev/null; then
@@ -1094,12 +1106,40 @@ while [ "$menu" != 1 ]; do
 										printf "${red}\n Required Internet to Reinstall Launcher! \n\n"
 										rm -f kali 2> /dev/null
 										rm -f khanh 2> /dev/null
+										rm -f debian 2> /dev/null
+										rm -f khanhaudio_tcp 2> /dev/null
+										rm -f khanhi386 2> /dev/null
+										rm -f khanhzoom 2> /dev/null
+										rm -f recovery 2> /dev/null
+										rm -f virtualmic 2> /dev/null
+										rm -f virtmic 2> /dev/null
+										rm -f debian 2> /dev/null
+										rm -f khanhnguyen9872 2> /dev/null
+										rm -f encryptbash 2> /dev/null
+										rm -f khanh_tcp_stop 2> /dev/null
+										rm -f khanhip 2> /dev/null
+										rm -f fixoffice 2> /dev/null
+										rm -f start_ssh 2> /dev/null
 									else
 										if [[ $update3 -eq '' ]] 2> /dev/null; then
 											printf "${red}\n No connection are available! \n"
 											printf "${red}\n Required Internet to Reinstall Launcher! \n\n"
 											rm -f kali 2> /dev/null
 											rm -f khanh 2> /dev/null
+											rm -f debian 2> /dev/null
+											rm -f khanhaudio_tcp 2> /dev/null
+											rm -f khanhi386 2> /dev/null
+											rm -f khanhzoom 2> /dev/null
+											rm -f recovery 2> /dev/null
+											rm -f virtualmic 2> /dev/null
+											rm -f virtmic 2> /dev/null
+											rm -f debian 2> /dev/null
+											rm -f khanhnguyen9872 2> /dev/null
+											rm -f encryptbash 2> /dev/null
+											rm -f khanh_tcp_stop 2> /dev/null
+											rm -f khanhip 2> /dev/null
+											rm -f fixoffice 2> /dev/null
+											rm -f start_ssh 2> /dev/null
 										else
 											cd 2> /dev/null
 											mv khanh kali-arm64/usr/bin/khanh
@@ -1129,8 +1169,10 @@ while [ "$menu" != 1 ]; do
 											chmod 777 kali-arm64/usr/bin/khanhip
 											chmod 777 kali-arm64/usr/bin/fixoffice
 											cd .. 2> /dev/null
+											mv home/start_ssh usr/bin/start_ssh 2> /dev/null
 											mv home/kali usr/bin/kali 2> /dev/null
 											chmod 777 usr/bin/kali 2> /dev/null
+											chmod 777 usr/bin/start_ssh 2> /dev/null
 											printf "%b\n\n" "${green} - Reinstall successfully! \n"
 											printf "${green} - You can try run Kali again! \n\n"
 										fi
@@ -1138,7 +1180,7 @@ while [ "$menu" != 1 ]; do
 									read -p " Press Enter to continue " anykey
 								fi
 								;;
-						 [6])
+						 [7])
 								cd 2> /dev/null
 								if [ -f audio.apk ] 2> /dev/null; then
 									rm -f audio.apk 2> /dev/null
@@ -1157,7 +1199,7 @@ while [ "$menu" != 1 ]; do
     							read -p "Press Enter to continue!" anykey
     							rm -rf /sdcard/tmp 2> /dev/null
 								;;
-						 [7])
+						 [8])
 								cd 2> /dev/null
 								if [ -f /sdcard/tmp/audio.apk ] 2> /dev/null; then
 									rm -rf /sdcard/tmp 2> /dev/null
@@ -1175,6 +1217,28 @@ while [ "$menu" != 1 ]; do
     							termux-open /sdcard/tmp/micro.apk
     							read -p "Press Enter to continue!" anykey
     							rm -rf /sdcard/tmp 2> /dev/null
+								;;
+						 [4]) 
+								if [[ $startssh -eq 1 ]] 2> /dev/null; then
+									cd 2> /dev/null
+									cd .. 2> /dev/null
+									echo 'khanh' > usr/bin/khanhssh 2> /dev/null
+									startssh=0 2> /dev/null
+									cd 2> /dev/null
+									sed -i '/start_ssh/d' ./.bash_profile 2> /dev/null
+								else
+									startssh=1 2> /dev/null
+									cd 2> /dev/null
+									echo "start_ssh" >> ./.bash_profile 2> /dev/null
+									cd .. 2> /dev/null
+									if [ ! -f usr/bin/start_ssh ]; then
+										wget -O start_ssh https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/start_ssh 2> /dev/null
+										mv start_ssh usr/bin/start_ssh 2> /dev/null
+										chmod 777 usr/bin/start_ssh 2> /dev/null
+									fi
+									rm -f usr/bin/khanhssh 2> /dev/null
+									cd 2> /dev/null
+								fi
 								;;
 							*)
 								;;
