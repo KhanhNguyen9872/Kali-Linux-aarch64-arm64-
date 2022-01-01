@@ -1,9 +1,9 @@
-- Version 2.3
-- All package updated on 30/12/2021
-- Change username -> khanh
-- Enable zsh on Terminal
-- Remove other icon for more space
-- Fix bash file
+- Version 2.4
+- All package updated on 01/01/2022
+- UPDATE TO MESA 21.3.3 / OpenGL 4.5
+- New MESA Build
+- Enable Hardware accelerated in Chromium
+- Enable WebGL, Vulkan in Chromium
 - Compatible with Audio and Micro app on my Github!
 - Compatible with Recovery version 3.2 or up!
   @ Please update upto Recovery v3.2 or up!
