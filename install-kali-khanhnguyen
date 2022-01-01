@@ -7,7 +7,7 @@ fi
 
 rm -f kali-khanhnguyenup.sh
 
-VERSION=20211228
+VERSION=20220101
 USERNAME="kali"
 
 function ask() {
@@ -105,7 +105,7 @@ function get_rootfs() {
         rm -f ${IMAGE_NAME}
     fi
     printf "${blue}[*] Dang tai Kali-Linux (arm64)...."
-    printf " (1.71GB)${reset}\n\n"
+    printf " (1.85GB)${reset}\n\n"
     get_url
     wget -O kali-arm64-khanhnguyen.img "$ROOTFS_URL" && echo "- Get success"
 }
