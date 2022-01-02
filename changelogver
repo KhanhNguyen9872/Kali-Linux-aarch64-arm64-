@@ -1,8 +1,12 @@
-- Version 2.4
-- All package updated on 01/01/2022
-- UPDATE TO MESA 21.3.3 / OpenGL 4.5
+- Version 2.5
+- All package updated on 02/01/2022
+- Fix clock -> GMT +7
+- Add khanhpicture
+- Add Change banner in Neofetch
+- Enable some flags in chromium
+- Update py, python, python3 to Python3.10
+- Add pygame
 - New MESA Build
-- Enable Hardware accelerated in Chromium
 - Enable WebGL, Vulkan in Chromium
 - Compatible with Audio and Micro app on my Github!
 - Compatible with Recovery version 3.2 or up!
