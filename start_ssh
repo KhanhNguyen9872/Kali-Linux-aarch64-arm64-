@@ -15,5 +15,6 @@ if [ ! -f passwd ] 2> /dev/null; then
 	clear
 fi
 cd 2> /dev/null
-printf "\n ${green}SSH Server is Enabled!"
+printf "\n ${green}SSH Server started!"
+printf "\nUser: $(whoami) - Port: 8022"
 printf "\n${yellow} ssh ${user}@[YourIP] -p 8022\n\n${reset}"
