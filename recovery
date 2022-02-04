@@ -83,7 +83,7 @@ if [ -f cp ] 2> /dev/null; then
 else
 	nonsystem=1 2> /dev/null
 fi
-khanhnguyen="v3.3" 2> /dev/null
+khanhnguyen="v3.4" 2> /dev/null
 cd 2> /dev/null
 cd .. 2> /dev/null
 if [ -f usr/bin/khanhwake ] 2> /dev/null; then
@@ -1529,6 +1529,9 @@ while [ "$menu" != 1 ]; do
 										rm -f ~/.bash_profile 2> /dev/null
 										if [[ $wake -eq 1 ]] 2> /dev/null; then
 											echo "termux-wake-lock" >> ~/.bash_profile 2> /dev/null
+										fi
+										if [ -f ../usr/bin/tamp ]; then
+											cd 2> /dev/null
 											echo "echo '(KhanhNguyen9872)'" >> ~/.bash_profile
 											echo "echo 'phpmyadmin: tamp -start | tamp -stop'" >> ~/.bash_profile
 											echo "echo ''" >> ~/.bash_profile
