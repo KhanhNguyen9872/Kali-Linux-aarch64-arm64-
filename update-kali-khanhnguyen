@@ -131,8 +131,9 @@ function get_rootfs() {
 		exit 1
 	else
 		7z e kali-arm64-khanhnguyen.7z.001
-		if [ -f kali-arm64-khanhnguyen.img ]; then
+		if [ -f kali-arm64-backup.img ]; then
 			rm -f kali-arm64-khanhnguyen.7z.001 2> /dev/null && rm -f kali-arm64-khanhnguyen.7z.002 2> /dev/null
+			mv kali-arm64-backup.img kali-arm64-khanhnguyen.img 2> /dev/null
 		else
 			rm -f kali-arm64-khanhnguyen.7z.001 2> /dev/null && rm -f kali-arm64-khanhnguyen.7z.002 2> /dev/null
 			printf "\nFile Error!\n"
