@@ -105,8 +105,8 @@ function check_dependencies() {
 function get_url() {
     ROOTFS_URL="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen.img"
     SHA_URL="https://tinyurl.com/xb7jsx2x"
-    ROOTFS_URL_PART00="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen_part00.7z"
-    ROOTFS_URL_PART01="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen_part01.7z"
+    ROOTFS_URL_PART00="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen.7z.001"
+    ROOTFS_URL_PART01="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen.7z.002"
 }
 
 function get_rootfs() {
@@ -124,17 +124,17 @@ function get_rootfs() {
     	printf "${red}\n File lon hon 2GB\n"
 	printf "Tien hanh tai file theo tung part!\n\n${reset}"
     	get_url
-    	wget -O kali-arm64-khanhnguyen_part00.7z "$ROOTFS_URL_PART00" || :
-	wget -O kali-arm64-khanhnguyen_part01.7z "$ROOTFS_URL_PART01" || :
-	if [ ! -f kali-arm64-khanhnguyen_part00.7z ] && [ ! -f kali-arm64-khanhnguyen_part01.7z ]; then
+    	wget -O kali-arm64-khanhnguyen.7z.001 "$ROOTFS_URL_PART00" || :
+	wget -O kali-arm64-khanhnguyen.7z.002 "$ROOTFS_URL_PART01" || :
+	if [ ! -f kali-arm64-khanhnguyen.7z.001 ] && [ ! -f kali-arm64-khanhnguyen.7z.002 ]; then
 		printf "\nFile Error!\n"
 		exit 1
 	else
-		7z e kali-arm64-khanhnguyen_part00.7z
+		7z e kali-arm64-khanhnguyen.7z.001
 		if [ -f kali-arm64-khanhnguyen.img ]; then
-			rm -f kali-arm64-khanhnguyen_part00.7z 2> /dev/null && rm -f kali-arm64-khanhnguyen_part01.7z 2> /dev/null
+			rm -f kali-arm64-khanhnguyen.7z.001 2> /dev/null && rm -f kali-arm64-khanhnguyen.7z.002 2> /dev/null
 		else
-			rm -f kali-arm64-khanhnguyen_part00.7z 2> /dev/null && rm -f kali-arm64-khanhnguyen_part01.7z 2> /dev/null
+			rm -f kali-arm64-khanhnguyen.7z.001 2> /dev/null && rm -f kali-arm64-khanhnguyen.7z.002 2> /dev/null
 			printf "\nFile Error!\n"
 			exit 1
 		fi
