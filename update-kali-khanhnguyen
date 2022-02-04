@@ -1,5 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
-cd
+
+cd 2> /dev/null
+wget -O image_parts https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/image_parts 2> /dev/null
+split_file="$(grep '' './image_parts')" 2> /dev/null
+rm -f ./image_parts 2> /dev/null
+
 if [ ! -f ../usr/bin/sshd ]; then
 	pkg install openssh -y
 	clear
@@ -17,7 +22,7 @@ fi
 
 rm -f kali-khanhnguyenup.sh
 
-VERSION=20211228
+VERSION=20220204
 USERNAME="kali"
 
 function ask() {
@@ -100,6 +105,8 @@ function check_dependencies() {
 function get_url() {
     ROOTFS_URL="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen.img"
     SHA_URL="https://tinyurl.com/xb7jsx2x"
+    ROOTFS_URL_PART00="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen_part00.7z"
+    ROOTFS_URL_PART01="https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/releases/download/20211012/kali-arm64-khanhnguyen_part01.7z"
 }
 
 function get_rootfs() {
@@ -107,10 +114,32 @@ function get_rootfs() {
     if [ -f ${IMAGE_NAME} ]; then
         rm -f ${IMAGE_NAME}
     fi
-    printf "${blue}[*] Dang tai Kali-Linux (arm64)...."
-    printf " (1.85GB)${reset}\n\n"
-    get_url
-    wget -O kali-arm64-khanhnguyen.img "$ROOTFS_URL" && echo "- Get success"
+    if [[ $split_file -eq 0 ]]; then
+    	printf "${blue}[*] Dang tai Kali-Linux (arm64)...."
+    	printf " (1.85GB)${reset}\n\n"
+    	get_url
+    	wget -O kali-arm64-khanhnguyen.img "$ROOTFS_URL" && echo "- Get success"
+    else
+    	printf "${blue}[*] Dang tai Kali-Linux (arm64)...."
+    	printf "${red}\n File lon hon 2GB\n"
+	printf "Tien hanh tai file theo tung part!\n\n${reset}"
+    	get_url
+    	wget -O kali-arm64-khanhnguyen_part00.7z "$ROOTFS_URL_PART00" || :
+	wget -O kali-arm64-khanhnguyen_part01.7z "$ROOTFS_URL_PART01" || :
+	if [ ! -f kali-arm64-khanhnguyen_part00.7z ] && [ ! -f kali-arm64-khanhnguyen_part01.7z ]; then
+		printf "\nFile Error!\n"
+		exit 1
+	else
+		7z e kali-arm64-khanhnguyen_part00.7z
+		if [ -f kali-arm64-khanhnguyen.img ]; then
+			rm -f kali-arm64-khanhnguyen_part00.7z 2> /dev/null && rm -f kali-arm64-khanhnguyen_part01.7z 2> /dev/null
+		else
+			rm -f kali-arm64-khanhnguyen_part00.7z 2> /dev/null && rm -f kali-arm64-khanhnguyen_part01.7z 2> /dev/null
+			printf "\nFile Error!\n"
+			exit 1
+		fi
+	fi
+    fi
 }
 
 function get_sha() {
