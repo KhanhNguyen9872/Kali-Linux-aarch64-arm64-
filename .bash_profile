@@ -42,3 +42,6 @@ termux-wake-lock
 start_ssh
 cd
 clear
+echo '(KhanhNguyen9872)'
+echo 'phpmyadmin: tamp -start | tamp -stop'
+echo ' '
