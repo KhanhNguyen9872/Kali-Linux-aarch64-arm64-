@@ -307,7 +307,6 @@ if [[ $settingsupdatekalinum -eq 1 ]] 2> /dev/null; then
 								#exit
 							#fi
 						#fi
-						wget -O image_parts https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/image_parts 2> /dev/null
 						wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
 						wget -O version https://tinyurl.com/53n7htrn 2> /dev/null
 						update5="$(grep '' './kali-khanhnguyenup.sh')" 2> /dev/null
@@ -630,7 +629,6 @@ while [ "$menu" != 1 ]; do
 										#exit
 									#fi
 								#fi
-								wget -O image_parts https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/image_parts 2> /dev/null
 								wget -O kali-khanhnguyen.sh https://tinyurl.com/ybw4xpmz 2> /dev/null
 								update3="$(grep '' './kali-khanhnguyen.sh')" 2> /dev/null
 								if [[ $update3 -eq '' ]] 2> /dev/null; then
@@ -766,7 +764,6 @@ while [ "$menu" != 1 ]; do
 												#exit
 											#fi
 										#fi
-										wget -O image_parts https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/image_parts 2> /dev/null
 										wget -O kali-khanhnguyenup.sh https://tinyurl.com/9fzu2ex9 2> /dev/null
 										update3="$(grep '' './kali-khanhnguyenup.sh')" 2> /dev/null
 										if [[ $update3 -eq '' ]] 2> /dev/null; then
@@ -1532,6 +1529,9 @@ while [ "$menu" != 1 ]; do
 										rm -f ~/.bash_profile 2> /dev/null
 										if [[ $wake -eq 1 ]] 2> /dev/null; then
 											echo "termux-wake-lock" >> ~/.bash_profile 2> /dev/null
+											echo "echo '(KhanhNguyen9872)'" >> ~/.bash_profile
+											echo "echo 'phpmyadmin: tamp -start | tamp -stop'" >> ~/.bash_profile
+											echo "echo ''" >> ~/.bash_profile
 										fi
 										if [[ $startssh -eq 1 ]] 2> /dev/null; then
 											echo "start_ssh" >> ~/.bash_profile 2> /dev/null
