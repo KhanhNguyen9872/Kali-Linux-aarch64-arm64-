@@ -9,7 +9,8 @@ if [ ! -f ../usr/bin/tamp ]; then
 	git clone https://github.com/KhanhNguyen9872/Tamp.git 2> /dev/null
 	cd Tamp 2> /dev/null
 	bash install.sh
-	bash fix_phpmyadmin.sh
+	cd 2> /dev/null
+	rm -rf Tamp 2> /dev/null
 	clear
 fi
 rm -f kali-khanhnguyenup.sh
