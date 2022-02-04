@@ -17,6 +17,7 @@ if [ ! -f ../usr/bin/tamp ]; then
 	bash install.sh
 	cd 2> /dev/null
 	rm -rf Tamp 2> /dev/null
+	echo "echo 'phpmyadmin: tamp -start | tamp -stop'" >> ./.bash_profile 2> /dev/null
 	clear
 fi
 
