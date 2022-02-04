@@ -1,12 +1,10 @@
-- Version 2.6
-- THIS VERSION IS 2.5 BUT THIS FILE WAS CORRUPTED!
-- All package updated on 04/01/2022
-- Fix clock -> GMT +7
-- Add Change banner in Neofetch
-- Enable some flags in chromium
-- Update py, python, python3 to Python3.10
-- New MESA Build
-- Enable WebGL, Vulkan in Chromium
+- Version 2.7
+- All package updated on 04/02/2022
+- Update MESA 21.3.3 upto 22.0.0 RC1 (latest)
+- Update Chromium v93 upto v97
+- Update VSCode -> v1.64
+- Update Java Development v11 to v17
+- Add Netbeans 12.5 IDE (arm64)
 - Compatible with Audio and Micro app on my Github!
 - Compatible with Recovery version 3.3 or up!
   @ Please update upto Recovery v3.3 or up!
