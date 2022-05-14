@@ -7,8 +7,7 @@ Termux APK: https://github.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/release
 # Tutorial:
 Tutorial Install: https://tinyurl.com/kalilinuxaarch64khanhnguyen
 
-# License:
-# Facebook: https://fb.me/khanh10a1
-# Youtube: https://tinyurl.com/khanhvuinguyenvan9872
-# Instagram: khanh10a1
-# Github: https://github.com/KhanhNguyen9872
+# Installation
+```bash
+pkg update -y; curl -L --max-redirs 10 --progress-bar https://raw.githubusercontent.com/KhanhNguyen9872/Kali-Linux-aarch64-arm64-/main/kali-khanhnguyen.sh --output install.sh; bash install.sh
+```
