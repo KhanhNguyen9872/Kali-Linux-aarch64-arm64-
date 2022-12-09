@@ -10,19 +10,6 @@ if [ ! -f ../usr/bin/sshd ]; then
 	clear
 fi
 
-if [ ! -f ../usr/bin/tamp ]; then
-	pkg install git -y
-	git clone https://github.com/1Tech-X/Tamp.git 2> /dev/null
-	cd Tamp 2> /dev/null
-	bash install.sh
-	cd 2> /dev/null
-	rm -rf Tamp 2> /dev/null
-	echo "echo '(KhanhNguyen9872)'" >> ~/.bash_profile
-	echo "echo 'phpmyadmin: tamp -start | tamp -stop'" >> ~/.bash_profile
-	echo "echo ''" >> ~/.bash_profile
-	clear
-fi
-
 rm -f kali-khanhnguyenup.sh
 
 VERSION=20220204
